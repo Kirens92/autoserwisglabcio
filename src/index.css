@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 45 30% 90%;
+
+    --card: 0 0% 7%;
+    --card-foreground: 45 30% 90%;
+
+    --popover: 0 0% 7%;
+    --popover-foreground: 45 30% 90%;
+
+    --primary: 43 72% 52%;
+    --primary-foreground: 0 0% 4%;
+
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 45 20% 80%;
+
+    --muted: 0 0% 12%;
+    --muted-foreground: 40 10% 50%;
+
+    --accent: 43 72% 52%;
+    --accent-foreground: 0 0% 4%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 40 15% 15%;
+    --input: 0 0% 14%;
+    --ring: 43 72% 52%;
+
+    --radius: 0.25rem;
+
+    --sidebar-background: 0 0% 4%;
+    --sidebar-foreground: 45 30% 90%;
+    --sidebar-primary: 43 72% 52%;
+    --sidebar-primary-foreground: 0 0% 4%;
+    --sidebar-accent: 0 0% 10%;
+    --sidebar-accent-foreground: 45 30% 90%;
+    --sidebar-border: 40 15% 15%;
+    --sidebar-ring: 43 72% 52%;
+
+    /* Custom tokens */
+    --gold: 43 72% 52%;
+    --gold-light: 43 60% 65%;
+    --gold-dark: 43 80% 38%;
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 4% / 0.7), hsl(0 0% 4% / 0.85));
+    --gradient-gold: linear-gradient(135deg, hsl(43 72% 52%), hsl(38 80% 42%));
+    --gradient-gold-text: linear-gradient(135deg, hsl(43 60% 65%), hsl(43 72% 52%), hsl(38 80% 42%));
+    --shadow-gold: 0 0 50px hsl(43 72% 52% / 0.1);
+    --shadow-card: 0 4px 24px hsl(0 0% 0% / 0.4);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-gold-text);
+  }
+
+  .bg-gradient-gold {
+    background-image: var(--gradient-gold);
+  }
+
+  .glow-gold {
+    box-shadow: var(--shadow-gold);
+  }
+
+  .card-shadow {
+    box-shadow: var(--shadow-card);
+  }
+
+  .hero-overlay {
+    background: var(--gradient-hero);
+  }
+
+  .gold-line {
+    @apply h-px w-16;
+    background-image: var(--gradient-gold);
+  }
+
+  .gold-border {
+    border-color: hsl(43 72% 52% / 0.2);
+  }
+}
