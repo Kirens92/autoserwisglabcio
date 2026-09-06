@@ -103,6 +103,9 @@ const Footer = () => {
         <p className="text-center text-muted-foreground text-xs font-body tracking-wider">
           © {new Date().getFullYear()} Auto Serwis Gl@bcio. Wszelkie prawa zastrzeżone.
         </p>
+        <p className="mt-2 text-center text-muted-foreground text-xs font-body tracking-wider">
+          Stworzony przez ZarembaTECH
+        </p>
       </div>
     </footer>
   );
