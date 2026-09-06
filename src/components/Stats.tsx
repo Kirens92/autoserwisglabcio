@@ -1,8 +1,8 @@
 const stats = [
   { value: "100%", label: "Indywidualnego podejścia" },
   { value: "500+", label: "Zadowolonych klientów" },
-  { value: "4.9", label: "Ocena Google", suffix: "★" },
-  { value: "103", label: "Opinii w Google" },
+  { value: "4.8", label: "Ocena Google", suffix: "★" },
+  { value: "116", label: "Opinii w Google" },
 ];
 
 const Stats = () => {
