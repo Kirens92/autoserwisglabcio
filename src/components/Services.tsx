@@ -1,6 +1,13 @@
-import { Wrench, Zap, Monitor } from "lucide-react";
+import { Cpu, Fuel, Monitor, Wrench, Zap, Cog, type LucideIcon } from "lucide-react";
 
-const services = [
+type Service = {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  items?: string[];
+};
+
+const services: Service[] = [
   {
     icon: Wrench,
     title: "Mechanika",
@@ -18,6 +25,23 @@ const services = [
     title: "Diagnostyka",
     description:
       "Twoje auto straciło moc? Na desce rozdzielczej pojawiła się niepokojąca kontrolka? Nie czekaj, aż drobna usterka doprowadzi do poważnej i kosztownej awarii. Szybko zdiagnozujemy przyczyny zapalenia się kontrolek.",
+  },
+  {
+    icon: Cog,
+    title: "Serwis Skrzyń Automatycznych",
+    description:
+      "Oferujemy profesjonalną, dynamiczną wymianę oleju w automatycznych skrzyniach biegów. W przeciwieństwie do metody statycznej, proces ten pozwala na całkowite odświeżenie środka smarnego wraz z konwerterem. Zyskaj dłuższą żywotność skrzyni, optymalną ochronę komponentów i maksymalny komfort jazdy.",
+  },
+  {
+    icon: Cpu,
+    title: "Modyfikacje Sterowników ECU / TCU",
+    description:
+      "Bezpieczne i bezinwazyjne modyfikacje oprogramowania sterowników na oryginalnym sprzęcie FLEX:",
+    items: [
+      "Modyfikacje ECU & TCU – naprawa, kodowanie oraz klonowanie komputerów silnika i skrzyń biegów 1:1.",
+      "Ekologia OFF – stałe rozwiązywanie problemów z układami AdBlue, FAP/DPF oraz EGR.",
+      "DTC OFF – trwałe kasowanie uciążliwych i powracających kodów błędów z pamięci układu.",
+    ],
   },
 ];
 
@@ -52,6 +76,16 @@ const Services = () => {
               <p className="text-muted-foreground font-body font-light leading-relaxed text-sm">
                 {service.description}
               </p>
+              {service.items && (
+                <ul className="mt-4 space-y-3 text-muted-foreground font-body font-light leading-relaxed text-sm">
+                  {service.items.map((item) => (
+                    <li key={item} className="flex gap-2">
+                      <span className="text-primary">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           ))}
         </div>

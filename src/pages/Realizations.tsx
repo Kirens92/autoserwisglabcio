@@ -1,0 +1,4 @@
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+type R={slug:string;title:string;excerpt:string;content:string;image:string;createdAt:string};
+export default function Realizations(){const [items,setItems]=useState<R[]>([]);useEffect(()=>{fetch("/api/realizations").then(r=>r.json()).then(setItems)},[]);return <main className="min-h-screen bg-background text-foreground p-8 pt-28"><h1 className="text-4xl font-heading text-center mb-12">Nasze <span className="text-primary">Realizacje</span></h1><div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">{items.map(x=><Link to={`/realizacje/${x.slug}`} key={x.slug} className="border gold-border bg-card overflow-hidden"><img src={x.image} className="w-full aspect-video object-cover"/><div className="p-5"><h2 className="text-2xl font-heading">{x.title}</h2><p className="mt-3 text-muted-foreground">{x.excerpt}</p></div></Link>)}</div></main>}

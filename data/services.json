@@ -1,0 +1,7 @@
+[
+  { "icon": "Wrench", "title": "Mechanika", "description": "Zajmujemy się szerokim zakresem napraw mechanicznych." },
+  { "icon": "Zap", "title": "Elektryka", "description": "Precyzyjnie odnajdujemy usterki i naprawiamy systemy elektryczne." },
+  { "icon": "Monitor", "title": "Diagnostyka", "description": "Szybko diagnozujemy przyczyny usterek i kontrolek." },
+  { "icon": "Fuel", "title": "Dynamiczna wymiana oleju", "description": "Profesjonalna dynamiczna wymiana oleju w automatycznych skrzyniach biegów." },
+  { "icon": "Cpu", "title": "Modyfikacje Sterowników ECU / TCU", "description": "Bezpieczne i bezinwazyjne modyfikacje oprogramowania sterowników na oryginalnym sprzęcie FLEX:", "items": ["Modyfikacje ECU & TCU – naprawa, kodowanie oraz klonowanie komputerów silnika i skrzyń biegów 1:1.", "Diagnostyka układów emisji spalin – wykrywanie i usuwanie usterek AdBlue, FAP/DPF oraz EGR.", "Obsługa kodów DTC – identyfikacja przyczyn powracających błędów i profesjonalna naprawa."] }
+]
