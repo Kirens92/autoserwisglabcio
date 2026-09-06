@@ -1,4 +1,4 @@
-import { Cpu, Fuel, Monitor, Wrench, Zap, type LucideIcon } from "lucide-react";
+import { Cpu, Fuel, Monitor, Wrench, Zap, Cog, type LucideIcon } from "lucide-react";
 
 type Service = {
   icon: LucideIcon;
@@ -27,10 +27,10 @@ const services: Service[] = [
       "Twoje auto straciło moc? Na desce rozdzielczej pojawiła się niepokojąca kontrolka? Nie czekaj, aż drobna usterka doprowadzi do poważnej i kosztownej awarii. Szybko zdiagnozujemy przyczyny zapalenia się kontrolek.",
   },
   {
-    icon: Fuel,
-    title: "Dynamiczna wymiana oleju",
+    icon: Cog,
+    title: "Serwis Skrzyń Automatycznych",
     description:
-      "Profesjonalna dynamiczna wymiana oleju w automatycznych skrzyniach biegów. Pracujemy na wysokiej jakości olejach RAVENOL, dobieranych zgodnie ze specyfikacją skrzyni. Usługa pozwala dokładnie wypłukać stary olej, zanieczyszczenia i opiłki, zapewniając płynniejszą pracę i lepszą ochronę skrzyni. Obsługujemy m.in. ZF, DSG, Aisin, CVT",
+      "Oferujemy profesjonalną, dynamiczną wymianę oleju w automatycznych skrzyniach biegów. W przeciwieństwie do metody statycznej, proces ten pozwala na całkowite odświeżenie środka smarnego wraz z konwerterem. Zyskaj dłuższą żywotność skrzyni, optymalną ochronę komponentów i maksymalny komfort jazdy.",
   },
   {
     icon: Cpu,
