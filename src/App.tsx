@@ -9,6 +9,7 @@ import Admin from "./pages/Admin";
 import Realizations from "./pages/Realizations";
 import RealizationDetail from "./pages/RealizationDetail";
 import AdminRealizations from "./pages/AdminRealizations";
+import ServicesPage from "./pages/ServicesPage";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/admin/realizacje" element={<AdminRealizations />} />
           <Route path="/realizacje" element={<Realizations />} />
           <Route path="/realizacje/:slug" element={<RealizationDetail />} />
+          <Route path="/uslugi" element={<ServicesPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
