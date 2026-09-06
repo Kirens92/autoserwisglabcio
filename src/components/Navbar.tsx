@@ -5,7 +5,7 @@ import CallButton from "@/components/CallButton";
 import ReserveButton from "@/components/ReserveButton";
 
 const links = [
-  { href: "#uslugi", label: "Usługi" },
+  { href: "/uslugi", label: "Usługi" },
   { href: "/realizacje", label: "Realizacje" },
   { href: "#proces", label: "Proces" },
   { href: "#opinie", label: "Opinie" },
