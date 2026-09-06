@@ -1,6 +1,13 @@
-import { Wrench, Zap, Monitor, Fuel } from "lucide-react";
+import { Cpu, Fuel, Monitor, Wrench, Zap, type LucideIcon } from "lucide-react";
 
-const services = [
+type Service = {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  items?: string[];
+};
+
+const services: Service[] = [
   {
     icon: Wrench,
     title: "Mechanika",
@@ -24,6 +31,17 @@ const services = [
     title: "Dynamiczna wymiana oleju",
     description:
       "Profesjonalna dynamiczna wymiana oleju w automatycznych skrzyniach biegów. Pracujemy na wysokiej jakości olejach RAVENOL, dobieranych zgodnie ze specyfikacją skrzyni. Usługa pozwala dokładnie wypłukać stary olej, zanieczyszczenia i opiłki, zapewniając płynniejszą pracę i lepszą ochronę skrzyni. Obsługujemy m.in. ZF, DSG, Aisin, CVT",
+  },
+  {
+    icon: Cpu,
+    title: "Modyfikacje Sterowników ECU / TCU",
+    description:
+      "Bezpieczne i bezinwazyjne modyfikacje oprogramowania sterowników na oryginalnym sprzęcie FLEX:",
+    items: [
+      "Modyfikacje ECU & TCU – naprawa, kodowanie oraz klonowanie komputerów silnika i skrzyń biegów 1:1.",
+      "Diagnostyka układów emisji spalin – wykrywanie i usuwanie usterek AdBlue, FAP/DPF oraz EGR.",
+      "Obsługa kodów DTC – identyfikacja przyczyn powracających błędów i profesjonalna naprawa.",
+    ],
   },
 ];
 
@@ -58,6 +76,16 @@ const Services = () => {
               <p className="text-muted-foreground font-body font-light leading-relaxed text-sm">
                 {service.description}
               </p>
+              {service.items && (
+                <ul className="mt-4 space-y-3 text-muted-foreground font-body font-light leading-relaxed text-sm">
+                  {service.items.map((item) => (
+                    <li key={item} className="flex gap-2">
+                      <span className="text-primary">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           ))}
         </div>
