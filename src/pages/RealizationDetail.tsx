@@ -1,3 +1,31 @@
-import { useEffect, useState } from "react";import { Link, useParams } from "react-router-dom";
-type R={slug:string;title:string;content:string;image:string};
-export default function RealizationDetail(){const {slug}=useParams();const [item,setItem]=useState<R>();useEffect(()=>{fetch("/api/realizations").then(r=>r.json()).then((x:R[])=>setItem(x.find(i=>i.slug===slug)))},[slug]);if(!item)return <main className="min-h-screen bg-background text-foreground p-28 text-center">Nie znaleziono realizacji.</main>;return <main className="min-h-screen bg-background text-foreground pt-28 pb-16"><article className="max-w-3xl mx-auto px-4"><Link to="/realizacje" className="text-primary">← Wszystkie realizacje</Link><h1 className="font-heading text-4xl mt-8 mb-6">{item.title}</h1><img src={item.image} className="w-full aspect-video object-cover mb-8"/><p className="whitespace-pre-line leading-relaxed text-muted-foreground">{item.content}</p></article></main>}
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+
+type Realization = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  clientReport?: string;
+  diagnosis?: string;
+  image: string;
+};
+
+export default function RealizationDetail() {
+  const { slug } = useParams();
+  const [item, setItem] = useState<Realization>();
+
+  useEffect(() => {
+    fetch("/api/realizations")
+      .then((response) => response.json())
+      .then((items: Realization[]) => setItem(items.find((entry) => entry.slug === slug)));
+  }, [slug]);
+
+  if (!item) return <><Navbar /><main className="min-h-screen bg-background text-foreground pt-32 text-center">Nie znaleziono realizacji.</main><Footer /></>;
+
+  return (
+    <><Navbar /><main className="bg-background text-foreground pt-28 pb-20"><article className="max-w-5xl mx-auto px-4"><Link to="/realizacje" className="text-primary text-sm tracking-wider uppercase">← Wszystkie realizacje</Link><div className="mt-8 border gold-border overflow-hidden card-shadow"><img src={item.image} alt={item.title} className="w-full aspect-video object-cover" /><div className="bg-white p-7 md:p-10"><h1 className="font-heading text-4xl md:text-5xl text-gradient-gold">{item.title}</h1><p className="text-zinc-600 mt-4">{item.excerpt}</p></div></div><div className="grid md:grid-cols-2 gap-6 my-10">{item.clientReport && <section className="bg-card border gold-border p-7"><p className="text-primary text-xs tracking-[.2em] uppercase mb-4">Zgłoszenie klienta</p><p className="text-muted-foreground leading-relaxed">{item.clientReport}</p></section>}{item.diagnosis && <section className="bg-card border gold-border p-7"><p className="text-primary text-xs tracking-[.2em] uppercase mb-4">Diagnoza</p><p className="text-muted-foreground leading-relaxed">{item.diagnosis}</p></section>}</div><section className="max-w-3xl mx-auto"><p className="text-primary text-xs tracking-[.2em] uppercase mb-4">Główny opis</p><div className="whitespace-pre-line text-muted-foreground leading-8">{item.content}</div></section></article></main><Footer /></>
+  );
+}
