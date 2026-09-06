@@ -39,8 +39,8 @@ const services: Service[] = [
       "Bezpieczne i bezinwazyjne modyfikacje oprogramowania sterowników na oryginalnym sprzęcie FLEX:",
     items: [
       "Modyfikacje ECU & TCU – naprawa, kodowanie oraz klonowanie komputerów silnika i skrzyń biegów 1:1.",
-      "Diagnostyka układów emisji spalin – wykrywanie i usuwanie usterek AdBlue, FAP/DPF oraz EGR.",
-      "Obsługa kodów DTC – identyfikacja przyczyn powracających błędów i profesjonalna naprawa.",
+      "Ekologia OFF – stałe rozwiązywanie problemów z układami AdBlue, FAP/DPF oraz EGR.",
+      "DTC OFF – trwałe kasowanie uciążliwych i powracających kodów błędów z pamięci układu.",
     ],
   },
 ];
