@@ -6,6 +6,7 @@ import ReserveButton from "@/components/ReserveButton";
 
 const links = [
   { href: "#uslugi", label: "Usługi" },
+  { href: "/realizacje", label: "Realizacje" },
   { href: "#proces", label: "Proces" },
   { href: "#opinie", label: "Opinie" },
   { href: "#kontakt", label: "Kontakt" },

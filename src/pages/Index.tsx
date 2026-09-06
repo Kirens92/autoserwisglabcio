@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import Reserve from "@/components/Reserve";
 import CookieConsent from "@/components/CookieConsent";
 import StructuredData from "@/components/StructuredData";
+import LatestRealizations from "@/components/LatestRealizations";
 
 const Index = () => {
   return (
@@ -18,6 +19,7 @@ const Index = () => {
       <Hero />
       <Stats />
       <Services />
+      <LatestRealizations />
       <Process />
       <Reviews />
       <Reserve />

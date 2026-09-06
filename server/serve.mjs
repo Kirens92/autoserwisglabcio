@@ -2,10 +2,18 @@ import http from "node:http";
 import https from "node:https";
 import fs from "node:fs";
 import path from "node:path";
+import crypto from "node:crypto";
 
 const PORT = Number(process.env.PORT) || 3000;
 const MW_BASE = "https://app.motowarsztat.pl";
 const DIST = path.resolve(process.env.DIST_DIR || "dist");
+const DATA_DIR = path.resolve(process.env.DATA_DIR || "data");
+const SERVICES_FILE = path.join(DATA_DIR, "services.json");
+const REALIZATIONS_FILE = path.join(DATA_DIR, "realizations.json");
+const UPLOADS_DIR = path.join(DATA_DIR, "uploads");
+const ADMIN_LOGIN = process.env.ADMIN_LOGIN;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+const SESSION_SECRET = process.env.SESSION_SECRET;
 
 function readBody(req) {
   return new Promise((resolve) => {
@@ -44,8 +52,91 @@ function serveStatic(req, res) {
   });
 }
 
+function sendJson(res, status, data, headers = {}) {
+  res.writeHead(status, { "content-type": "application/json; charset=utf-8", ...headers });
+  res.end(JSON.stringify(data));
+}
+
+function getCookie(req, name) {
+  return (req.headers.cookie || "").split(";").map((item) => item.trim()).find((item) => item.startsWith(`${name}=`))?.slice(name.length + 1);
+}
+
+function sign(value) {
+  return crypto.createHmac("sha256", SESSION_SECRET).update(value).digest("base64url");
+}
+
+function isAdmin(req) {
+  const token = getCookie(req, "admin_session");
+  if (!token || !SESSION_SECRET) return false;
+  const [expires, signature] = token.split(".");
+  const expected = expires ? sign(expires) : "";
+  return Boolean(expires && signature && Number(expires) > Date.now() && signature.length === expected.length && crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected)));
+}
+
+function services() {
+  try { return JSON.parse(fs.readFileSync(SERVICES_FILE, "utf8")); } catch { return []; }
+}
+
+function validServices(data) {
+  return Array.isArray(data) && data.every((item) => item && typeof item.title === "string" && typeof item.description === "string" && typeof item.icon === "string" && (!item.items || (Array.isArray(item.items) && item.items.every((entry) => typeof entry === "string"))));
+}
+function realizations() { try { return JSON.parse(fs.readFileSync(REALIZATIONS_FILE, "utf8")); } catch { return []; } }
+
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
+
+  if (url.pathname === "/api/services" && req.method === "GET") {
+    sendJson(res, 200, services(), { "cache-control": "no-store" });
+    return;
+  }
+  if (url.pathname === "/api/realizations" && req.method === "GET") { sendJson(res, 200, realizations(), { "cache-control": "no-store" }); return; }
+  if (url.pathname === "/api/admin/realizations" && req.method === "PUT") {
+    if (!isAdmin(req)) { sendJson(res, 401, { message: "Brak dostępu" }); return; }
+    try { const data = JSON.parse((await readBody(req)).toString("utf8")); if (!Array.isArray(data)) throw new Error(); fs.mkdirSync(DATA_DIR, { recursive: true }); fs.writeFileSync(REALIZATIONS_FILE, JSON.stringify(data, null, 2)); sendJson(res, 200, data); } catch { sendJson(res, 400, { message: "Nieprawidłowe dane" }); } return;
+  }
+  if (url.pathname === "/api/admin/upload" && req.method === "POST") {
+    if (!isAdmin(req)) { sendJson(res, 401, { message: "Brak dostępu" }); return; }
+    const original = path.basename(url.searchParams.get("name") || "image.jpg").replace(/[^a-zA-Z0-9._-]/g, "_");
+    const body = await readBody(req);
+    if (!body.length || body.length > 8 * 1024 * 1024) { sendJson(res, 400, { message: "Nieprawidłowy plik" }); return; }
+    fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+    const file = `${Date.now()}-${original}`;
+    fs.writeFileSync(path.join(UPLOADS_DIR, file), body);
+    sendJson(res, 200, { image: `/uploads/${file}` }); return;
+  }
+  if (url.pathname.startsWith("/uploads/")) {
+    const file = path.basename(url.pathname);
+    const target = path.join(UPLOADS_DIR, file);
+    if (!fs.existsSync(target)) { res.writeHead(404).end("Not found"); return; }
+    fs.createReadStream(target).pipe(res); return;
+  }
+  if (url.pathname === "/api/admin/session" && req.method === "GET") {
+    sendJson(res, 200, { authenticated: isAdmin(req) });
+    return;
+  }
+  if (url.pathname === "/api/admin/login" && req.method === "POST") {
+    const body = JSON.parse((await readBody(req)).toString("utf8") || "{}");
+    if (!ADMIN_LOGIN || !ADMIN_PASSWORD || !SESSION_SECRET || body.login !== ADMIN_LOGIN || body.password !== ADMIN_PASSWORD) {
+      sendJson(res, 401, { message: "Nieprawidłowy login lub hasło" }); return;
+    }
+    const expires = String(Date.now() + 8 * 60 * 60 * 1000);
+    sendJson(res, 200, { authenticated: true }, { "set-cookie": `admin_session=${expires}.${sign(expires)}; HttpOnly; SameSite=Strict; Path=/; Max-Age=28800; Secure` });
+    return;
+  }
+  if (url.pathname === "/api/admin/logout" && req.method === "POST") {
+    sendJson(res, 200, { authenticated: false }, { "set-cookie": "admin_session=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0; Secure" }); return;
+  }
+  if (url.pathname === "/api/admin/services" && req.method === "PUT") {
+    if (!isAdmin(req)) { sendJson(res, 401, { message: "Brak dostępu" }); return; }
+    try {
+      const data = JSON.parse((await readBody(req)).toString("utf8"));
+      if (!validServices(data)) throw new Error("invalid");
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+      fs.writeFileSync(SERVICES_FILE, JSON.stringify(data, null, 2), "utf8");
+      sendJson(res, 200, data);
+    } catch { sendJson(res, 400, { message: "Nieprawidłowe dane usług" }); }
+    return;
+  }
 
   if (url.pathname.startsWith("/mw/")) {
     const apiPath = url.pathname.replace(/^\/mw/, "/api") + url.search;
