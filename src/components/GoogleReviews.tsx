@@ -79,7 +79,8 @@ export default function GoogleReviews({ fallback }: Props) {
     return () => observer.disconnect();
   }, []);
 
-  const rating = live?.rating ?? Number.parseFloat(fallback.ratingLabel.replace(",", ".")) || 5;
+  const fallbackRating = Number.parseFloat(fallback.ratingLabel.replace(",", ".")) || 5;
+  const rating = live?.rating ?? fallbackRating;
   const reviewCount = live?.reviewCount;
   const liveReviews = live?.reviews?.filter((review) => review.text)?.slice(0, 5) ?? [];
   const usingLive = liveReviews.length > 0;
