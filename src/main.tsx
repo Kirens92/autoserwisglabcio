@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
-import glabcioLogo from "./lib/glabcioLogo";
+import glabcioLogo from "./assets/glabcio-logo-2026.svg";
 import "./index.css";
 
 const applyBrandLogo = () => {
