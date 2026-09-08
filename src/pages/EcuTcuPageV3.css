@@ -1,0 +1,563 @@
+/*
+ * ECU / TCU visual pass #3
+ * Fine-tuning against the approved reference: narrower editorial canvas,
+ * stronger typography, warmer lighting, denser premium cards and a more
+ * convincing shipping/map treatment. Scoped entirely to .ecu-page.
+ */
+
+.ecu-page .ecu-shell {
+  width: min(1280px, calc(100% - 92px));
+}
+
+.ecu-page {
+  background:
+    radial-gradient(circle at 68% 7%, rgba(210, 105, 24, 0.035), transparent 30rem),
+    radial-gradient(circle at 20% 32%, rgba(229, 173, 49, 0.025), transparent 26rem),
+    #040607;
+}
+
+/* Top navigation: closer scale and rhythm to the reference. */
+.ecu-page .ecu-header {
+  border-bottom: 1px solid rgba(229, 173, 49, 0.34);
+  background: rgba(3, 5, 6, 0.99);
+}
+
+.ecu-page .ecu-header__inner {
+  min-height: 84px;
+  grid-template-columns: 194px minmax(410px, 1fr) auto;
+  gap: 18px;
+}
+
+.ecu-page .ecu-logo img {
+  width: 184px;
+  height: 68px;
+}
+
+.ecu-page .ecu-nav {
+  height: 84px;
+}
+
+.ecu-page .ecu-nav a {
+  padding-inline: 16px;
+  font-size: 12px;
+  letter-spacing: -0.01em;
+}
+
+.ecu-page .ecu-contact-mini__row {
+  font-size: 10.5px;
+}
+
+.ecu-page .ecu-header__right {
+  gap: 14px;
+}
+
+@media (min-width: 1320px) {
+  .ecu-page .ecu-header__right::after {
+    display: block;
+    min-width: 116px;
+    border-left: 1px solid rgba(255, 255, 255, 0.09);
+    padding-left: 18px;
+    content: "PASJA\A WIEDZA\A REALNE ROZWIĄZANIA";
+    color: rgba(255, 255, 255, 0.42);
+    font-size: 7.5px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    line-height: 1.65;
+    white-space: pre;
+  }
+}
+
+/* Hero */
+.ecu-page .ecu-hero::before {
+  background:
+    linear-gradient(90deg, rgba(3, 5, 6, 0.985) 0%, rgba(3, 5, 6, 0.94) 33%, rgba(3, 5, 6, 0.61) 65%, rgba(3, 5, 6, 0.84) 100%),
+    var(--ecu-hero-bg) center / cover no-repeat;
+}
+
+.ecu-page .ecu-hero::after {
+  background:
+    radial-gradient(ellipse at 5% 54%, rgba(176, 68, 15, 0.10), transparent 32%),
+    radial-gradient(ellipse at 95% 43%, rgba(255, 91, 0, 0.075), transparent 27%),
+    linear-gradient(180deg, transparent 0 74%, rgba(0, 0, 0, 0.22)),
+    repeating-linear-gradient(90deg, transparent 0 209px, rgba(255, 255, 255, 0.01) 210px);
+}
+
+.ecu-page .ecu-hero__inner {
+  min-height: 548px;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: 34px;
+  padding-block: 42px 40px;
+}
+
+.ecu-page .ecu-hero__copy {
+  max-width: 535px;
+}
+
+.ecu-page .ecu-kicker {
+  font-size: 10.5px;
+  letter-spacing: 0.225em;
+}
+
+.ecu-page .ecu-hero h1 {
+  margin-top: 15px;
+  font-size: clamp(52px, 4.7vw, 73px);
+  line-height: 0.91;
+}
+
+.ecu-page .ecu-hero__lead {
+  margin-top: 21px;
+  color: rgba(245, 242, 235, 0.76);
+  font-size: 14.2px;
+  line-height: 1.72;
+}
+
+.ecu-page .ecu-trust-grid {
+  margin-top: 22px;
+  gap: 9px;
+}
+
+.ecu-page .ecu-trust {
+  min-height: 69px;
+  border-color: rgba(229, 173, 49, 0.58);
+  background: linear-gradient(145deg, rgba(10, 12, 12, 0.92), rgba(5, 7, 8, 0.82));
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.025), 0 10px 24px rgba(0, 0, 0, 0.16);
+}
+
+.ecu-page .ecu-trust strong {
+  font-size: 10.5px;
+}
+
+.ecu-page .ecu-trust small {
+  font-size: 8.5px;
+}
+
+.ecu-page .ecu-media {
+  padding: 9px;
+}
+
+.ecu-page .ecu-media::before {
+  border-color: rgba(229, 173, 49, 0.82);
+  box-shadow: 0 0 35px rgba(229, 173, 49, 0.10);
+}
+
+.ecu-page .ecu-media__frame > img {
+  filter: saturate(0.94) contrast(1.07) brightness(0.92);
+}
+
+.ecu-page .ecu-media__label {
+  right: 19px;
+  bottom: 18px;
+  width: min(315px, 66%);
+  border-color: rgba(229, 173, 49, 0.52);
+  background: rgba(5, 7, 8, 0.94);
+  padding: 17px 18px;
+}
+
+.ecu-page .ecu-media__label strong {
+  font-size: 19px;
+}
+
+.ecu-page .ecu-media__label span {
+  font-size: 10.5px;
+}
+
+/* Three-value strip */
+.ecu-page .ecu-benefits {
+  background:
+    linear-gradient(180deg, rgba(14, 16, 16, 0.98), rgba(8, 10, 11, 0.99));
+}
+
+.ecu-page .ecu-benefit {
+  min-height: 134px;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 18px;
+  padding: 28px 31px;
+}
+
+.ecu-page .ecu-benefit svg {
+  width: 36px;
+  height: 36px;
+}
+
+.ecu-page .ecu-benefit h2 {
+  font-size: 20px;
+}
+
+.ecu-page .ecu-benefit p {
+  max-width: 310px;
+  margin-top: 8px;
+  font-size: 11.5px;
+  line-height: 1.65;
+}
+
+/* Services */
+.ecu-page .ecu-services {
+  padding-block: 42px 43px;
+  background:
+    radial-gradient(circle at 82% 35%, rgba(229, 173, 49, 0.025), transparent 24rem),
+    #050708;
+}
+
+.ecu-page .ecu-section-title {
+  font-size: clamp(35px, 3.05vw, 47px);
+}
+
+.ecu-page .ecu-section-copy {
+  max-width: 470px;
+  font-size: 12.5px;
+  line-height: 1.72;
+}
+
+.ecu-page .ecu-services__grid {
+  margin-top: 27px;
+  gap: 12px;
+}
+
+.ecu-page .ecu-service-card {
+  min-height: 112px;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 14px;
+  border-color: rgba(229, 173, 49, 0.38);
+  background:
+    linear-gradient(145deg, rgba(14, 17, 18, 0.98), rgba(7, 9, 10, 0.99));
+  padding: 17px 16px;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.018);
+}
+
+.ecu-page .ecu-service-card__icon svg {
+  width: 29px;
+  height: 29px;
+}
+
+.ecu-page .ecu-service-card h3 {
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+
+.ecu-page .ecu-service-card p {
+  margin-top: 5px;
+  font-size: 9.2px;
+  line-height: 1.55;
+}
+
+/* Problem section */
+.ecu-page .ecu-problem {
+  background:
+    linear-gradient(90deg, #080a0b, #0b0d0e 55%, #080a0b);
+}
+
+.ecu-page .ecu-problem__grid {
+  min-height: 354px;
+  grid-template-columns: 35% minmax(0, 1fr) 225px;
+}
+
+.ecu-page .ecu-problem__visual {
+  min-height: 354px;
+  filter: saturate(0.92) contrast(1.06);
+}
+
+.ecu-page .ecu-problem__copy {
+  padding: 38px 40px;
+}
+
+.ecu-page .ecu-problem__copy h2 {
+  margin-top: 13px;
+  font-size: clamp(34px, 3.05vw, 44px);
+}
+
+.ecu-page .ecu-problem__copy p {
+  font-size: 11.2px;
+  line-height: 1.78;
+}
+
+.ecu-page .ecu-problem-point span {
+  font-size: 9.3px;
+}
+
+/* Process */
+.ecu-page .ecu-process {
+  padding-block: 34px 38px;
+  background: #060809;
+}
+
+.ecu-page .ecu-process__grid {
+  margin-top: 25px;
+}
+
+.ecu-page .ecu-step__number {
+  width: 41px;
+  height: 41px;
+  font-size: 15px;
+}
+
+.ecu-page .ecu-step h3 {
+  margin-top: 14px;
+  font-size: 10.5px;
+}
+
+.ecu-page .ecu-step p {
+  margin-top: 7px;
+  font-size: 9.2px;
+  line-height: 1.65;
+}
+
+/* Shipping: stronger visual scene + more recognisable country silhouette. */
+.ecu-page .ecu-shipping {
+  padding-block: 36px 37px;
+  background:
+    radial-gradient(circle at 12% 50%, rgba(229, 173, 49, 0.11), transparent 22%),
+    radial-gradient(circle at 80% 48%, rgba(178, 78, 20, 0.055), transparent 28%),
+    #0a0c0d;
+}
+
+.ecu-page .ecu-shipping__grid {
+  grid-template-columns: 265px minmax(0, 1fr) 315px;
+  gap: 38px;
+}
+
+.ecu-page .ecu-map {
+  position: relative;
+  filter: drop-shadow(0 0 12px rgba(229, 173, 49, 0.14));
+}
+
+.ecu-page .ecu-map svg > path {
+  opacity: 0;
+}
+
+.ecu-page .ecu-map::before,
+.ecu-page .ecu-map::after {
+  position: absolute;
+  inset: 12% 9% 10%;
+  content: "";
+  clip-path: polygon(9% 25%, 18% 16%, 31% 14%, 38% 8%, 50% 11%, 58% 7%, 69% 13%, 75% 19%, 87% 19%, 92% 27%, 98% 34%, 94% 43%, 99% 51%, 94% 59%, 96% 68%, 87% 73%, 82% 82%, 72% 83%, 64% 91%, 54% 88%, 46% 94%, 36% 88%, 27% 90%, 20% 82%, 11% 80%, 9% 70%, 2% 64%, 5% 55%, 0% 48%, 5% 39%, 5% 31%);
+}
+
+.ecu-page .ecu-map::before {
+  z-index: 0;
+  background: #e5ad31;
+  box-shadow: 0 0 24px rgba(229, 173, 49, 0.40);
+}
+
+.ecu-page .ecu-map::after {
+  z-index: 1;
+  background:
+    radial-gradient(circle at 47% 47%, rgba(229, 173, 49, 0.10), transparent 64%),
+    #0a0c0d;
+  transform: scale(0.955);
+}
+
+.ecu-page .ecu-map svg {
+  position: relative;
+  z-index: 2;
+}
+
+.ecu-page .ecu-shipping__copy h2 {
+  font-size: clamp(31px, 2.55vw, 40px);
+}
+
+.ecu-page .ecu-shipping__copy > p {
+  font-size: 11.3px;
+  line-height: 1.72;
+}
+
+.ecu-page .ecu-shipping__feature {
+  font-size: 9.2px;
+}
+
+.ecu-page .ecu-parcel-scene {
+  height: 220px;
+  border-color: rgba(229, 173, 49, 0.35);
+  background:
+    linear-gradient(90deg, rgba(5, 7, 8, 0.15), rgba(5, 7, 8, 0.04) 48%, rgba(5, 7, 8, 0.45)),
+    repeating-linear-gradient(90deg, #17191a 0 31px, #111314 31px 34px),
+    #111415;
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.34);
+}
+
+.ecu-page .ecu-parcel-scene::after {
+  position: absolute;
+  right: 14px;
+  bottom: 13px;
+  width: 116px;
+  height: 145px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  content: "";
+  background:
+    linear-gradient(90deg, transparent 49%, rgba(0, 0, 0, 0.28) 50% 51%, transparent 52%),
+    repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0 29px, transparent 29px 31px),
+    #252728;
+  opacity: 0.85;
+}
+
+.ecu-page .ecu-parcel {
+  right: 65px;
+  bottom: 25px;
+  width: 205px;
+  height: 100px;
+  background: linear-gradient(145deg, #a97a40, #805a29);
+}
+
+.ecu-page .ecu-parcel-badge {
+  z-index: 5;
+  top: 16px;
+  right: 18px;
+  width: 94px;
+  height: 62px;
+  border-color: rgba(229, 173, 49, 0.42);
+  background: rgba(5, 7, 8, 0.94);
+}
+
+/* FAQ / FLEX */
+.ecu-page .ecu-technical {
+  padding-block: 36px 38px;
+  background: #090b0c;
+}
+
+.ecu-page .ecu-technical__grid {
+  gap: 40px;
+}
+
+.ecu-page .ecu-tech-block h2 {
+  font-size: 26px;
+}
+
+.ecu-page .ecu-tech-block > p,
+.ecu-page .ecu-faq__question,
+.ecu-page .ecu-faq__answer,
+.ecu-page .ecu-flex-list div {
+  font-size: 9.5px;
+}
+
+.ecu-page .ecu-mode strong {
+  font-size: 9.5px;
+}
+
+.ecu-page .ecu-mode span {
+  font-size: 7.5px;
+}
+
+.ecu-page .ecu-flex-card {
+  border-color: rgba(255, 255, 255, 0.16);
+  background:
+    linear-gradient(145deg, #101314, #07090a);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.02), 0 18px 36px rgba(0, 0, 0, 0.16);
+}
+
+/* CTA/footer */
+.ecu-page .ecu-cta {
+  padding-block: 29px;
+}
+
+.ecu-page .ecu-cta h2 {
+  font-size: 27px;
+}
+
+.ecu-page .ecu-cta p {
+  font-size: 9.5px;
+}
+
+.ecu-page .ecu-contact-footer {
+  padding-block: 30px;
+}
+
+.ecu-page .ecu-footer-brand img {
+  width: 180px;
+  height: 66px;
+}
+
+.ecu-page .ecu-footer-brand__copy strong {
+  font-size: 10.5px;
+}
+
+.ecu-page .ecu-footer-contact a,
+.ecu-page .ecu-footer-contact span {
+  font-size: 9.4px;
+}
+
+/* Keep the refined desktop proportions without damaging tablet/mobile. */
+@media (max-width: 1180px) {
+  .ecu-page .ecu-shell {
+    width: min(100% - 48px, 1040px);
+  }
+
+  .ecu-page .ecu-header__inner {
+    grid-template-columns: 168px 1fr auto;
+  }
+
+  .ecu-page .ecu-logo img {
+    width: 158px;
+    height: 58px;
+  }
+
+  .ecu-page .ecu-nav a {
+    padding-inline: 11px;
+    font-size: 10.5px;
+  }
+
+  .ecu-page .ecu-shipping__grid {
+    grid-template-columns: 225px 1fr 260px;
+    gap: 25px;
+  }
+}
+
+@media (max-width: 980px) {
+  .ecu-page .ecu-shell {
+    width: min(100% - 34px, 900px);
+  }
+
+  .ecu-page .ecu-header__inner {
+    min-height: 74px;
+  }
+
+  .ecu-page .ecu-hero__inner {
+    padding-block: 40px 44px;
+  }
+
+  .ecu-page .ecu-benefit {
+    min-height: 108px;
+  }
+
+  .ecu-page .ecu-shipping__grid {
+    grid-template-columns: 225px 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .ecu-page .ecu-shell {
+    width: calc(100% - 28px);
+  }
+
+  .ecu-page .ecu-hero h1 {
+    font-size: clamp(41px, 13vw, 57px);
+  }
+
+  .ecu-page .ecu-hero__lead {
+    font-size: 13px;
+  }
+
+  .ecu-page .ecu-benefit h2 {
+    font-size: 18px;
+  }
+
+  .ecu-page .ecu-benefit p {
+    font-size: 10.5px;
+  }
+
+  .ecu-page .ecu-service-card h3 {
+    font-size: 11.5px;
+  }
+
+  .ecu-page .ecu-service-card p {
+    font-size: 9.5px;
+  }
+
+  .ecu-page .ecu-problem__copy p,
+  .ecu-page .ecu-shipping__copy > p {
+    font-size: 10.5px;
+  }
+
+  .ecu-page .ecu-map::before,
+  .ecu-page .ecu-map::after {
+    inset: 10% 7% 9%;
+  }
+}
