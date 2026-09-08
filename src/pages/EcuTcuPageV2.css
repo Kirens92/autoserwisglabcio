@@ -1,0 +1,566 @@
+/*
+ * ECU / TCU visual pass #2
+ * Deliberately scoped to .ecu-page so the rest of the site is untouched.
+ * This layer fixes the full-page sticky-header artefact and brings scale,
+ * spacing and hierarchy closer to the approved visual reference.
+ */
+
+.ecu-page .ecu-shell {
+  width: min(1360px, calc(100% - 54px));
+}
+
+/* Reference has a normal top navigation, not a sticky bar floating through a full-page capture. */
+.ecu-page .ecu-header {
+  position: relative;
+  top: auto;
+  border-bottom-color: rgba(229, 173, 49, 0.28);
+  background:
+    linear-gradient(180deg, rgba(4, 6, 7, 0.995), rgba(5, 7, 8, 0.98));
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.32);
+}
+
+.ecu-page .ecu-header__inner {
+  min-height: 88px;
+  grid-template-columns: 190px minmax(430px, 1fr) auto;
+  gap: 22px;
+}
+
+.ecu-page .ecu-logo img {
+  width: 180px;
+  height: 66px;
+}
+
+.ecu-page .ecu-nav {
+  height: 88px;
+}
+
+.ecu-page .ecu-nav a {
+  padding-inline: 18px;
+  font-size: 12.5px;
+}
+
+.ecu-page .ecu-contact-mini__row {
+  font-size: 10.5px;
+}
+
+.ecu-page .ecu-btn {
+  min-height: 48px;
+  padding-inline: 21px;
+  font-size: 11.5px;
+}
+
+/* HERO */
+.ecu-page .ecu-hero {
+  background: #060809;
+}
+
+.ecu-page .ecu-hero::before {
+  background:
+    linear-gradient(90deg, rgba(3, 5, 6, 0.985) 0%, rgba(3, 5, 6, 0.94) 31%, rgba(3, 5, 6, 0.67) 61%, rgba(3, 5, 6, 0.86) 100%),
+    var(--ecu-hero-bg) center / cover no-repeat;
+}
+
+.ecu-page .ecu-hero::after {
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.02), transparent 62%, rgba(0, 0, 0, 0.24)),
+    repeating-linear-gradient(90deg, transparent 0 214px, rgba(255, 255, 255, 0.014) 215px);
+}
+
+.ecu-page .ecu-hero__orange-light {
+  top: 68px;
+  right: 8%;
+  width: 210px;
+  height: 5px;
+  box-shadow: 0 0 12px #ff6900, 0 0 34px rgba(255, 105, 0, 0.48);
+}
+
+.ecu-page .ecu-hero__inner {
+  min-height: 585px;
+  grid-template-columns: minmax(0, 0.84fr) minmax(0, 1.16fr);
+  gap: 46px;
+  padding-block: 48px 46px;
+}
+
+.ecu-page .ecu-hero__copy {
+  max-width: 560px;
+}
+
+.ecu-page .ecu-kicker {
+  font-size: 11.5px;
+  letter-spacing: 0.22em;
+}
+
+.ecu-page .ecu-hero h1 {
+  margin-top: 17px;
+  font-size: clamp(54px, 5vw, 78px);
+  line-height: 0.91;
+  letter-spacing: -0.052em;
+}
+
+.ecu-page .ecu-hero__lead {
+  max-width: 545px;
+  margin-top: 23px;
+  font-size: 14.8px;
+  line-height: 1.72;
+}
+
+.ecu-page .ecu-trust-grid {
+  margin-top: 24px;
+  gap: 9px;
+}
+
+.ecu-page .ecu-trust {
+  min-height: 70px;
+  grid-template-columns: 32px minmax(0, 1fr);
+  padding: 11px 12px;
+  border-color: rgba(229, 173, 49, 0.56);
+  background: linear-gradient(145deg, rgba(12, 15, 16, 0.9), rgba(6, 8, 9, 0.82));
+}
+
+.ecu-page .ecu-trust svg {
+  width: 25px;
+  height: 25px;
+}
+
+.ecu-page .ecu-trust strong {
+  font-size: 10.8px;
+}
+
+.ecu-page .ecu-trust small {
+  font-size: 8.7px;
+}
+
+.ecu-page .ecu-hero__actions {
+  margin-top: 22px;
+  gap: 13px;
+}
+
+.ecu-page .ecu-hero__microcopy {
+  font-size: 9.5px;
+}
+
+.ecu-page .ecu-media {
+  padding: 9px;
+}
+
+.ecu-page .ecu-media::before {
+  border-color: rgba(229, 173, 49, 0.83);
+  box-shadow: 0 0 34px rgba(229, 173, 49, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.ecu-page .ecu-media__frame {
+  aspect-ratio: 1.5 / 1;
+}
+
+.ecu-page .ecu-media__frame > img {
+  filter: saturate(0.95) contrast(1.07) brightness(0.94);
+}
+
+.ecu-page .ecu-media__label {
+  right: 20px;
+  bottom: 20px;
+  width: min(330px, 66%);
+  padding: 18px 20px;
+  background: rgba(5, 7, 8, 0.95);
+}
+
+.ecu-page .ecu-media__label strong {
+  font-size: 21px;
+}
+
+.ecu-page .ecu-media__label span {
+  font-size: 10.7px;
+}
+
+/* Three value propositions */
+.ecu-page .ecu-benefit {
+  min-height: 138px;
+  grid-template-columns: 46px minmax(0, 1fr);
+  gap: 19px;
+  padding: 28px 31px;
+}
+
+.ecu-page .ecu-benefit svg {
+  width: 37px;
+  height: 37px;
+}
+
+.ecu-page .ecu-benefit h2 {
+  font-size: 20px;
+}
+
+.ecu-page .ecu-benefit p {
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+/* Section hierarchy */
+.ecu-page .ecu-section-title {
+  font-size: clamp(36px, 3.35vw, 50px);
+}
+
+.ecu-page .ecu-section-copy {
+  font-size: 13.5px;
+  line-height: 1.72;
+}
+
+/* Services */
+.ecu-page .ecu-services {
+  padding-block: 42px 44px;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(229, 173, 49, 0.035), transparent 28rem),
+    #050708;
+}
+
+.ecu-page .ecu-services__grid {
+  margin-top: 29px;
+  gap: 12px;
+}
+
+.ecu-page .ecu-service-card {
+  min-height: 116px;
+  grid-template-columns: 43px minmax(0, 1fr);
+  gap: 14px;
+  padding: 17px 18px;
+  border-color: rgba(229, 173, 49, 0.4);
+  background: linear-gradient(145deg, #0c0f10, #080a0b 70%);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.018);
+}
+
+.ecu-page .ecu-service-card__icon {
+  width: 41px;
+  height: 41px;
+}
+
+.ecu-page .ecu-service-card__icon svg {
+  width: 29px;
+  height: 29px;
+}
+
+.ecu-page .ecu-service-card h3 {
+  font-size: 12.3px;
+  line-height: 1.45;
+}
+
+.ecu-page .ecu-service-card p {
+  margin-top: 6px;
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+/* Problem / why us */
+.ecu-page .ecu-problem__grid {
+  min-height: 375px;
+  grid-template-columns: 37% minmax(0, 1fr) 230px;
+}
+
+.ecu-page .ecu-problem__visual {
+  min-height: 375px;
+}
+
+.ecu-page .ecu-problem__copy {
+  padding: 38px 44px;
+}
+
+.ecu-page .ecu-problem__copy .ecu-kicker {
+  font-size: 9.8px;
+}
+
+.ecu-page .ecu-problem__copy h2 {
+  margin-top: 14px;
+  font-size: clamp(36px, 3.35vw, 47px);
+}
+
+.ecu-page .ecu-problem__copy p {
+  margin-top: 17px;
+  font-size: 12.3px;
+  line-height: 1.75;
+}
+
+.ecu-page .ecu-problem__points {
+  padding-left: 25px;
+}
+
+.ecu-page .ecu-problem-point {
+  min-height: 66px;
+  grid-template-columns: 41px 1fr;
+}
+
+.ecu-page .ecu-problem-point__icon {
+  width: 39px;
+  height: 39px;
+}
+
+.ecu-page .ecu-problem-point span {
+  font-size: 9.8px;
+}
+
+/* Process */
+.ecu-page .ecu-process {
+  padding-block: 34px 37px;
+}
+
+.ecu-page .ecu-process__header p {
+  font-size: 10.8px;
+}
+
+.ecu-page .ecu-process__grid {
+  margin-top: 27px;
+}
+
+.ecu-page .ecu-step__number {
+  width: 42px;
+  height: 42px;
+  font-size: 15px;
+}
+
+.ecu-page .ecu-step__top {
+  grid-template-columns: 46px 25px 1fr;
+}
+
+.ecu-page .ecu-step__top > svg {
+  width: 22px;
+  height: 22px;
+}
+
+.ecu-page .ecu-step h3 {
+  margin-top: 15px;
+  font-size: 11.5px;
+}
+
+.ecu-page .ecu-step p {
+  margin-top: 8px;
+  font-size: 10px;
+  line-height: 1.65;
+}
+
+/* Shipping */
+.ecu-page .ecu-shipping {
+  padding-block: 36px 37px;
+}
+
+.ecu-page .ecu-shipping__grid {
+  grid-template-columns: 270px minmax(0, 1fr) 320px;
+  gap: 38px;
+}
+
+.ecu-page .ecu-shipping__copy h2 {
+  margin-top: 10px;
+  font-size: clamp(33px, 2.8vw, 43px);
+}
+
+.ecu-page .ecu-shipping__copy > p {
+  margin-top: 14px;
+  font-size: 12px;
+  line-height: 1.72;
+}
+
+.ecu-page .ecu-shipping__features {
+  margin-top: 20px;
+}
+
+.ecu-page .ecu-shipping__feature {
+  font-size: 9.7px;
+}
+
+.ecu-page .ecu-parcel-scene {
+  height: 224px;
+  border-color: rgba(229, 173, 49, 0.34);
+  background:
+    linear-gradient(135deg, rgba(0, 0, 0, 0.08), rgba(229, 173, 49, 0.065)),
+    #111415;
+}
+
+.ecu-page .ecu-parcel {
+  right: 54px;
+  bottom: 24px;
+  width: 210px;
+  height: 102px;
+}
+
+/* FAQ / technical */
+.ecu-page .ecu-technical {
+  padding-block: 36px 38px;
+}
+
+.ecu-page .ecu-technical__grid {
+  grid-template-columns: 1.03fr 1.08fr 0.78fr;
+  gap: 40px;
+}
+
+.ecu-page .ecu-tech-block h2 {
+  font-size: 27px;
+}
+
+.ecu-page .ecu-tech-block > p {
+  font-size: 10.8px;
+  line-height: 1.7;
+}
+
+.ecu-page .ecu-faq__question {
+  min-height: 51px;
+  font-size: 10px;
+}
+
+.ecu-page .ecu-faq__answer {
+  font-size: 9.8px;
+  line-height: 1.7;
+}
+
+.ecu-page .ecu-mode svg {
+  width: 24px;
+  height: 24px;
+}
+
+.ecu-page .ecu-mode strong {
+  font-size: 9.8px;
+}
+
+.ecu-page .ecu-mode span {
+  font-size: 7.8px;
+}
+
+.ecu-page .ecu-flex-card {
+  padding: 21px;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.ecu-page .ecu-flex-wordmark {
+  font-size: 31px;
+}
+
+.ecu-page .ecu-flex-card__head strong {
+  font-size: 9.7px;
+}
+
+.ecu-page .ecu-flex-list div {
+  font-size: 9.7px;
+}
+
+/* Closing CTA and footer */
+.ecu-page .ecu-cta {
+  padding-block: 28px;
+}
+
+.ecu-page .ecu-cta h2 {
+  font-size: 27px;
+}
+
+.ecu-page .ecu-cta p {
+  font-size: 9.7px;
+}
+
+.ecu-page .ecu-contact-footer {
+  padding-block: 31px;
+}
+
+.ecu-page .ecu-footer-brand__copy strong {
+  font-size: 10.7px;
+}
+
+.ecu-page .ecu-footer-brand__copy span,
+.ecu-page .ecu-footer-contact a,
+.ecu-page .ecu-footer-contact span {
+  font-size: 9.3px;
+}
+
+/* Desktop polish: preserve the four-column composition for the reference layout longer. */
+@media (min-width: 1181px) {
+  .ecu-page .ecu-services__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1180px) {
+  .ecu-page .ecu-shell {
+    width: min(1120px, calc(100% - 42px));
+  }
+
+  .ecu-page .ecu-header__inner {
+    grid-template-columns: 170px 1fr auto;
+  }
+
+  .ecu-page .ecu-nav a {
+    padding-inline: 11px;
+    font-size: 10.5px;
+  }
+
+  .ecu-page .ecu-problem__grid {
+    grid-template-columns: 32% 1fr 205px;
+  }
+
+  .ecu-page .ecu-shipping__grid {
+    grid-template-columns: 225px 1fr 265px;
+    gap: 25px;
+  }
+}
+
+@media (max-width: 980px) {
+  .ecu-page .ecu-shell {
+    width: min(100% - 32px, 900px);
+  }
+
+  .ecu-page .ecu-header__inner {
+    min-height: 74px;
+  }
+
+  .ecu-page .ecu-hero__inner {
+    grid-template-columns: 1fr;
+    gap: 34px;
+    padding-block: 42px 46px;
+  }
+
+  .ecu-page .ecu-hero__copy {
+    max-width: 680px;
+  }
+
+  .ecu-page .ecu-media {
+    max-width: 780px;
+  }
+
+  .ecu-page .ecu-benefit {
+    min-height: 108px;
+  }
+
+  .ecu-page .ecu-problem__grid {
+    grid-template-columns: 0.82fr 1.18fr;
+  }
+
+  .ecu-page .ecu-shipping__grid {
+    grid-template-columns: 230px 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .ecu-page .ecu-shell {
+    width: calc(100% - 26px);
+  }
+
+  .ecu-page .ecu-hero h1 {
+    font-size: clamp(44px, 13.8vw, 60px);
+  }
+
+  .ecu-page .ecu-hero__lead {
+    font-size: 13.4px;
+  }
+
+  .ecu-page .ecu-kicker {
+    font-size: 9.2px;
+  }
+
+  .ecu-page .ecu-service-card h3 {
+    font-size: 12px;
+  }
+
+  .ecu-page .ecu-service-card p {
+    font-size: 9.8px;
+  }
+
+  .ecu-page .ecu-problem__copy h2 {
+    font-size: clamp(34px, 10.4vw, 44px);
+  }
+
+  .ecu-page .ecu-technical__grid {
+    gap: 25px;
+  }
+}
