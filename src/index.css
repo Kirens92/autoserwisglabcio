@@ -4,6 +4,8 @@
 @import "./pages/EcuTcuPageV4.css";
 @import "./pages/EcuTcuPageV5.css";
 @import "./pages/EcuTcuPageV6.css";
+@import "./pages/NewHomepageBackgroundFix.css";
+@import "./pages/NewHomepageReadabilityFix.css";
 
 @tailwind base;
 @tailwind components;
