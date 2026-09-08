@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Eye, ImagePlus, LayoutDashboard, Plus, Save, Trash2 } from "lucide-react";
+import { Cpu, Eye, ImagePlus, LayoutDashboard, Plus, Save, Trash2 } from "lucide-react";
 
 type Realization = {
   slug: string;
@@ -11,9 +11,10 @@ type Realization = {
   diagnosis: string;
   image: string;
   createdAt: string;
+  category?: string;
 };
 
-const blank = (): Realization => ({ slug: "", title: "", excerpt: "", content: "", clientReport: "", diagnosis: "", image: "", createdAt: new Date().toISOString() });
+const blank = (): Realization => ({ slug: "", title: "", excerpt: "", content: "", clientReport: "", diagnosis: "", image: "", createdAt: new Date().toISOString(), category: "ogolne" });
 const fieldClass = "w-full border border-white/10 bg-black/35 px-4 py-3 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-primary/60 focus:ring-1 focus:ring-primary/20";
 
 export default function AdminRealizations() {
@@ -67,19 +68,28 @@ export default function AdminRealizations() {
 
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:py-10">
         <div className="mb-8 flex flex-col justify-between gap-5 border-b border-white/10 pb-7 md:flex-row md:items-end">
-          <div><div className="text-[10px] font-bold uppercase tracking-[0.24em] text-primary">Panel administratora</div><h1 className="mt-2 text-3xl font-bold sm:text-4xl">Realizacje warsztatu</h1><p className="mt-3 text-sm text-white/40">Dodawaj opisy napraw, diagnozy i zdjęcia wykonanych realizacji.</p></div>
-          <nav className="flex border border-white/10 p-1 text-xs"><Link to="/admin/strona" className="px-4 py-2.5 text-white/45 hover:text-white">Strona</Link><Link to="/admin" className="px-4 py-2.5 text-white/45 hover:text-white">Usługi</Link><Link to="/admin/realizacje" className="bg-primary px-4 py-2.5 font-bold text-black">Realizacje</Link></nav>
+          <div><div className="text-[10px] font-bold uppercase tracking-[0.24em] text-primary">Panel administratora</div><h1 className="mt-2 text-3xl font-bold sm:text-4xl">Realizacje warsztatu</h1><p className="mt-3 text-sm text-white/40">Dodawaj opisy napraw, diagnozy i zdjęcia. Kategoria ECU/TCU automatycznie zasila specjalistyczną podstronę.</p></div>
+          <nav className="flex border border-white/10 p-1 text-xs"><Link to="/admin" className="px-4 py-2.5 text-white/45 hover:text-white">Dashboard</Link><Link to="/admin/ecu-tcu" className="px-4 py-2.5 text-white/45 hover:text-white">ECU/TCU</Link><Link to="/admin/uslugi" className="px-4 py-2.5 text-white/45 hover:text-white">Usługi</Link><Link to="/admin/realizacje" className="bg-primary px-4 py-2.5 font-bold text-black">Realizacje</Link></nav>
         </div>
 
         <div className="space-y-5">
           {items.length === 0 && <div className="border border-dashed border-white/15 p-10 text-center text-sm text-white/35">Brak realizacji. Dodaj pierwszą realizację przyciskiem poniżej.</div>}
           {items.map((item, index) => (
             <section key={`${item.slug}-${index}`} className="border border-white/10 bg-[#0b0b0b] p-5 sm:p-7">
-              <div className="mb-6 flex items-center justify-between border-b border-white/10 pb-5"><div><div className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary">Realizacja {index + 1}</div><div className="mt-1 font-bold">{item.title || "Nowa realizacja"}</div></div><button onClick={() => setItems(items.filter((_, itemIndex) => itemIndex !== index))} className="inline-flex items-center gap-2 text-xs text-red-300"><Trash2 className="h-4 w-4" />Usuń</button></div>
-              <div className="grid gap-5 md:grid-cols-2">
+              <div className="mb-6 flex items-center justify-between border-b border-white/10 pb-5"><div><div className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary">Realizacja {index + 1}</div><div className="mt-1 flex items-center gap-2 font-bold">{item.category === "ecu-tcu" && <Cpu className="h-4 w-4 text-primary" />}{item.title || "Nowa realizacja"}</div></div><button onClick={() => setItems(items.filter((_, itemIndex) => itemIndex !== index))} className="inline-flex items-center gap-2 text-xs text-red-300"><Trash2 className="h-4 w-4" />Usuń</button></div>
+              <div className="grid gap-5 md:grid-cols-3">
                 <input value={item.title} onChange={(e) => update(index, "title", e.target.value)} placeholder="Tytuł realizacji" className={fieldClass} />
                 <input value={item.slug} onChange={(e) => update(index, "slug", e.target.value)} placeholder="slug-np-peugeot-308-diagnostyka" className={fieldClass} />
+                <select value={item.category || "ogolne"} onChange={(e) => update(index, "category", e.target.value)} className={fieldClass}>
+                  <option value="ogolne">Ogólna realizacja</option>
+                  <option value="ecu-tcu">ECU / TCU</option>
+                  <option value="peugeot">Peugeot</option>
+                  <option value="citroen">Citroën</option>
+                  <option value="diagnostyka">Diagnostyka</option>
+                  <option value="mechanika">Mechanika</option>
+                </select>
               </div>
+              {item.category === "ecu-tcu" && <div className="mt-4 border border-primary/20 bg-primary/[0.04] px-4 py-3 text-xs text-primary">Ta realizacja będzie widoczna również w sekcji „Realizacje ECU / TCU” na podstronie specjalizacji.</div>}
               <div className="mt-5 space-y-5">
                 <textarea value={item.excerpt} onChange={(e) => update(index, "excerpt", e.target.value)} placeholder="Krótki opis do listy realizacji" className={`${fieldClass} min-h-20 resize-y`} />
                 <div className="grid gap-5 md:grid-cols-2"><textarea value={item.clientReport} onChange={(e) => update(index, "clientReport", e.target.value)} placeholder="Zgłoszenie klienta" className={`${fieldClass} min-h-28 resize-y`} /><textarea value={item.diagnosis} onChange={(e) => update(index, "diagnosis", e.target.value)} placeholder="Diagnoza" className={`${fieldClass} min-h-28 resize-y`} /></div>
