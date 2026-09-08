@@ -9,6 +9,7 @@ import Admin from "./pages/Admin";
 import Realizations from "./pages/Realizations";
 import RealizationDetail from "./pages/RealizationDetail";
 import AdminRealizations from "./pages/AdminRealizations";
+import AdminSiteContent from "./pages/AdminSiteContent";
 import ServicesPage from "./pages/ServicesPage";
 import NewHomepage from "./pages/NewHomepage";
 
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/nowa-strona" element={<NewHomepage />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/strona" element={<AdminSiteContent />} />
           <Route path="/admin/realizacje" element={<AdminRealizations />} />
           <Route path="/realizacje" element={<Realizations />} />
           <Route path="/realizacje/:slug" element={<RealizationDetail />} />
