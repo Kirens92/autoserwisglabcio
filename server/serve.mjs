@@ -10,6 +10,7 @@ const DIST = path.resolve(process.env.DIST_DIR || "dist");
 const DATA_DIR = path.resolve(process.env.DATA_DIR || "data");
 const SERVICES_FILE = path.join(DATA_DIR, "services.json");
 const REALIZATIONS_FILE = path.join(DATA_DIR, "realizations.json");
+const SITE_CONTENT_FILE = path.join(DATA_DIR, "site-content.json");
 const UPLOADS_DIR = path.join(DATA_DIR, "uploads");
 const ADMIN_LOGIN = process.env.ADMIN_LOGIN;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
@@ -30,6 +31,8 @@ const MIME = {
   ".css": "text/css",
   ".png": "image/png",
   ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".webp": "image/webp",
   ".svg": "image/svg+xml",
   ".ico": "image/x-icon",
   ".json": "application/json",
@@ -37,7 +40,7 @@ const MIME = {
 };
 
 function serveStatic(req, res) {
-  let urlPath = decodeURIComponent(req.url.split("?")[0]);
+  const urlPath = decodeURIComponent(req.url.split("?")[0]);
   let filePath = path.join(DIST, urlPath);
   if (urlPath === "/" || !fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
     filePath = path.join(DIST, "index.html");
@@ -47,7 +50,7 @@ function serveStatic(req, res) {
       res.writeHead(404).end("Not found");
       return;
     }
-    res.writeHead(200, { "content-type": MIME[path.extname(filePath)] || "application/octet-stream" });
+    res.writeHead(200, { "content-type": MIME[path.extname(filePath).toLowerCase()] || "application/octet-stream" });
     res.end(data);
   });
 }
@@ -73,14 +76,53 @@ function isAdmin(req) {
   return Boolean(expires && signature && Number(expires) > Date.now() && signature.length === expected.length && crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected)));
 }
 
+function readJsonFile(file, fallback) {
+  try {
+    return JSON.parse(fs.readFileSync(file, "utf8"));
+  } catch {
+    return fallback;
+  }
+}
+
+function writeJsonFile(file, data) {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  fs.writeFileSync(file, JSON.stringify(data, null, 2), "utf8");
+}
+
 function services() {
-  try { return JSON.parse(fs.readFileSync(SERVICES_FILE, "utf8")); } catch { return []; }
+  return readJsonFile(SERVICES_FILE, []);
+}
+
+function realizations() {
+  return readJsonFile(REALIZATIONS_FILE, []);
+}
+
+function siteContent() {
+  return readJsonFile(SITE_CONTENT_FILE, {});
 }
 
 function validServices(data) {
   return Array.isArray(data) && data.every((item) => item && typeof item.title === "string" && typeof item.description === "string" && typeof item.icon === "string" && (!item.items || (Array.isArray(item.items) && item.items.every((entry) => typeof entry === "string"))));
 }
-function realizations() { try { return JSON.parse(fs.readFileSync(REALIZATIONS_FILE, "utf8")); } catch { return []; } }
+
+function validSiteContent(data) {
+  return Boolean(
+    data &&
+    typeof data === "object" &&
+    typeof data.seo?.title === "string" &&
+    typeof data.seo?.description === "string" &&
+    typeof data.business?.phone === "string" &&
+    typeof data.business?.email === "string" &&
+    typeof data.hero?.titleLine1 === "string" &&
+    typeof data.hero?.titleLine2 === "string" &&
+    typeof data.specialization?.title === "string" &&
+    Array.isArray(data.specialization?.brands) &&
+    Array.isArray(data.services?.items) &&
+    Array.isArray(data.about?.stats) &&
+    Array.isArray(data.process?.steps) &&
+    Array.isArray(data.reviews?.items)
+  );
+}
 
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
@@ -89,52 +131,120 @@ const server = http.createServer(async (req, res) => {
     sendJson(res, 200, services(), { "cache-control": "no-store" });
     return;
   }
-  if (url.pathname === "/api/realizations" && req.method === "GET") { sendJson(res, 200, realizations(), { "cache-control": "no-store" }); return; }
-  if (url.pathname === "/api/admin/realizations" && req.method === "PUT") {
-    if (!isAdmin(req)) { sendJson(res, 401, { message: "Brak dostępu" }); return; }
-    try { const data = JSON.parse((await readBody(req)).toString("utf8")); if (!Array.isArray(data)) throw new Error(); fs.mkdirSync(DATA_DIR, { recursive: true }); fs.writeFileSync(REALIZATIONS_FILE, JSON.stringify(data, null, 2)); sendJson(res, 200, data); } catch { sendJson(res, 400, { message: "Nieprawidłowe dane" }); } return;
+
+  if (url.pathname === "/api/realizations" && req.method === "GET") {
+    sendJson(res, 200, realizations(), { "cache-control": "no-store" });
+    return;
   }
+
+  if (url.pathname === "/api/site-content" && req.method === "GET") {
+    sendJson(res, 200, siteContent(), { "cache-control": "no-store" });
+    return;
+  }
+
+  if (url.pathname === "/api/admin/site-content" && req.method === "PUT") {
+    if (!isAdmin(req)) {
+      sendJson(res, 401, { message: "Brak dostępu" });
+      return;
+    }
+    try {
+      const data = JSON.parse((await readBody(req)).toString("utf8"));
+      if (!validSiteContent(data)) throw new Error("invalid");
+      writeJsonFile(SITE_CONTENT_FILE, data);
+      sendJson(res, 200, data, { "cache-control": "no-store" });
+    } catch {
+      sendJson(res, 400, { message: "Nieprawidłowa struktura treści strony" });
+    }
+    return;
+  }
+
+  if (url.pathname === "/api/admin/realizations" && req.method === "PUT") {
+    if (!isAdmin(req)) {
+      sendJson(res, 401, { message: "Brak dostępu" });
+      return;
+    }
+    try {
+      const data = JSON.parse((await readBody(req)).toString("utf8"));
+      if (!Array.isArray(data)) throw new Error();
+      writeJsonFile(REALIZATIONS_FILE, data);
+      sendJson(res, 200, data);
+    } catch {
+      sendJson(res, 400, { message: "Nieprawidłowe dane" });
+    }
+    return;
+  }
+
   if (url.pathname === "/api/admin/upload" && req.method === "POST") {
-    if (!isAdmin(req)) { sendJson(res, 401, { message: "Brak dostępu" }); return; }
+    if (!isAdmin(req)) {
+      sendJson(res, 401, { message: "Brak dostępu" });
+      return;
+    }
     const original = path.basename(url.searchParams.get("name") || "image.jpg").replace(/[^a-zA-Z0-9._-]/g, "_");
     const body = await readBody(req);
-    if (!body.length || body.length > 8 * 1024 * 1024) { sendJson(res, 400, { message: "Nieprawidłowy plik" }); return; }
+    if (!body.length || body.length > 8 * 1024 * 1024) {
+      sendJson(res, 400, { message: "Nieprawidłowy plik" });
+      return;
+    }
     fs.mkdirSync(UPLOADS_DIR, { recursive: true });
     const file = `${Date.now()}-${original}`;
     fs.writeFileSync(path.join(UPLOADS_DIR, file), body);
-    sendJson(res, 200, { image: `/uploads/${file}` }); return;
+    sendJson(res, 200, { image: `/uploads/${file}` });
+    return;
   }
+
   if (url.pathname.startsWith("/uploads/")) {
     const file = path.basename(url.pathname);
     const target = path.join(UPLOADS_DIR, file);
-    if (!fs.existsSync(target)) { res.writeHead(404).end("Not found"); return; }
-    fs.createReadStream(target).pipe(res); return;
+    if (!fs.existsSync(target)) {
+      res.writeHead(404).end("Not found");
+      return;
+    }
+    const ext = path.extname(target).toLowerCase();
+    res.writeHead(200, { "content-type": MIME[ext] || "application/octet-stream" });
+    fs.createReadStream(target).pipe(res);
+    return;
   }
+
   if (url.pathname === "/api/admin/session" && req.method === "GET") {
     sendJson(res, 200, { authenticated: isAdmin(req) });
     return;
   }
+
   if (url.pathname === "/api/admin/login" && req.method === "POST") {
-    const body = JSON.parse((await readBody(req)).toString("utf8") || "{}");
+    let body = {};
+    try {
+      body = JSON.parse((await readBody(req)).toString("utf8") || "{}");
+    } catch {
+      sendJson(res, 400, { message: "Nieprawidłowe dane logowania" });
+      return;
+    }
     if (!ADMIN_LOGIN || !ADMIN_PASSWORD || !SESSION_SECRET || body.login !== ADMIN_LOGIN || body.password !== ADMIN_PASSWORD) {
-      sendJson(res, 401, { message: "Nieprawidłowy login lub hasło" }); return;
+      sendJson(res, 401, { message: "Nieprawidłowy login lub hasło" });
+      return;
     }
     const expires = String(Date.now() + 8 * 60 * 60 * 1000);
     sendJson(res, 200, { authenticated: true }, { "set-cookie": `admin_session=${expires}.${sign(expires)}; HttpOnly; SameSite=Strict; Path=/; Max-Age=28800; Secure` });
     return;
   }
+
   if (url.pathname === "/api/admin/logout" && req.method === "POST") {
-    sendJson(res, 200, { authenticated: false }, { "set-cookie": "admin_session=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0; Secure" }); return;
+    sendJson(res, 200, { authenticated: false }, { "set-cookie": "admin_session=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0; Secure" });
+    return;
   }
+
   if (url.pathname === "/api/admin/services" && req.method === "PUT") {
-    if (!isAdmin(req)) { sendJson(res, 401, { message: "Brak dostępu" }); return; }
+    if (!isAdmin(req)) {
+      sendJson(res, 401, { message: "Brak dostępu" });
+      return;
+    }
     try {
       const data = JSON.parse((await readBody(req)).toString("utf8"));
       if (!validServices(data)) throw new Error("invalid");
-      fs.mkdirSync(DATA_DIR, { recursive: true });
-      fs.writeFileSync(SERVICES_FILE, JSON.stringify(data, null, 2), "utf8");
+      writeJsonFile(SERVICES_FILE, data);
       sendJson(res, 200, data);
-    } catch { sendJson(res, 400, { message: "Nieprawidłowe dane usług" }); }
+    } catch {
+      sendJson(res, 400, { message: "Nieprawidłowe dane usług" });
+    }
     return;
   }
 
@@ -143,18 +253,14 @@ const server = http.createServer(async (req, res) => {
     const target = new URL(MW_BASE + apiPath);
     const body = await readBody(req);
     const headers = {};
-    if (req.headers.authorization) headers["authorization"] = req.headers.authorization;
+    if (req.headers.authorization) headers.authorization = req.headers.authorization;
     if (req.headers["content-type"]) headers["content-type"] = req.headers["content-type"];
 
     const proxy = https.request(
       target,
       { method: req.method, headers: { ...headers, host: target.host, origin: MW_BASE } },
       (mwRes) => {
-        if (!mwRes) {
-          res.writeHead(502).end(JSON.stringify({ message: "Błąd połączenia z API" }));
-          return;
-        }
-        res.writeHead(mwRes.statusCode || 502, { "content-type": "application/json" });
+        res.writeHead(mwRes.statusCode || 502, { "content-type": mwRes.headers["content-type"] || "application/json" });
         mwRes.pipe(res);
       },
     );
