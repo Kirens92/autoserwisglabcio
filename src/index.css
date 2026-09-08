@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap');
 @import "./pages/EcuTcuPageV2.css";
 @import "./pages/EcuTcuPageV3.css";
+@import "./pages/EcuTcuPageV4.css";
 
 @tailwind base;
 @tailwind components;
