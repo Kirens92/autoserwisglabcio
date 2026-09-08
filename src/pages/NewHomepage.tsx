@@ -14,7 +14,6 @@ import {
   SearchCheck,
   ShieldCheck,
   Sparkles,
-  Star,
   ThermometerSnowflake,
   Wrench,
   X,
@@ -22,6 +21,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import logo from "@/assets/nowelogobg.png";
+import GoogleReviews from "@/components/GoogleReviews";
 import { defaultSiteContent, type SiteContent } from "@/lib/siteContent";
 
 const iconMap: Record<string, LucideIcon> = {
@@ -314,25 +314,7 @@ export default function NewHomepage() {
         </div>
       </section>
 
-      <section id="opinie" className="border-y border-white/10 bg-[#0b0b0b] py-20 sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-            <div><div className="text-xs font-bold uppercase tracking-[0.28em] text-primary">{content.reviews.eyebrow}</div><h2 className="mt-4 text-3xl font-bold sm:text-4xl">{content.reviews.title}</h2></div>
-            <div className="flex items-center gap-2 text-sm text-white/50"><Star className="h-4 w-4 fill-primary text-primary" />{content.reviews.ratingLabel}</div>
-          </div>
-
-          <div className="mt-10 grid gap-4 lg:grid-cols-3">
-            {content.reviews.items.map((review, index) => (
-              <article key={`${review.name}-${index}`} className="border border-white/10 bg-[#090909] p-6 sm:p-7">
-                <div className="mb-5 flex items-center justify-between"><div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-sm font-bold text-white/70">{review.name.slice(0, 1)}</div><MessageSquareQuote className="h-5 w-5 text-primary/70" /></div>
-                <div className="flex gap-1">{Array.from({ length: 5 }).map((_, star) => <Star key={star} className="h-3.5 w-3.5 fill-primary text-primary" />)}</div>
-                <p className="mt-4 text-sm leading-6 text-white/55">„{review.text}”</p>
-                <div className="mt-5 text-sm font-bold">{review.name}</div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <GoogleReviews fallback={content.reviews} />
 
       <section id="rezerwacja" className="relative overflow-hidden bg-[#080808] py-20 sm:py-24">
         <div className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-[110px]" />
