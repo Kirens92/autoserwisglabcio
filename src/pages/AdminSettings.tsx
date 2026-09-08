@@ -1,8 +1,21 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Database, HardDrive, KeyRound, Server, ShieldCheck } from "lucide-react";
 import logo from "@/assets/nowelogobg.png";
 
 export default function AdminSettings() {
+  const [auth, setAuth] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    fetch("/api/admin/session")
+      .then((response) => response.json())
+      .then((session) => setAuth(Boolean(session.authenticated)))
+      .catch(() => setAuth(false));
+  }, []);
+
+  if (auth === null) return <main className="grid min-h-screen place-items-center bg-[#070807] text-white/40">Ładowanie ustawień…</main>;
+  if (!auth) return <main className="grid min-h-screen place-items-center bg-[#070807] p-6 text-white"><div className="border border-[#dca92c]/20 bg-[#0b0c0b] p-8 text-center"><ShieldCheck className="mx-auto h-9 w-9 text-[#e0ad31]" /><h1 className="mt-5 text-2xl font-bold">Wymagane logowanie</h1><p className="mt-3 text-sm text-white/40">Ustawienia systemu są dostępne wyłącznie dla administratora.</p><Link to="/admin" className="mt-5 inline-flex bg-[#e0ad31] px-5 py-3 text-sm font-bold text-black">Przejdź do logowania</Link></div></main>;
+
   return (
     <main className="min-h-screen bg-[#070807] text-white">
       <header className="border-b border-white/10 bg-[#090a09]">
