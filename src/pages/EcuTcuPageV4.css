@@ -1,12 +1,15 @@
-/* ECU / TCU visual pass #4 — readability + larger branding */
+/* ECU / TCU visual pass #4 — readability, branding and supplied shipping banner */
 
-/* New Gl@bcio logo supplied by the owner. The source image has large empty
-   margins, so we zoom it inside the existing logo slots without touching JSX. */
+.ecu-page {
+  font-size: 16px;
+}
+
+/* Clean, cropped brand artwork from assets — no blurred bitmap, no forced zoom. */
 .ecu-page .ecu-logo {
-  width: 238px;
-  height: 82px;
-  flex: 0 0 238px;
-  background: url("../assets/glabcio-logo-new.svg") center / 270% auto no-repeat;
+  width: 230px;
+  height: 88px;
+  flex: 0 0 230px;
+  background: url("../assets/glabcio-logo-2026.svg") center / contain no-repeat;
 }
 
 .ecu-page .ecu-logo img {
@@ -16,29 +19,28 @@
 }
 
 .ecu-page .ecu-header__inner {
-  grid-template-columns: 238px minmax(410px, 1fr) auto;
-  min-height: 92px;
+  grid-template-columns: 230px minmax(410px, 1fr) auto;
+  min-height: 94px;
 }
 
 .ecu-page .ecu-nav {
-  height: 92px;
+  height: 94px;
 }
 
-/* Footer logo — same artwork, noticeably larger and easier to read. */
 .ecu-page .ecu-footer-brand {
   position: relative;
-  min-height: 86px;
-  padding-left: 250px;
+  min-height: 96px;
+  padding-left: 265px;
 }
 
 .ecu-page .ecu-footer-brand::before {
   position: absolute;
   left: 0;
   top: 50%;
-  width: 225px;
-  height: 84px;
+  width: 240px;
+  height: 94px;
   content: "";
-  background: url("../assets/glabcio-logo-new.svg") center / 270% auto no-repeat;
+  background: url("../assets/glabcio-logo-2026.svg") center / contain no-repeat;
   transform: translateY(-50%);
 }
 
@@ -48,215 +50,237 @@
 
 /* Navigation and buttons */
 .ecu-page .ecu-nav a {
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 650;
 }
 
 .ecu-page .ecu-contact-mini__row {
-  font-size: 11.5px;
-}
-
-.ecu-page .ecu-btn {
-  min-height: 48px;
-  padding-inline: 20px;
   font-size: 12px;
 }
 
-/* Hero — keep the premium proportions, but make all supporting copy readable. */
+.ecu-page .ecu-btn {
+  min-height: 50px;
+  padding-inline: 22px;
+  font-size: 12.5px;
+}
+
+/* Hero */
 .ecu-page .ecu-kicker {
-  font-size: 11.5px;
+  font-size: 12px;
 }
 
 .ecu-page .ecu-hero__lead {
-  font-size: 15.5px;
+  font-size: 16.5px;
   line-height: 1.72;
 }
 
 .ecu-page .ecu-trust {
-  min-height: 76px;
-  padding: 12px 13px;
+  min-height: 80px;
+  padding: 13px 14px;
 }
 
 .ecu-page .ecu-trust strong {
-  font-size: 11.5px;
+  font-size: 12.5px;
 }
 
 .ecu-page .ecu-trust small {
-  font-size: 9.5px;
-  line-height: 1.45;
+  font-size: 10.5px;
+  line-height: 1.5;
 }
 
 .ecu-page .ecu-hero__microcopy {
-  font-size: 10.5px;
+  font-size: 11px;
 }
 
 .ecu-page .ecu-media__label strong {
-  font-size: 20px;
+  font-size: 21px;
 }
 
 .ecu-page .ecu-media__label span {
-  font-size: 11.5px;
+  font-size: 12px;
+}
+
+/* Main section headings and supporting copy */
+.ecu-page .ecu-section-title {
+  font-size: clamp(42px, 3.25vw, 54px);
+}
+
+.ecu-page .ecu-section-copy {
+  font-size: 14.5px;
+  line-height: 1.75;
 }
 
 /* Benefit strip */
 .ecu-page .ecu-benefit {
-  min-height: 140px;
+  min-height: 150px;
 }
 
 .ecu-page .ecu-benefit h2 {
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .ecu-page .ecu-benefit p {
-  font-size: 12.5px;
-  line-height: 1.65;
-}
-
-/* Generic section text */
-.ecu-page .ecu-section-copy {
-  font-size: 13.5px;
+  font-size: 14px;
   line-height: 1.7;
 }
 
 /* Service cards */
 .ecu-page .ecu-service-card {
-  min-height: 120px;
-  padding: 18px;
+  min-height: 130px;
+  padding: 20px;
 }
 
 .ecu-page .ecu-service-card h3 {
-  font-size: 12.5px;
+  font-size: 14px;
   line-height: 1.45;
 }
 
 .ecu-page .ecu-service-card p {
-  font-size: 10.5px;
-  line-height: 1.55;
+  font-size: 12px;
+  line-height: 1.6;
   -webkit-line-clamp: 3;
 }
 
 /* Problem / solution */
+.ecu-page .ecu-problem__copy h2 {
+  font-size: clamp(38px, 3vw, 49px);
+}
+
 .ecu-page .ecu-problem__copy p {
-  font-size: 12.5px;
-  line-height: 1.75;
+  font-size: 14px;
+  line-height: 1.78;
 }
 
 .ecu-page .ecu-problem-point span {
-  font-size: 10.5px;
-  line-height: 1.5;
+  font-size: 11.5px;
+  line-height: 1.55;
 }
 
 /* Process */
 .ecu-page .ecu-process__header p {
-  font-size: 11.5px;
+  font-size: 12px;
 }
 
 .ecu-page .ecu-step h3 {
-  font-size: 11.5px;
+  font-size: 13.5px;
 }
 
 .ecu-page .ecu-step p {
-  max-width: 250px;
-  font-size: 10.5px;
-  line-height: 1.62;
+  max-width: 265px;
+  font-size: 12px;
+  line-height: 1.65;
 }
 
-/* Shipping */
-.ecu-page .ecu-shipping__copy > p {
-  font-size: 12.5px;
-  line-height: 1.72;
+/* Replace the old generated map / parcel composition with the supplied artwork. */
+.ecu-page .ecu-shipping {
+  position: relative;
+  overflow: hidden;
+  min-height: 0;
+  padding: 0 !important;
+  border-top: 1px solid rgba(229, 173, 49, 0.32);
+  border-bottom: 1px solid rgba(229, 173, 49, 0.32);
+  background: #030405;
 }
 
-.ecu-page .ecu-shipping__feature {
-  font-size: 10.5px;
+.ecu-page .ecu-shipping::before {
+  display: none !important;
+  content: none !important;
 }
 
-.ecu-page .ecu-parcel-badge {
-  font-size: 10px;
+.ecu-page .ecu-shipping::after {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2048 / 608;
+  content: "";
+  background: url("../assets/Wysyłka w całej Polsce.png") center / 100% 100% no-repeat;
+}
+
+.ecu-page .ecu-shipping__grid {
+  display: none !important;
 }
 
 /* Realizations */
 .ecu-page .ecu-realization-card__body small {
-  font-size: 9.5px;
+  font-size: 10px;
 }
 
 .ecu-page .ecu-realization-card__body h3 {
-  font-size: 14.5px;
+  font-size: 16px;
 }
 
 .ecu-page .ecu-realization-card__body p {
-  font-size: 10.5px;
+  font-size: 12px;
 }
 
 /* FAQ / technical / FLEX */
 .ecu-page .ecu-tech-block h2 {
-  font-size: 27px;
+  font-size: 29px;
 }
 
 .ecu-page .ecu-tech-block > p {
-  font-size: 11.5px;
-  line-height: 1.7;
+  font-size: 13px;
+  line-height: 1.72;
 }
 
 .ecu-page .ecu-faq__question {
-  min-height: 52px;
-  font-size: 10.5px;
+  min-height: 56px;
+  font-size: 12.5px;
 }
 
 .ecu-page .ecu-faq__answer {
-  font-size: 10.5px;
-  line-height: 1.7;
+  font-size: 12px;
+  line-height: 1.72;
 }
 
 .ecu-page .ecu-mode strong {
-  font-size: 10.5px;
+  font-size: 11.5px;
 }
 
 .ecu-page .ecu-mode span {
-  font-size: 9px;
-  line-height: 1.5;
+  font-size: 10px;
+  line-height: 1.55;
 }
 
 .ecu-page .ecu-flex-card__head strong {
-  font-size: 10.5px;
+  font-size: 11.5px;
 }
 
 .ecu-page .ecu-flex-card__head span {
-  font-size: 9.5px;
+  font-size: 10.5px;
 }
 
 .ecu-page .ecu-flex-list div {
-  font-size: 10.5px;
+  font-size: 11.5px;
 }
 
 /* Bottom CTA + footer */
 .ecu-page .ecu-cta h2 {
-  font-size: 27px;
+  font-size: 30px;
 }
 
 .ecu-page .ecu-cta p {
-  font-size: 10.5px;
+  font-size: 12px;
 }
 
 .ecu-page .ecu-footer-brand__copy strong {
-  font-size: 11.5px;
+  font-size: 12.5px;
 }
 
 .ecu-page .ecu-footer-brand__copy span,
 .ecu-page .ecu-footer-contact a,
 .ecu-page .ecu-footer-contact span {
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .ecu-page .ecu-footer-slogan,
 .ecu-page .ecu-footer-bottom__inner {
-  font-size: 9px;
+  font-size: 9.5px;
 }
 
 @media (max-width: 1180px) {
   .ecu-page .ecu-logo {
     width: 205px;
-    height: 76px;
+    height: 80px;
     flex-basis: 205px;
   }
 
@@ -265,51 +289,65 @@
   }
 
   .ecu-page .ecu-nav a {
-    font-size: 11.5px;
+    font-size: 12px;
+  }
+
+  .ecu-page .ecu-section-title {
+    font-size: clamp(38px, 4vw, 48px);
   }
 }
 
 @media (max-width: 980px) {
   .ecu-page .ecu-logo {
     width: 205px;
-    height: 70px;
+    height: 74px;
   }
 
   .ecu-page .ecu-header__inner {
     grid-template-columns: 1fr auto;
-    min-height: 78px;
+    min-height: 82px;
   }
 
   .ecu-page .ecu-mobile-menu a {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .ecu-page .ecu-footer-brand {
     padding-left: 0;
-    padding-top: 92px;
+    padding-top: 104px;
   }
 
   .ecu-page .ecu-footer-brand::before {
     top: 0;
+    width: 235px;
+    height: 92px;
     transform: none;
   }
 }
 
 @media (max-width: 680px) {
+  .ecu-page .ecu-logo {
+    width: 185px;
+    height: 68px;
+  }
+
   .ecu-page .ecu-hero__lead,
   .ecu-page .ecu-section-copy {
-    font-size: 14px;
+    font-size: 15px;
+  }
+
+  .ecu-page .ecu-benefit h2 {
+    font-size: 20px;
   }
 
   .ecu-page .ecu-benefit p,
-  .ecu-page .ecu-problem__copy p,
-  .ecu-page .ecu-shipping__copy > p {
-    font-size: 12px;
+  .ecu-page .ecu-problem__copy p {
+    font-size: 13px;
   }
 
   .ecu-page .ecu-service-card h3,
   .ecu-page .ecu-step h3 {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .ecu-page .ecu-service-card p,
@@ -317,6 +355,11 @@
   .ecu-page .ecu-faq__question,
   .ecu-page .ecu-faq__answer,
   .ecu-page .ecu-flex-list div {
-    font-size: 10.5px;
+    font-size: 11.5px;
+  }
+
+  .ecu-page .ecu-shipping::after {
+    aspect-ratio: 2048 / 720;
+    background-size: cover;
   }
 }
