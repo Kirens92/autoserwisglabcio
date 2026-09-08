@@ -1,0 +1,169 @@
+/* Phone-only contact mode for /nowa-strona */
+.home-page .home-contact-form,
+.home-page a[href^="mailto:"] {
+  display: none !important;
+}
+
+.home-page .home-contact__grid {
+  grid-template-columns: minmax(0, 1fr) !important;
+  max-width: 980px;
+}
+
+.home-page .home-contact__copy {
+  max-width: 920px;
+}
+
+.home-page .home-contact-phonebox {
+  margin-top: 28px;
+  padding: 24px;
+}
+
+.home-page .home-contact-phonebox > span {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--home-gold);
+}
+
+.home-page .home-contact-phonebox a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: fit-content;
+  margin-top: 10px;
+  font-size: clamp(22px, 2.1vw, 31px);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.home-page .home-contact-phonebox a svg {
+  width: 24px;
+  height: 24px;
+  color: var(--home-gold);
+}
+
+.home-page .home-contact-meta {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.home-page .home-contact-meta > div:nth-child(3) {
+  display: none !important;
+}
+
+/* Phone chooser opened by “Zadzwoń teraz”. */
+.glabcio-phone-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, .76);
+  backdrop-filter: blur(10px);
+}
+
+.glabcio-phone-modal__dialog {
+  position: relative;
+  width: min(520px, 100%);
+  padding: 30px;
+  border: 1px solid rgba(240, 169, 40, .38);
+  background: linear-gradient(180deg, #0d0d0d, #070707);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, .62), 0 0 45px rgba(240, 169, 40, .08);
+  color: #f6f2e8;
+}
+
+.glabcio-phone-modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  background: #0b0b0b;
+  color: #fff;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.glabcio-phone-modal__eyebrow {
+  margin: 0 46px 8px 0;
+  color: #f0a928;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.glabcio-phone-modal__dialog h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(31px, 5vw, 43px);
+  line-height: 1.05;
+}
+
+.glabcio-phone-modal__dialog > p {
+  margin: 14px 0 0;
+  color: #aaa;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.glabcio-phone-modal__phones {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.glabcio-phone-modal__phones a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 66px;
+  padding: 0 18px;
+  border: 1px solid rgba(240, 169, 40, .32);
+  background: rgba(240, 169, 40, .045);
+  color: #fff;
+  text-decoration: none;
+  font-size: 21px;
+  font-weight: 800;
+  transition: .2s ease;
+}
+
+.glabcio-phone-modal__phones a:hover {
+  border-color: #f0a928;
+  background: rgba(240, 169, 40, .1);
+  transform: translateY(-1px);
+}
+
+.glabcio-phone-modal__phones a span:last-child {
+  color: #f0a928;
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+@media (max-width: 760px) {
+  .home-page .home-contact-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .home-page .home-contact-phonebox a {
+    font-size: 22px;
+  }
+
+  .glabcio-phone-modal__dialog {
+    padding: 25px 20px 20px;
+  }
+
+  .glabcio-phone-modal__phones a {
+    min-height: 62px;
+    padding: 0 14px;
+    font-size: 18px;
+  }
+}
