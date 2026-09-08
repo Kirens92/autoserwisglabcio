@@ -1,118 +1,191 @@
-import { useMemo } from "react";
-import { Star } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ExternalLink, MessageSquareQuote, Star } from "lucide-react";
 
-// Pula pozytywnych opinii (wszystkie 5/5). Kolejność losowana przy każdym wejściu.
-const reviewsPool = [
-  {
-    name: "Marcin K.",
-    text: "Świetny serwis! Szybka i profesjonalna obsługa. Polecam każdemu kto szuka uczciwego mechanika.",
-  },
-  {
-    name: "Anna W.",
-    text: "Bardzo rzetelna firma. Diagnoza problemu trafna, naprawa szybka i w rozsądnej cenie.",
-  },
-  {
-    name: "Tomasz P.",
-    text: "Najlepszy serwis w Ostrowie! Pan Krzysztof dokładnie wyjaśnia co jest do naprawy. Profesjonalizm.",
-  },
-  {
-    name: "Paweł M.",
-    text: "Uczciwie, konkretnie i bez naciągania. Naprawili to, co faktycznie było do naprawy. Polecam!",
-  },
-  {
-    name: "Karolina S.",
-    text: "Miła obsługa i szybki termin. Auto wróciło sprawne, a cena bardzo przystępna. Wrócę na pewno.",
-  },
-  {
-    name: "Grzegorz L.",
-    text: "Fachowo podeszli do usterki, której inni nie potrafili znaleźć. Wielki plus za diagnostykę.",
-  },
-  {
-    name: "Michał D.",
-    text: "Solidny warsztat, dobry kontakt i wszystko wyjaśnione. Czuć, że robią to z pasją.",
-  },
-  {
-    name: "Ewelina R.",
-    text: "Naprawa ekspresowa, a do tego uczciwa wycena. Wreszcie mechanik, któremu można zaufać.",
-  },
-  {
-    name: "Robert N.",
-    text: "Polecam w 100%. Profesjonalne podejście, szybko i bezproblemowo. Auto jak nowe.",
-  },
-  {
-    name: "Katarzyna B.",
-    text: "Bardzo dobry serwis. Pomogli od ręki, cena adekwatna do usługi. Będę wracać.",
-  },
-];
+type GoogleReview = {
+  id: string;
+  rating: number;
+  text: string;
+  relativeTime?: string;
+  googleMapsUri?: string;
+  author: {
+    name: string;
+    uri?: string;
+    photoUri?: string;
+  };
+};
 
-function shuffle<T>(arr: T[]): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
+type GoogleReviewsPayload = {
+  live: boolean;
+  configured?: boolean;
+  rating?: number;
+  reviewCount?: number;
+  googleMapsUri?: string;
+  reviews?: GoogleReview[];
+};
 
-const ReviewCard = ({ name, text }: { name: string; text: string }) => (
-  <div className="w-[280px] sm:w-[340px] shrink-0 bg-card border gold-border p-6 sm:p-8 card-shadow">
-    <div className="flex gap-1 mb-6">
-      {Array.from({ length: 5 }).map((_, j) => (
-        <Star key={j} className="w-4 h-4 fill-primary text-primary" />
+function Stars({ rating }: { rating: number }) {
+  return (
+    <div className="flex gap-1" aria-label={`Ocena ${rating} na 5`}>
+      {Array.from({ length: 5 }).map((_, index) => (
+        <Star
+          key={index}
+          className={`h-4 w-4 ${index < Math.round(rating) ? "fill-primary text-primary" : "text-muted-foreground/30"}`}
+        />
       ))}
     </div>
-    <p className="text-secondary-foreground mb-8 leading-relaxed font-body font-light text-sm italic">
-      „{text}"
-    </p>
-    <div className="gold-line mb-4" />
-    <p className="font-heading font-semibold text-foreground">{name}</p>
-  </div>
-);
+  );
+}
+
+function ReviewCard({ review }: { review: GoogleReview }) {
+  const card = (
+    <div className="w-[300px] shrink-0 border border-primary/20 bg-card p-6 card-shadow sm:w-[360px] sm:p-8">
+      <div className="mb-5 flex items-start justify-between gap-4">
+        <div className="flex min-w-0 items-center gap-3">
+          {review.author.photoUri ? (
+            <img
+              src={review.author.photoUri}
+              alt=""
+              className="h-11 w-11 shrink-0 rounded-full object-cover"
+              loading="lazy"
+              referrerPolicy="no-referrer"
+            />
+          ) : (
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary/10 font-heading font-bold text-primary">
+              {review.author.name.slice(0, 1).toUpperCase()}
+            </div>
+          )}
+
+          <div className="min-w-0">
+            {review.author.uri ? (
+              <a
+                href={review.author.uri}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block truncate font-heading font-semibold text-foreground transition-colors hover:text-primary"
+              >
+                {review.author.name}
+              </a>
+            ) : (
+              <p className="truncate font-heading font-semibold text-foreground">{review.author.name}</p>
+            )}
+            {review.relativeTime && <p className="mt-1 text-xs text-muted-foreground">{review.relativeTime}</p>}
+          </div>
+        </div>
+
+        <MessageSquareQuote className="h-5 w-5 shrink-0 text-primary/70" />
+      </div>
+
+      <Stars rating={review.rating} />
+
+      <p className="mt-5 line-clamp-6 min-h-[120px] text-sm font-light leading-relaxed text-secondary-foreground">
+        „{review.text}”
+      </p>
+
+      <div className="gold-line mb-4 mt-6" />
+
+      {review.googleMapsUri ? (
+        <a
+          href={review.googleMapsUri}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary transition-colors hover:text-gold-light"
+        >
+          Opinia w Google Maps
+          <ExternalLink className="h-3.5 w-3.5" />
+        </a>
+      ) : (
+        <span className="text-xs uppercase tracking-wider text-muted-foreground">Google Maps</span>
+      )}
+    </div>
+  );
+
+  return card;
+}
 
 const Reviews = () => {
-  // Losowa kolejność ustalana raz przy załadowaniu strony.
-  const reviews = useMemo(() => shuffle(reviewsPool), []);
+  const [data, setData] = useState<GoogleReviewsPayload | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    fetch("/api/google-reviews", {
+      cache: "no-store",
+      signal: controller.signal,
+    })
+      .then(async (response) => {
+        const payload = (await response.json()) as GoogleReviewsPayload;
+        if (!response.ok || !payload.live) throw new Error("Google reviews unavailable");
+        setData(payload);
+      })
+      .catch((error) => {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        setData(null);
+      })
+      .finally(() => setLoading(false));
+
+    return () => controller.abort();
+  }, []);
+
+  const reviews = (data?.reviews ?? []).filter((review) => review.text.trim().length > 0);
+  const rating = data?.rating;
+  const reviewCount = data?.reviewCount;
 
   return (
-    <section id="opinie" className="py-20 md:py-28 bg-background relative overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-gold opacity-20" />
+    <section id="opinie" className="relative overflow-hidden bg-background py-20 md:py-28">
+      <div className="absolute left-0 right-0 top-0 h-px bg-gradient-gold opacity-20" />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-14 md:mb-20">
-          <p className="text-primary font-body text-xs tracking-[0.3em] uppercase mb-4">Zaufali nam</p>
-          <h2 className="text-3xl md:text-5xl font-heading font-bold text-foreground mb-6">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mb-14 text-center md:mb-16">
+          <p className="mb-4 font-body text-xs uppercase tracking-[0.3em] text-primary">Zaufali nam</p>
+          <h2 className="mb-6 font-heading text-3xl font-bold text-foreground md:text-5xl">
             Opinie <span className="text-gradient-gold">Klientów</span>
           </h2>
-          <div className="gold-line mx-auto mb-4" />
-          <p className="text-muted-foreground text-sm font-body">
-            Ocena 4.9/5 na podstawie 103 opinii Google
-          </p>
+          <div className="gold-line mx-auto mb-5" />
+
+          {rating !== undefined && reviewCount !== undefined ? (
+            <div className="flex flex-col items-center justify-center gap-3">
+              <div className="flex items-center gap-3">
+                <span className="font-heading text-3xl font-bold text-primary">{rating.toFixed(1).replace(".", ",")}</span>
+                <Stars rating={rating} />
+              </div>
+              <p className="font-body text-sm text-muted-foreground">
+                Na podstawie {reviewCount} opinii w Google Maps
+              </p>
+            </div>
+          ) : loading ? (
+            <p className="font-body text-sm text-muted-foreground">Pobieramy aktualne opinie z Google Maps…</p>
+          ) : (
+            <p className="font-body text-sm text-muted-foreground">
+              Aktualne opinie są chwilowo niedostępne. Możesz zobaczyć je bezpośrednio w Google Maps.
+            </p>
+          )}
         </div>
       </div>
 
-      {/* Automatycznie przesuwająca się taśma opinii */}
-      <div className="group relative">
-        {/* delikatne wygaszenie na krawędziach */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-24 z-10 bg-gradient-to-r from-background to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-24 z-10 bg-gradient-to-l from-background to-transparent" />
+      {reviews.length > 0 && (
+        <div className="group relative">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-background to-transparent sm:w-24" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-background to-transparent sm:w-24" />
 
-        <div className="flex w-max gap-6 md:gap-8 animate-marquee group-hover:[animation-play-state:paused]">
-          {[...reviews, ...reviews].map((review, i) => (
-            <ReviewCard key={`${review.name}-${i}`} name={review.name} text={review.text} />
-          ))}
+          <div className="flex w-max gap-6 animate-marquee group-hover:[animation-play-state:paused] md:gap-8">
+            {[...reviews, ...reviews].map((review, index) => (
+              <ReviewCard key={`${review.id}-${index}`} review={review} />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="text-center mt-12">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mt-12 text-center">
           <a
-            href="https://www.google.com/search?q=Auto+Serwis+Gl%40bcio+Opinie"
+            href={data?.googleMapsUri || "https://www.google.com/search?q=Auto+Serwis+Gl%40bcio+Opinie"}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-primary hover:text-gold-light font-body text-sm tracking-wider uppercase transition-colors"
+            className="inline-flex items-center gap-2 font-body text-sm uppercase tracking-wider text-primary transition-colors hover:text-gold-light"
           >
-            Zobacz wszystkie opinie
-            <span>→</span>
+            Zobacz wszystkie opinie w Google Maps
+            <ExternalLink className="h-4 w-4" />
           </a>
         </div>
       </div>
