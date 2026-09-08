@@ -8,6 +8,8 @@ import NotFound from "./pages/NotFound";
 import Admin from "./pages/Admin";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminEcuTcu from "./pages/AdminEcuTcu";
+import AdminGoogleReviews from "./pages/AdminGoogleReviews";
+import AdminSettings from "./pages/AdminSettings";
 import Realizations from "./pages/Realizations";
 import RealizationDetail from "./pages/RealizationDetail";
 import AdminRealizations from "./pages/AdminRealizations";
@@ -33,6 +35,9 @@ const App = () => (
           <Route path="/admin/ecu-tcu" element={<AdminEcuTcu />} />
           <Route path="/admin/uslugi" element={<Admin />} />
           <Route path="/admin/realizacje" element={<AdminRealizations />} />
+          <Route path="/admin/opinie" element={<AdminGoogleReviews />} />
+          <Route path="/admin/seo" element={<AdminSiteContent />} />
+          <Route path="/admin/ustawienia" element={<AdminSettings />} />
           <Route path="/realizacje" element={<Realizations />} />
           <Route path="/realizacje/:slug" element={<RealizationDetail />} />
           <Route path="/uslugi" element={<ServicesPage />} />
