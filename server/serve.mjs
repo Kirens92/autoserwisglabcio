@@ -11,6 +11,7 @@ const DATA_DIR = path.resolve(process.env.DATA_DIR || "data");
 const SERVICES_FILE = path.join(DATA_DIR, "services.json");
 const REALIZATIONS_FILE = path.join(DATA_DIR, "realizations.json");
 const SITE_CONTENT_FILE = path.join(DATA_DIR, "site-content.json");
+const ECU_TCU_FILE = path.join(DATA_DIR, "ecu-tcu.json");
 const UPLOADS_DIR = path.join(DATA_DIR, "uploads");
 const ADMIN_LOGIN = process.env.ADMIN_LOGIN;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
@@ -103,6 +104,10 @@ function siteContent() {
   return readJsonFile(SITE_CONTENT_FILE, {});
 }
 
+function ecuTcuContent() {
+  return readJsonFile(ECU_TCU_FILE, {});
+}
+
 function validServices(data) {
   return Array.isArray(data) && data.every((item) => item && typeof item.title === "string" && typeof item.description === "string" && typeof item.icon === "string" && (!item.items || (Array.isArray(item.items) && item.items.every((entry) => typeof entry === "string"))));
 }
@@ -123,6 +128,25 @@ function validSiteContent(data) {
     Array.isArray(data.about?.stats) &&
     Array.isArray(data.process?.steps) &&
     Array.isArray(data.reviews?.items)
+  );
+}
+
+function validEcuTcuContent(data) {
+  return Boolean(
+    data &&
+    typeof data === "object" &&
+    typeof data.seo?.title === "string" &&
+    typeof data.seo?.description === "string" &&
+    typeof data.hero?.titleLine1 === "string" &&
+    typeof data.hero?.titleLine2 === "string" &&
+    Array.isArray(data.hero?.trust) &&
+    Array.isArray(data.benefits) &&
+    Array.isArray(data.services?.items) &&
+    Array.isArray(data.problem?.bullets) &&
+    Array.isArray(data.flex?.modes) &&
+    Array.isArray(data.process?.steps) &&
+    Array.isArray(data.shipping?.points) &&
+    Array.isArray(data.faq?.items)
   );
 }
 
@@ -186,6 +210,11 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  if (url.pathname === "/api/ecu-tcu" && req.method === "GET") {
+    sendJson(res, 200, ecuTcuContent(), { "cache-control": "no-store" });
+    return;
+  }
+
   if (url.pathname === "/api/google-reviews" && req.method === "GET") {
     try {
       const data = await googleReviews();
@@ -209,6 +238,22 @@ const server = http.createServer(async (req, res) => {
       sendJson(res, 200, data, { "cache-control": "no-store" });
     } catch {
       sendJson(res, 400, { message: "Nieprawidłowa struktura treści strony" });
+    }
+    return;
+  }
+
+  if (url.pathname === "/api/admin/ecu-tcu" && req.method === "PUT") {
+    if (!isAdmin(req)) {
+      sendJson(res, 401, { message: "Brak dostępu" });
+      return;
+    }
+    try {
+      const data = JSON.parse((await readBody(req)).toString("utf8"));
+      if (!validEcuTcuContent(data)) throw new Error("invalid");
+      writeJsonFile(ECU_TCU_FILE, data);
+      sendJson(res, 200, data, { "cache-control": "no-store" });
+    } catch {
+      sendJson(res, 400, { message: "Nieprawidłowa struktura treści ECU / TCU" });
     }
     return;
   }
