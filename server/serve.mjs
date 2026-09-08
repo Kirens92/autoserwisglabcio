@@ -15,6 +15,8 @@ const UPLOADS_DIR = path.join(DATA_DIR, "uploads");
 const ADMIN_LOGIN = process.env.ADMIN_LOGIN;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 const SESSION_SECRET = process.env.SESSION_SECRET;
+const GOOGLE_PLACES_API_KEY = process.env.GOOGLE_PLACES_API_KEY;
+const GOOGLE_PLACE_ID = process.env.GOOGLE_PLACE_ID || "ChIJeY3aNu-1GkcRNZCeCraEeZI";
 
 function readBody(req) {
   return new Promise((resolve) => {
@@ -124,6 +126,48 @@ function validSiteContent(data) {
   );
 }
 
+async function googleReviews() {
+  if (!GOOGLE_PLACES_API_KEY) {
+    return { live: false, configured: false };
+  }
+
+  const endpoint = `https://places.googleapis.com/v1/places/${encodeURIComponent(GOOGLE_PLACE_ID)}?languageCode=pl`;
+  const response = await fetch(endpoint, {
+    headers: {
+      "X-Goog-Api-Key": GOOGLE_PLACES_API_KEY,
+      "X-Goog-FieldMask": "rating,userRatingCount,reviews,googleMapsUri",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Google Places API returned ${response.status}`);
+  }
+
+  const place = await response.json();
+  return {
+    live: true,
+    configured: true,
+    rating: typeof place.rating === "number" ? place.rating : undefined,
+    reviewCount: typeof place.userRatingCount === "number" ? place.userRatingCount : undefined,
+    googleMapsUri: place.googleMapsUri,
+    reviews: Array.isArray(place.reviews)
+      ? place.reviews.slice(0, 5).map((review) => ({
+          id: review.name || review.googleMapsUri || crypto.randomUUID(),
+          rating: typeof review.rating === "number" ? review.rating : 5,
+          text: review.text?.text || review.originalText?.text || "",
+          relativeTime: review.relativePublishTimeDescription,
+          googleMapsUri: review.googleMapsUri,
+          flagContentUri: review.flagContentUri,
+          author: {
+            name: review.authorAttribution?.displayName || "Użytkownik Google",
+            uri: review.authorAttribution?.uri,
+            photoUri: review.authorAttribution?.photoUri,
+          },
+        }))
+      : [],
+  };
+}
+
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
 
@@ -139,6 +183,17 @@ const server = http.createServer(async (req, res) => {
 
   if (url.pathname === "/api/site-content" && req.method === "GET") {
     sendJson(res, 200, siteContent(), { "cache-control": "no-store" });
+    return;
+  }
+
+  if (url.pathname === "/api/google-reviews" && req.method === "GET") {
+    try {
+      const data = await googleReviews();
+      sendJson(res, data.live ? 200 : 503, data, { "cache-control": "no-store" });
+    } catch (error) {
+      console.error("Google reviews:", error instanceof Error ? error.message : "unknown error");
+      sendJson(res, 502, { live: false, configured: Boolean(GOOGLE_PLACES_API_KEY) }, { "cache-control": "no-store" });
+    }
     return;
   }
 
