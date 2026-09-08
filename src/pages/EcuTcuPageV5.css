@@ -1,0 +1,19 @@
+/* ECU / TCU visual pass #5 — use the exact nowelogo.png asset. */
+
+.ecu-page .ecu-logo {
+  background-image: url("../assets/nowelogo.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.ecu-page .ecu-logo img {
+  opacity: 0;
+}
+
+.ecu-page .ecu-footer-brand::before {
+  background-image: url("../assets/nowelogo.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
