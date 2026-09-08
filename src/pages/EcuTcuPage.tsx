@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type LucideIcon } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   ArrowRight,
   CarFront,
@@ -19,6 +19,7 @@ import {
   ShieldCheck,
   Wrench,
   X,
+  type LucideIcon,
 } from "lucide-react";
 import logo from "@/assets/nowelogobg.png";
 import heroBg from "@/assets/hero-bg.png";
