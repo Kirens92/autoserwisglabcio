@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState, type LucideIcon } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   BarChart3,
@@ -13,6 +13,7 @@ import {
   Settings,
   Star,
   Wrench,
+  type LucideIcon,
 } from "lucide-react";
 import logo from "@/assets/nowelogobg.png";
 
