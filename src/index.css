@@ -3,6 +3,7 @@
 @import "./pages/EcuTcuPageV3.css";
 @import "./pages/EcuTcuPageV4.css";
 @import "./pages/EcuTcuPageV5.css";
+@import "./pages/EcuTcuPageV6.css";
 
 @tailwind base;
 @tailwind components;
