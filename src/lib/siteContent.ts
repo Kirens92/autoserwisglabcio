@@ -1,0 +1,223 @@
+export type SiteService = {
+  icon: string;
+  title: string;
+  text: string;
+};
+
+export type SiteReview = {
+  name: string;
+  text: string;
+};
+
+export type SiteBrand = {
+  name: string;
+  description: string;
+  tags: string[];
+};
+
+export type SiteContent = {
+  seo: {
+    title: string;
+    description: string;
+    robots: string;
+  };
+  business: {
+    phone: string;
+    phoneHref: string;
+    email: string;
+    street: string;
+    postalCode: string;
+    city: string;
+    hoursWeekdays: string;
+    hoursSaturday: string;
+    hoursSunday: string;
+  };
+  navigation: Array<{ label: string; href: string }>;
+  hero: {
+    eyebrow: string;
+    titleLine1: string;
+    titleLine2: string;
+    description: string;
+    primaryCta: string;
+    secondaryCta: string;
+    trustPoints: Array<{ title: string; text: string }>;
+    diagnosticEyebrow: string;
+    diagnosticTitle: string;
+    diagnosticCenterTop: string;
+    diagnosticCenterMain: string;
+    diagnosticCenterBottom: string;
+    diagnosticItems: string[];
+  };
+  specialization: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    brands: SiteBrand[];
+  };
+  services: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    buttonLabel: string;
+    items: SiteService[];
+  };
+  about: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    bullets: string[];
+    stats: Array<{ value: string; label: string }>;
+  };
+  process: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    steps: Array<{ number: string; title: string; text: string }>;
+  };
+  reviews: {
+    eyebrow: string;
+    title: string;
+    ratingLabel: string;
+    items: SiteReview[];
+  };
+  cta: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    primaryLabel: string;
+    secondaryLabel: string;
+  };
+  footer: {
+    description: string;
+    quickLinks: Array<{ label: string; href: string }>;
+    bottomText: string;
+  };
+};
+
+export const defaultSiteContent: SiteContent = {
+  seo: {
+    title: "Auto Serwis Gl@bcio – Peugeot i Citroën | Ostrów Wielkopolski",
+    description: "Auto Serwis Gl@bcio w Ostrowie Wielkopolskim. Specjalizacja Peugeot i Citroën, diagnostyka, mechanika, elektryka i kompleksowy serwis samochodowy.",
+    robots: "noindex, follow",
+  },
+  business: {
+    phone: "+48 530 978 968",
+    phoneHref: "+48530978968",
+    email: "glabcio@interia.pl",
+    street: "Raszkowska 53",
+    postalCode: "63-400",
+    city: "Ostrów Wielkopolski",
+    hoursWeekdays: "8:00–17:00",
+    hoursSaturday: "8:00–13:00",
+    hoursSunday: "zamknięte",
+  },
+  navigation: [
+    { label: "Specjalizacja", href: "#specjalizacja" },
+    { label: "Usługi", href: "#uslugi" },
+    { label: "O nas", href: "#o-nas" },
+    { label: "Opinie", href: "#opinie" },
+    { label: "Kontakt", href: "#kontakt" },
+  ],
+  hero: {
+    eyebrow: "Profesjonalny serwis samochodowy",
+    titleLine1: "Twój samochód.",
+    titleLine2: "Nasza specjalizacja.",
+    description: "Rzetelna diagnostyka, precyzyjna mechanika i doświadczenie w obsłudze samochodów Peugeot i Citroën. Bez przypadkowych decyzji — najpierw diagnoza, potem konkretna naprawa.",
+    primaryCta: "Umów wizytę",
+    secondaryCta: "Poznaj nasze usługi",
+    trustPoints: [
+      { title: "Doświadczenie", text: "Wieloletnia praktyka" },
+      { title: "Precyzyjna diagnoza", text: "Bez zgadywania" },
+      { title: "Uczciwe podejście", text: "Jasny zakres napraw" },
+    ],
+    diagnosticEyebrow: "Centrum diagnostyczne",
+    diagnosticTitle: "Serwis oparty na danych",
+    diagnosticCenterTop: "Specjalizacja",
+    diagnosticCenterMain: "PSA",
+    diagnosticCenterBottom: "Stellantis",
+    diagnosticItems: ["Diagnostyka", "Mechanika", "Elektryka", "Serwis"],
+  },
+  specialization: {
+    eyebrow: "Nasza specjalizacja",
+    title: "Peugeot i Citroën znamy od strony praktycznej.",
+    description: "Skupiamy się na samochodach grupy PSA / Stellantis. Dzięki temu szybciej łączymy objawy z typowymi przyczynami i możemy prowadzić diagnostykę bardziej metodycznie.",
+    brands: [
+      {
+        name: "Peugeot",
+        description: "Diagnostyka, obsługa serwisowa, mechanika, układy emisji spalin, elektryka i problemy eksploatacyjne.",
+        tags: ["PureTech", "BlueHDi", "AdBlue / SCR", "EAT", "BSI / elektronika"],
+      },
+      {
+        name: "Citroën",
+        description: "Kompleksowa obsługa układów mechanicznych i elektronicznych oraz diagnostyka charakterystycznych usterek platform PSA.",
+        tags: ["PureTech", "BlueHDi", "AdBlue / SCR", "EAT", "BSI / elektronika"],
+      },
+    ],
+  },
+  services: {
+    eyebrow: "Nasze usługi",
+    title: "Kompleksowa obsługa serwisowa",
+    description: "Od diagnostyki po naprawę — jeden warsztat i jasna informacja o tym, co naprawdę wymaga uwagi.",
+    buttonLabel: "Zobacz wszystkie usługi",
+    items: [
+      { icon: "SearchCheck", title: "Diagnostyka komputerowa", text: "Precyzyjna diagnostyka usterek i parametrów pracy." },
+      { icon: "Wrench", title: "Mechanika pojazdowa", text: "Naprawy bieżące, serwis i kompleksowa obsługa." },
+      { icon: "Gauge", title: "Układ hamulcowy", text: "Tarcze, klocki, płyn hamulcowy i kontrola układu." },
+      { icon: "Sparkles", title: "Serwis olejowy", text: "Olej, filtry i obsługa zgodna z wymaganiami auta." },
+      { icon: "ThermometerSnowflake", title: "Klimatyzacja", text: "Serwis, odgrzybianie i diagnostyka klimatyzacji." },
+      { icon: "Zap", title: "Elektryka", text: "Instalacja, ładowanie, rozruch i usterki elektryczne." },
+      { icon: "BatteryCharging", title: "Akumulator i ładowanie", text: "Testy akumulatora, alternatora i układu rozruchowego." },
+      { icon: "ShieldCheck", title: "Kontrola przed zakupem", text: "Weryfikacja stanu technicznego przed zakupem auta." },
+    ],
+  },
+  about: {
+    eyebrow: "Auto Serwis Gl@bcio",
+    title: "Warsztat, w którym diagnoza ma znaczenie.",
+    description: "Stawiamy na rzetelną ocenę usterki, jasne przedstawienie zakresu prac i naprawę wykonaną bez zbędnych wymian. Każde zlecenie traktujemy indywidualnie, a klient otrzymuje konkretną informację, co zostało sprawdzone i dlaczego dana naprawa jest potrzebna.",
+    bullets: ["Rzetelna diagnostyka", "Przejrzysty zakres prac", "Kontakt przed dodatkowymi kosztami", "Doświadczenie w PSA / Stellantis"],
+    stats: [
+      { value: "10+", label: "lat doświadczenia" },
+      { value: "4.9/5", label: "ocena klientów" },
+      { value: "500+", label: "opinii i rekomendacji" },
+      { value: "100%", label: "zaangażowania" },
+    ],
+  },
+  process: {
+    eyebrow: "Jak pracujemy",
+    title: "Prosty proces. Bez niedomówień.",
+    description: "Od pierwszego kontaktu do odbioru samochodu wiesz, na jakim etapie jest zlecenie.",
+    steps: [
+      { number: "01", title: "Kontakt i termin", text: "Ustalamy objawy, zakres wstępny i dogodny termin." },
+      { number: "02", title: "Diagnostyka", text: "Sprawdzamy przyczynę usterki i potwierdzamy zakres prac." },
+      { number: "03", title: "Naprawa", text: "Realizujemy zaakceptowane prace i informujemy o zmianach." },
+      { number: "04", title: "Odbiór", text: "Przekazujemy informacje o wykonanych czynnościach i zaleceniach." },
+    ],
+  },
+  reviews: {
+    eyebrow: "Opinie klientów",
+    title: "Zaufanie budowane naprawami.",
+    ratingLabel: "4.9/5 · Google",
+    items: [
+      { name: "Marek K.", text: "Profesjonalna obsługa, szybka diagnoza i konkretne wyjaśnienie naprawy. Zdecydowanie polecam." },
+      { name: "Anna P.", text: "Bardzo dobry kontakt i uczciwe podejście. Wszystko wykonane sprawnie i w umówionym terminie." },
+      { name: "Jakub T.", text: "Warsztat, do którego można wrócić. Rzetelnie, bez naciągania i z dużą wiedzą techniczną." },
+    ],
+  },
+  cta: {
+    eyebrow: "Umów wizytę",
+    title: "Potrzebujesz diagnostyki lub naprawy?",
+    description: "Skontaktuj się z nami. Ustalimy termin i powiemy, jak przygotować samochód do wizyty.",
+    primaryLabel: "Zadzwoń teraz",
+    secondaryLabel: "Dane kontaktowe",
+  },
+  footer: {
+    description: "Profesjonalny serwis samochodowy w Ostrowie Wielkopolskim. Specjalizacja Peugeot i Citroën.",
+    quickLinks: [
+      { label: "Strona główna", href: "/" },
+      { label: "Usługi", href: "/uslugi" },
+      { label: "Realizacje", href: "/realizacje" },
+      { label: "Peugeot i Citroën", href: "#specjalizacja" },
+    ],
+    bottomText: "Auto Serwis Gl@bcio. Wszelkie prawa zastrzeżone.",
+  },
+};
