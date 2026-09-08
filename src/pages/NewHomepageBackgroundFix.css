@@ -1,0 +1,108 @@
+.home-page {
+  --home-bg: #070707;
+  --home-bg-2: #0a0a0a;
+  --home-card: #0b0b0b;
+  --home-line: rgba(255, 255, 255, 0.08);
+  --home-text: #f6f2e8;
+  --home-muted: #a4a4a4;
+  background: #070707;
+}
+
+.home-page .home-topbar {
+  background: #050505;
+  color: #a8a8a8;
+}
+
+.home-page .home-header {
+  background: rgba(7, 7, 7, 0.96);
+}
+
+.home-page .home-mobile-nav {
+  background: #080808;
+}
+
+.home-page .home-hero {
+  background:
+    radial-gradient(circle at 20% 18%, rgba(240, 169, 40, 0.10), transparent 27%),
+    radial-gradient(circle at 82% 42%, rgba(240, 169, 40, 0.045), transparent 24%),
+    linear-gradient(180deg, #080808 0%, #0b0b0b 68%, #070707 100%);
+}
+
+.home-page .home-hero__media,
+.home-page .home-service-card__image,
+.home-page .home-realization-card__image,
+.home-page .home-about__image {
+  background: #030303;
+}
+
+.home-page .home-hero-card {
+  background: rgba(7, 7, 7, 0.92);
+}
+
+.home-page .home-specialization {
+  background: linear-gradient(180deg, #0a0a0a 0%, #080808 100%);
+}
+
+.home-page .home-brand-card {
+  background: #070707;
+}
+
+.home-page .home-brand-card__overlay {
+  background:
+    linear-gradient(90deg, rgba(5, 5, 5, 0.96) 0%, rgba(5, 5, 5, 0.74) 46%, rgba(5, 5, 5, 0.18) 100%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.45), transparent 60%);
+}
+
+.home-page .home-services,
+.home-page .home-about,
+.home-page .home-reviews,
+.home-page .home-shipping {
+  background: #080808;
+}
+
+.home-page .home-service-card,
+.home-page .home-realization-card,
+.home-page .home-review-card,
+.home-page .home-contact-form {
+  background: #0b0b0b;
+}
+
+.home-page .home-service-card__icon {
+  border-color: #0b0b0b;
+}
+
+.home-page .home-realizations,
+.home-page .home-process {
+  background: linear-gradient(180deg, #0b0b0b 0%, #080808 100%);
+}
+
+.home-page .home-process-grid article {
+  background: #090909;
+}
+
+.home-page .home-contact {
+  background:
+    radial-gradient(circle at 80% 20%, rgba(240, 169, 40, 0.055), transparent 24%),
+    #090909;
+}
+
+.home-page .home-contact-phonebox,
+.home-page .home-contact-meta > div,
+.home-page .home-shipping__frame {
+  background: #0b0b0b;
+}
+
+.home-page .home-footer {
+  background: #050505;
+}
+
+.home-page .home-footer__bottom {
+  background: #040404;
+}
+
+@media (max-width: 980px) {
+  .home-page .home-header,
+  .home-page .home-mobile-nav {
+    background: rgba(7, 7, 7, 0.98);
+  }
+}
