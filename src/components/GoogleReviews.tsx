@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ExternalLink, FileCheck2, MessageSquareQuote, Star, Wrench } from "lucide-react";
+import { ArrowRight, Cpu, ExternalLink, FileCheck2, MessageSquareQuote, PackageCheck, ShieldCheck, Star, Wrench } from "lucide-react";
 import type { SiteContent } from "@/lib/siteContent";
 
 type GoogleReview = {
@@ -118,6 +118,30 @@ export default function GoogleReviews({ fallback }: Props) {
 
   return (
     <div ref={sectionRef}>
+      <section className="relative overflow-hidden border-y border-primary/20 bg-[#090909] py-20 sm:py-24">
+        <div className="absolute -right-20 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full border border-primary/10" />
+        <div className="absolute -right-8 top-1/2 h-48 w-48 -translate-y-1/2 rounded-full border border-primary/10" />
+        <div className="relative mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.2fr_.8fr] lg:items-center lg:px-8">
+          <div>
+            <div className="text-xs font-bold uppercase tracking-[0.28em] text-primary">Specjalistyczna elektronika samochodowa</div>
+            <h2 className="mt-4 max-w-4xl text-4xl font-bold leading-tight sm:text-5xl">Modyfikacje i naprawa sterowników <span className="text-primary">ECU | TCU</span></h2>
+            <p className="mt-6 max-w-3xl text-base leading-8 text-white/55">Diagnostyka, programowanie, kodowanie i klonowanie sterowników silnika oraz skrzyń biegów. Oryginalny sprzęt FLEX, tryby OBD / BENCH / BOOT i możliwość obsługi wysyłkowej sterowników z całej Polski.</p>
+            <div className="mt-7 flex flex-wrap gap-3 text-xs text-white/60">
+              <span className="inline-flex items-center gap-2 border border-primary/25 bg-primary/[0.04] px-4 py-3"><ShieldCheck className="h-4 w-4 text-primary" />Oryginalny FLEX</span>
+              <span className="inline-flex items-center gap-2 border border-primary/25 bg-primary/[0.04] px-4 py-3"><Cpu className="h-4 w-4 text-primary" />OBD / BENCH / BOOT</span>
+              <span className="inline-flex items-center gap-2 border border-primary/25 bg-primary/[0.04] px-4 py-3"><PackageCheck className="h-4 w-4 text-primary" />Obsługa wysyłkowa</span>
+            </div>
+            <a href="/ecu-tcu" className="mt-8 inline-flex items-center gap-3 bg-gradient-gold px-6 py-4 text-sm font-extrabold uppercase tracking-[0.12em] text-black transition hover:brightness-110">Poznaj usługę ECU / TCU <ArrowRight className="h-4 w-4" /></a>
+          </div>
+          <div className="border border-primary/25 bg-black/40 p-6 sm:p-8">
+            <Cpu className="h-9 w-9 text-primary" />
+            <div className="mt-5 text-[10px] font-bold uppercase tracking-[0.22em] text-primary">Jasny proces</div>
+            <div className="mt-3 text-2xl font-bold">Diagnoza → kosztorys → akceptacja → naprawa</div>
+            <p className="mt-4 text-sm leading-7 text-white/45">Przed rozpoczęciem płatnych prac przedstawiamy zakres i kosztorys. Realizacja rozpoczyna się dopiero po akceptacji klienta.</p>
+          </div>
+        </div>
+      </section>
+
       <section id="realizacje" className="border-t border-white/10 bg-[#080808] py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
