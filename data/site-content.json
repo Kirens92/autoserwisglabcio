@@ -18,6 +18,7 @@
   "navigation": [
     { "label": "Specjalizacja", "href": "#specjalizacja" },
     { "label": "Usługi", "href": "#uslugi" },
+    { "label": "Realizacje", "href": "#realizacje" },
     { "label": "O nas", "href": "#o-nas" },
     { "label": "Opinie", "href": "#opinie" },
     { "label": "Kontakt", "href": "#kontakt" }
@@ -26,20 +27,20 @@
     "eyebrow": "Profesjonalny serwis samochodowy",
     "titleLine1": "Twój samochód.",
     "titleLine2": "Nasza specjalizacja.",
-    "description": "Rzetelna diagnostyka, precyzyjna mechanika i doświadczenie w obsłudze samochodów Peugeot i Citroën. Bez przypadkowych decyzji — najpierw diagnoza, potem konkretna naprawa.",
+    "description": "Rzetelna diagnostyka, precyzyjna mechanika i doświadczenie w obsłudze samochodów Peugeot i Citroën. Bez przypadkowych decyzji — najpierw diagnoza, potem konkretny kosztorys i naprawa po akceptacji klienta.",
     "primaryCta": "Umów wizytę",
     "secondaryCta": "Poznaj nasze usługi",
     "trustPoints": [
       { "title": "Doświadczenie", "text": "Wieloletnia praktyka" },
       { "title": "Precyzyjna diagnoza", "text": "Bez zgadywania" },
-      { "title": "Uczciwe podejście", "text": "Jasny zakres napraw" }
+      { "title": "Kosztorys przed naprawą", "text": "Najpierw akceptacja klienta" }
     ],
     "diagnosticEyebrow": "Centrum diagnostyczne",
     "diagnosticTitle": "Serwis oparty na danych",
     "diagnosticCenterTop": "Specjalizacja",
     "diagnosticCenterMain": "PSA",
     "diagnosticCenterBottom": "Stellantis",
-    "diagnosticItems": ["Diagnostyka", "Mechanika", "Elektryka", "Serwis"]
+    "diagnosticItems": ["Diagnostyka", "Kosztorys", "Akceptacja", "Naprawa"]
   },
   "specialization": {
     "eyebrow": "Nasza specjalizacja",
@@ -61,7 +62,7 @@
   "services": {
     "eyebrow": "Nasze usługi",
     "title": "Kompleksowa obsługa serwisowa",
-    "description": "Od diagnostyki po naprawę — jeden warsztat i jasna informacja o tym, co naprawdę wymaga uwagi.",
+    "description": "Od diagnostyki po naprawę — jeden warsztat, przejrzysty kosztorys i jasna informacja o tym, co naprawdę wymaga uwagi.",
     "buttonLabel": "Zobacz wszystkie usługi",
     "items": [
       { "icon": "SearchCheck", "title": "Diagnostyka komputerowa", "text": "Precyzyjna diagnostyka usterek i parametrów pracy." },
@@ -77,8 +78,8 @@
   "about": {
     "eyebrow": "Auto Serwis Gl@bcio",
     "title": "Warsztat, w którym diagnoza ma znaczenie.",
-    "description": "Stawiamy na rzetelną ocenę usterki, jasne przedstawienie zakresu prac i naprawę wykonaną bez zbędnych wymian. Każde zlecenie traktujemy indywidualnie, a klient otrzymuje konkretną informację, co zostało sprawdzone i dlaczego dana naprawa jest potrzebna.",
-    "bullets": ["Rzetelna diagnostyka", "Przejrzysty zakres prac", "Kontakt przed dodatkowymi kosztami", "Doświadczenie w PSA / Stellantis"],
+    "description": "Stawiamy na rzetelną ocenę usterki, jasne przedstawienie zakresu prac i naprawę wykonaną bez zbędnych wymian. Po diagnozie klient otrzymuje kosztorys do akceptacji, a naprawę rozpoczynamy dopiero po zatwierdzeniu zakresu i kosztów.",
+    "bullets": ["Rzetelna diagnostyka", "Kosztorys przed rozpoczęciem naprawy", "Akceptacja klienta przed dodatkowymi kosztami", "Doświadczenie w PSA / Stellantis"],
     "stats": [
       { "value": "10+", "label": "lat doświadczenia" },
       { "value": "4.9/5", "label": "ocena klientów" },
@@ -89,12 +90,13 @@
   "process": {
     "eyebrow": "Jak pracujemy",
     "title": "Prosty proces. Bez niedomówień.",
-    "description": "Od pierwszego kontaktu do odbioru samochodu wiesz, na jakim etapie jest zlecenie.",
+    "description": "Od pierwszego kontaktu do odbioru samochodu wiesz, na jakim etapie jest zlecenie i jaki jest zaakceptowany koszt naprawy.",
     "steps": [
       { "number": "01", "title": "Kontakt i termin", "text": "Ustalamy objawy, zakres wstępny i dogodny termin." },
-      { "number": "02", "title": "Diagnostyka", "text": "Sprawdzamy przyczynę usterki i potwierdzamy zakres prac." },
-      { "number": "03", "title": "Naprawa", "text": "Realizujemy zaakceptowane prace i informujemy o zmianach." },
-      { "number": "04", "title": "Odbiór", "text": "Przekazujemy informacje o wykonanych czynnościach i zaleceniach." }
+      { "number": "02", "title": "Diagnostyka", "text": "Sprawdzamy przyczynę usterki i ustalamy potrzebny zakres prac." },
+      { "number": "03", "title": "Kosztorys i akceptacja", "text": "Po diagnozie wysyłamy klientowi kosztorys z zakresem i kosztami. Naprawę rozpoczynamy dopiero po jego akceptacji." },
+      { "number": "04", "title": "Naprawa", "text": "Realizujemy wyłącznie zaakceptowane prace. O dodatkowych kosztach informujemy przed ich wykonaniem." },
+      { "number": "05", "title": "Odbiór", "text": "Przekazujemy informacje o wykonanych czynnościach i dalszych zaleceniach." }
     ]
   },
   "reviews": {
@@ -110,7 +112,7 @@
   "cta": {
     "eyebrow": "Umów wizytę",
     "title": "Potrzebujesz diagnostyki lub naprawy?",
-    "description": "Skontaktuj się z nami. Ustalimy termin i powiemy, jak przygotować samochód do wizyty.",
+    "description": "Skontaktuj się z nami. Ustalimy termin, wykonamy diagnostykę i przedstawimy kosztorys przed rozpoczęciem naprawy.",
     "primaryLabel": "Zadzwoń teraz",
     "secondaryLabel": "Dane kontaktowe"
   },
