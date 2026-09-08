@@ -10,6 +10,7 @@ import Realizations from "./pages/Realizations";
 import RealizationDetail from "./pages/RealizationDetail";
 import AdminRealizations from "./pages/AdminRealizations";
 import ServicesPage from "./pages/ServicesPage";
+import NewHomepage from "./pages/NewHomepage";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/nowa-strona" element={<NewHomepage />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/realizacje" element={<AdminRealizations />} />
           <Route path="/realizacje" element={<Realizations />} />
