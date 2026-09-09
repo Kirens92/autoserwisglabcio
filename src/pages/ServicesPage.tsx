@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import {
   ArrowRight,
   Battery,
+  CalendarDays,
   Check,
   ChevronDown,
   Cog,
@@ -75,6 +76,14 @@ function parseFaq(text?: string): FaqRow[] {
     .filter((row) => row.question && row.answer);
 }
 
+function BookingButton({ className, label = "Umów wizytę online" }: { className: string; label?: string }) {
+  return (
+    <button type="button" className={className} data-motowarsztat-booking-trigger="true">
+      <CalendarDays /> {label}
+    </button>
+  );
+}
+
 function ServiceModal({ service, onClose }: { service: Service; onClose: () => void }) {
   const Icon = icons[service.icon] || Wrench;
   const [faqOpen, setFaqOpen] = useState<number | null>(null);
@@ -145,9 +154,12 @@ function ServiceModal({ service, onClose }: { service: Service; onClose: () => v
           <aside className="services-modal__aside">
             <div className="services-modal__aside-card">
               <span>Potrzebujesz tej usługi?</span>
-              <strong>Umów termin telefonicznie</strong>
-              <p>Skontaktuj się z warsztatem. Ustalimy zakres prac, dostępny termin i dalsze kroki.</p>
-              <CallButton className="services-modal__call"><Phone /> Zadzwoń teraz</CallButton>
+              <strong>Umów dogodny termin</strong>
+              <p>Zadzwoń do warsztatu albo wybierz termin online przez system MotoWarsztat.</p>
+              <div className="services-modal__actions">
+                <CallButton className="services-modal__call"><Phone /> Zadzwoń teraz</CallButton>
+                <BookingButton className="services-modal__booking" />
+              </div>
             </div>
             <div className="services-modal__note"><ShieldCheck /><span>Przed rozpoczęciem dodatkowych prac kontaktujemy się z klientem i ustalamy zakres usługi.</span></div>
           </aside>
@@ -209,7 +221,10 @@ export default function ServicesPage() {
 
             <div className="services-bottom-cta">
               <div><span>Nie wiesz, którą usługę wybrać?</span><h2>Opisz problem telefonicznie — pomożemy dobrać właściwe rozwiązanie.</h2></div>
-              <CallButton className="services-bottom-cta__button"><Phone /> Zadzwoń do nas</CallButton>
+              <div className="services-bottom-cta__actions">
+                <CallButton className="services-bottom-cta__button"><Phone /> Zadzwoń do nas</CallButton>
+                <BookingButton className="services-bottom-cta__booking" />
+              </div>
             </div>
           </div>
         </section>
