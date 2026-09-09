@@ -64,10 +64,14 @@ function ensureBookingModal() {
   const body = document.createElement("div");
   body.className = "home-booking-modal__body";
 
+  const widgetShell = document.createElement("div");
+  widgetShell.className = "home-booking-widget-shell";
+
   const widget = document.createElement("div");
   widget.id = WIDGET_CONTAINER_ID;
   widget.className = "home-booking-widget";
-  body.appendChild(widget);
+  widgetShell.appendChild(widget);
+  body.appendChild(widgetShell);
 
   dialog.append(closeButton, heading, body);
   modal.appendChild(dialog);
@@ -110,6 +114,52 @@ function bindBookingTriggers() {
   });
 }
 
+async function buildWorkshopMapUrl() {
+  const fallback = "Raszkowska 53, 63-400 Ostrów Wielkopolski";
+
+  try {
+    const response = await fetch("/api/site-content", { cache: "no-store" });
+    if (!response.ok) throw new Error("site content unavailable");
+    const data = await response.json();
+    const business = data?.business || {};
+    const address = [business.street, business.postalCode, business.city].filter(Boolean).join(" ").trim();
+    return `https://www.google.com/maps?q=${encodeURIComponent(address || fallback)}&output=embed`;
+  } catch {
+    return `https://www.google.com/maps?q=${encodeURIComponent(fallback)}&output=embed`;
+  }
+}
+
+async function ensureHomepageWorkshopMap() {
+  const page = document.querySelector<HTMLElement>(".home-page");
+  const contactCopy = page?.querySelector<HTMLElement>(".home-contact__copy");
+  if (!page || !contactCopy || page.querySelector(".home-workshop-map")) return;
+
+  const card = document.createElement("section");
+  card.className = "home-workshop-map";
+  card.innerHTML = `
+    <div class="home-workshop-map__heading">
+      <span>Znajdź nas</span>
+      <h3>Umów wizytę w serwisie i zobacz, gdzie jesteśmy</h3>
+      <p>Auto Serwis Gl@bcio · Raszkowska 53 · 63-400 Ostrów Wielkopolski</p>
+    </div>
+    <div class="home-workshop-map__frame">
+      <iframe
+        title="Mapa dojazdu do Auto Serwis Gl@bcio"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen
+      ></iframe>
+    </div>
+  `;
+
+  const bookingButton = page.querySelector<HTMLElement>(".home-booking-open");
+  if (bookingButton) bookingButton.insertAdjacentElement("afterend", card);
+  else contactCopy.appendChild(card);
+
+  const iframe = card.querySelector<HTMLIFrameElement>("iframe");
+  if (iframe) iframe.src = await buildWorkshopMapUrl();
+}
+
 function ensureHomepageBookingTrigger() {
   const page = document.querySelector<HTMLElement>(".home-page");
   const phoneBox = page?.querySelector<HTMLElement>(".home-contact-phonebox");
@@ -147,6 +197,7 @@ function upgradePublicBookingLinks() {
 
 function hydrateBookingUi() {
   ensureHomepageBookingTrigger();
+  void ensureHomepageWorkshopMap();
   upgradePublicBookingLinks();
   bindBookingTriggers();
 }
