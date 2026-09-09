@@ -15,7 +15,8 @@ const WHATSAPP_URL = "https://wa.me/48530978968";
 
 export default function SiteLegalFooter() {
   const location = useLocation();
-  if (!["/nowa-strona", "/ecu-tcu", "/uslugi"].includes(location.pathname)) return null;
+  const supported = ["/nowa-strona", "/ecu-tcu", "/uslugi"].includes(location.pathname) || location.pathname.startsWith("/realizacje");
+  if (!supported) return null;
 
   return (
     <section className="site-legal-footer" aria-label="Formy płatności i dokumenty prawne">
