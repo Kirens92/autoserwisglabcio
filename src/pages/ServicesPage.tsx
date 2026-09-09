@@ -218,14 +218,6 @@ export default function ServicesPage() {
                 );
               })}
             </div>
-
-            <div className="services-bottom-cta">
-              <div><span>Nie wiesz, którą usługę wybrać?</span><h2>Opisz problem telefonicznie — pomożemy dobrać właściwe rozwiązanie.</h2></div>
-              <div className="services-bottom-cta__actions">
-                <CallButton className="services-bottom-cta__button"><Phone /> Zadzwoń do nas</CallButton>
-                <BookingButton className="services-bottom-cta__booking" />
-              </div>
-            </div>
           </div>
         </section>
       </main>
