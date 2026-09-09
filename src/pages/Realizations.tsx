@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ExternalLink, FileCheck2, Wrench } from "lucide-react";
+import { ExternalLink, Wrench } from "lucide-react";
 import Navbar from "@/components/Navbar";
 
 type Realization = {
@@ -70,14 +70,6 @@ export default function Realizations() {
                 <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-white/40">Realizacje są dodawane z panelu administracyjnego i po publikacji automatycznie trafiają na tę stronę oraz na stronę główną.</p>
               </div>
             )}
-
-            <div className="mt-10 grid gap-4 border border-primary/20 bg-primary/[0.045] p-5 sm:grid-cols-[auto_1fr] sm:items-center sm:p-6">
-              <div className="flex h-12 w-12 items-center justify-center border border-primary/30 bg-black/30 text-primary"><FileCheck2 className="h-5 w-5" /></div>
-              <div>
-                <div className="text-xs font-bold uppercase tracking-[0.18em] text-primary">Kosztorys przed rozpoczęciem naprawy</div>
-                <p className="mt-2 max-w-4xl text-sm leading-6 text-white/60">Po wykonaniu diagnostyki wysyłamy klientowi kosztorys do akceptacji. Dopiero po zatwierdzeniu zakresu i kosztu rozpoczynamy naprawę. Dodatkowe prace wymagają ponownego kontaktu z klientem.</p>
-              </div>
-            </div>
           </div>
         </section>
       </main>
