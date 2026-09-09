@@ -146,6 +146,10 @@
   font-size: 12px;
 }
 
+.home-page .home-services > .home-shell > .home-section-action {
+  display: none;
+}
+
 .home-page .home-realization-card h3 {
   font-size: 23px;
 }
