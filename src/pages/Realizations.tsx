@@ -28,7 +28,7 @@ export default function Realizations() {
     <main className="min-h-screen bg-[#070707] text-white">
       <nav className="sticky top-0 z-50 border-b border-primary/15 bg-[#070707]/95 backdrop-blur-xl">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <a href="/nowa-strona" className="flex items-center" aria-label="Auto Serwis Gl@bcio – nowa strona główna">
+          <a href="/" className="flex items-center" aria-label="Auto Serwis Gl@bcio – strona główna">
             <img src={logo} alt="Auto Serwis Gl@bcio" className="h-14 w-auto sm:h-16" />
           </a>
           <a href="/nowa-strona#realizacje" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-white/60 transition hover:text-primary">
