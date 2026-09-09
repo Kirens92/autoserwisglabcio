@@ -2,6 +2,7 @@ const WIDGET_CONTAINER_ID = "motowarsztat-booking";
 const WIDGET_SCRIPT_ID = "motowarsztat-booking-loader";
 const MODAL_CLASS = "home-booking-modal";
 const OPEN_CLASS = "is-open";
+const TRIGGER_SELECTOR = "[data-motowarsztat-booking-trigger]";
 
 let previousBodyOverflow = "";
 let keydownBound = false;
@@ -85,7 +86,7 @@ function ensureBookingModal() {
   return modal;
 }
 
-function openBookingModal() {
+export function openBookingModal() {
   const modal = ensureBookingModal();
   previousBodyOverflow = document.body.style.overflow;
   document.body.style.overflow = "hidden";
@@ -98,7 +99,18 @@ function openBookingModal() {
   });
 }
 
-function ensureBookingTrigger() {
+function bindBookingTriggers() {
+  document.querySelectorAll<HTMLElement>(TRIGGER_SELECTOR).forEach((trigger) => {
+    if (trigger.dataset.motowarsztatBookingBound === "true") return;
+    trigger.dataset.motowarsztatBookingBound = "true";
+    trigger.addEventListener("click", (event) => {
+      event.preventDefault();
+      openBookingModal();
+    });
+  });
+}
+
+function ensureHomepageBookingTrigger() {
   const page = document.querySelector<HTMLElement>(".home-page");
   const phoneBox = page?.querySelector<HTMLElement>(".home-contact-phonebox");
   if (!page || !phoneBox) return;
@@ -107,14 +119,19 @@ function ensureBookingTrigger() {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "home-btn home-btn--outline home-booking-open";
+    button.dataset.motowarsztatBookingTrigger = "true";
     button.innerHTML = "Umów wizytę online <span aria-hidden=\"true\">→</span>";
-    button.addEventListener("click", openBookingModal);
     phoneBox.insertAdjacentElement("afterend", button);
   }
 }
 
-requestAnimationFrame(ensureBookingTrigger);
+function hydrateBookingUi() {
+  ensureHomepageBookingTrigger();
+  bindBookingTriggers();
+}
 
-const bookingObserver = new MutationObserver(ensureBookingTrigger);
+requestAnimationFrame(hydrateBookingUi);
+
+const bookingObserver = new MutationObserver(hydrateBookingUi);
 const root = document.getElementById("root");
 if (root) bookingObserver.observe(root, { childList: true, subtree: true });
