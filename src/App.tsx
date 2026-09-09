@@ -12,6 +12,9 @@ import AdminGoogleReviews from "./pages/AdminGoogleReviews";
 import AdminSettings from "./pages/AdminSettings";
 import Realizations from "./pages/Realizations";
 import RealizationDetail from "./pages/RealizationDetail";
+import LegacyRealizations from "./pages/LegacyRealizations";
+import LegacyRealizationDetail from "./pages/LegacyRealizationDetail";
+import LegacyServicesPage from "./pages/LegacyServicesPage";
 import AdminRealizations from "./pages/AdminRealizations";
 import AdminSiteContent from "./pages/AdminSiteContent";
 import ServicesPage from "./pages/ServicesPage";
@@ -42,6 +45,13 @@ const App = () => (
           <Route path="/admin/opinie" element={<AdminGoogleReviews />} />
           <Route path="/admin/seo" element={<AdminSiteContent />} />
           <Route path="/admin/ustawienia" element={<AdminSettings />} />
+
+          {/* Klasyczne widoki używane wyłącznie przez starą stronę główną */}
+          <Route path="/stara-strona/uslugi" element={<LegacyServicesPage />} />
+          <Route path="/stara-strona/realizacje" element={<LegacyRealizations />} />
+          <Route path="/stara-strona/realizacje/:slug" element={<LegacyRealizationDetail />} />
+
+          {/* Nowe widoki używane przez /nowa-strona */}
           <Route path="/realizacje" element={<Realizations />} />
           <Route path="/realizacje/:slug" element={<RealizationDetail />} />
           <Route path="/uslugi" element={<ServicesPage />} />
