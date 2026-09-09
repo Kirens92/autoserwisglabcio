@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { CalendarDays, ExternalLink, FileCheck2, Phone, Wrench } from "lucide-react";
+import { ExternalLink, FileCheck2, Wrench } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import CallButton from "@/components/CallButton";
-import ReserveButton from "@/components/ReserveButton";
 
 type Realization = {
   slug: string;
@@ -39,10 +37,6 @@ export default function Realizations() {
               <p className="mt-6 max-w-2xl text-base leading-7 text-white/50">
                 Wybrane naprawy, diagnozy i prace serwisowe wykonywane w Auto Serwis Gl@bcio. Każda realizacja pokazuje rzeczywisty zakres wykonanych prac.
               </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <CallButton className="inline-flex min-h-12 items-center justify-center gap-2 bg-gradient-gold px-6 text-sm font-bold text-black"><Phone className="h-4 w-4" />Zadzwoń do nas</CallButton>
-                <ReserveButton className="inline-flex min-h-12 items-center justify-center gap-2 border border-primary/45 px-6 text-sm font-bold text-primary transition hover:bg-primary/10"><CalendarDays className="h-4 w-4" />Zarezerwuj wizytę online</ReserveButton>
-              </div>
             </div>
           </div>
         </section>
@@ -84,16 +78,6 @@ export default function Realizations() {
                 <p className="mt-2 max-w-4xl text-sm leading-6 text-white/60">Po wykonaniu diagnostyki wysyłamy klientowi kosztorys do akceptacji. Dopiero po zatwierdzeniu zakresu i kosztu rozpoczynamy naprawę. Dodatkowe prace wymagają ponownego kontaktu z klientem.</p>
               </div>
             </div>
-
-            <section className="mt-10 border border-primary/25 bg-[linear-gradient(110deg,rgba(229,173,49,.08),rgba(255,255,255,.015))] p-6 sm:p-8">
-              <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
-                <div><div className="text-xs font-black uppercase tracking-[.18em] text-primary">Potrzebujesz pomocy?</div><h2 className="mt-2 text-2xl font-bold sm:text-3xl">Umów diagnostykę lub naprawę.</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-white/50">Zadzwoń albo wybierz dogodny termin online.</p></div>
-                <div className="flex flex-col gap-3 sm:flex-row">
-                  <CallButton className="inline-flex min-h-12 items-center justify-center gap-2 bg-gradient-gold px-6 text-sm font-bold text-black"><Phone className="h-4 w-4" />Zadzwoń do nas</CallButton>
-                  <ReserveButton className="inline-flex min-h-12 items-center justify-center gap-2 border border-primary/45 px-6 text-sm font-bold text-primary"><CalendarDays className="h-4 w-4" />Zarezerwuj wizytę już teraz</ReserveButton>
-                </div>
-              </div>
-            </section>
           </div>
         </section>
       </main>
