@@ -38,7 +38,7 @@ export default function SiteLegalFooter() {
             <a href={FACEBOOK_URL} target="_blank" rel="noreferrer" aria-label="Auto Serwis Gl@bcio na Facebooku">Facebook</a>
             <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" aria-label="Napisz do Auto Serwis Gl@bcio na WhatsApp">WhatsApp</a>
           </div>
-          <div className="site-legal-footer__meta">Auto Serwis Gl@bcio Krzysztof Glabian · NIP 6222576011 · REGON 526255980 · hosting OVHcloud</div>
+          <div className="site-legal-footer__meta">Auto Serwis Gl@bcio Krzysztof Glabian · NIP 6222576011 · REGON 526255980</div>
         </div>
       </div>
     </section>
