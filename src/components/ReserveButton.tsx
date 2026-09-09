@@ -1,3 +1,5 @@
+import { openBookingModal } from "@/lib/motowarsztatBooking";
+
 interface ReserveButtonProps {
   className?: string;
   children: React.ReactNode;
@@ -5,9 +7,9 @@ interface ReserveButtonProps {
 
 const ReserveButton = ({ className, children }: ReserveButtonProps) => {
   return (
-    <a href="#rezerwacja" className={className}>
+    <button type="button" className={className} onClick={openBookingModal}>
       {children}
-    </a>
+    </button>
   );
 };
 
