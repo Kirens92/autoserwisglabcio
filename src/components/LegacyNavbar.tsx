@@ -4,8 +4,8 @@ import logo from "@/assets/nowelogobg.png";
 import CallButton from "@/components/CallButton";
 
 const links = [
-  { href: "/uslugi", label: "Usługi" },
-  { href: "/realizacje", label: "Realizacje" },
+  { href: "/#uslugi", label: "Usługi" },
+  { href: "/#realizacje", label: "Realizacje" },
   { href: "/#proces", label: "Proces" },
   { href: "/#opinie", label: "Opinie" },
   { href: "/#kontakt", label: "Kontakt" },
