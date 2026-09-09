@@ -240,7 +240,7 @@ export const defaultSiteContent: SiteContent = {
     title: "Prosty proces. Pełna przejrzystość.",
     description: "Od pierwszego kontaktu do odbioru samochodu wiesz, na jakim etapie jest zlecenie i jaki jest zaakceptowany koszt naprawy.",
     steps: [
-      { number: "01", title: "Umów wizytę", text: "Zadzwoń lub napisz. Ustalamy objawy i dogodny termin." },
+      { number: "01", title: "Umów wizytę", text: "Zadzwoń lub zarezerwuj termin online. Ustalamy objawy i dogodny termin." },
       { number: "02", title: "Diagnostyka", text: "Sprawdzamy przyczynę problemu i przygotowujemy zakres prac." },
       { number: "03", title: "Wycena i akceptacja", text: "Przed naprawą otrzymujesz kosztorys. Działamy po Twojej akceptacji." },
       { number: "04", title: "Naprawa i odbiór", text: "Realizujemy uzgodnione prace i przekazujemy zalecenia przy odbiorze." },
@@ -267,18 +267,18 @@ export const defaultSiteContent: SiteContent = {
   contact: {
     eyebrow: "Skontaktuj się z nami",
     title: "Umów wizytę w serwisie",
-    description: "Opisz problem, podaj model auta i zostaw numer telefonu. Oddzwonimy i ustalimy dogodny termin.",
+    description: "Zadzwoń lub zarezerwuj wizytę online w dogodnym terminie.",
     phoneTitle: "Wolisz zadzwonić?",
-    formTitle: "Napisz do nas",
-    formDescription: "Wyślij krótką wiadomość — przygotujemy odpowiedź i ustalimy kolejny krok.",
-    submitLabel: "Wyślij wiadomość",
+    formTitle: "Zarezerwuj wizytę online",
+    formDescription: "Wybierz usługę i dostępny termin w formularzu MotoWarsztat.",
+    submitLabel: "Otwórz rezerwację online",
   },
   cta: {
     eyebrow: "Umów wizytę",
     title: "Potrzebujesz diagnostyki lub naprawy?",
     description: "Skontaktuj się z nami. Ustalimy termin i zakres pierwszego etapu diagnostyki.",
     primaryLabel: "Zadzwoń teraz",
-    secondaryLabel: "Dane kontaktowe",
+    secondaryLabel: "Zarezerwuj wizytę online",
   },
   footer: {
     description: "Profesjonalny serwis samochodowy w Ostrowie Wielkopolskim. Specjalizacja Peugeot, Citroën oraz elektronika ECU / TCU.",
@@ -306,6 +306,19 @@ export function normalizeSiteContent(input?: Partial<SiteContent> | null): SiteC
   const contact = source.contact || {} as SiteContent["contact"];
   const cta = source.cta || {} as SiteContent["cta"];
   const footer = source.footer || {} as SiteContent["footer"];
+  const migratedContact = {
+    ...defaultSiteContent.contact,
+    ...contact,
+    formTitle: !contact.formTitle || contact.formTitle.trim().toLocaleLowerCase("pl") === "napisz do nas"
+      ? defaultSiteContent.contact.formTitle
+      : contact.formTitle,
+    formDescription: !contact.formDescription || contact.formDescription.toLocaleLowerCase("pl").includes("wiadomość")
+      ? defaultSiteContent.contact.formDescription
+      : contact.formDescription,
+    submitLabel: !contact.submitLabel || contact.submitLabel.trim().toLocaleLowerCase("pl") === "wyślij wiadomość"
+      ? defaultSiteContent.contact.submitLabel
+      : contact.submitLabel,
+  };
 
   return {
     ...defaultSiteContent,
@@ -349,7 +362,7 @@ export function normalizeSiteContent(input?: Partial<SiteContent> | null): SiteC
       items: Array.isArray(reviews.items) && reviews.items.length ? reviews.items : defaultSiteContent.reviews.items,
     },
     shipping: { ...defaultSiteContent.shipping, ...shipping },
-    contact: { ...defaultSiteContent.contact, ...contact },
+    contact: migratedContact,
     cta: { ...defaultSiteContent.cta, ...cta },
     footer: {
       ...defaultSiteContent.footer,
