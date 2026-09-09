@@ -114,7 +114,7 @@ function bindBookingTriggers() {
   });
 }
 
-async function buildWorkshopMapUrl() {
+async function getWorkshopAddress() {
   const fallback = "Raszkowska 53, 63-400 Ostrów Wielkopolski";
 
   try {
@@ -123,10 +123,18 @@ async function buildWorkshopMapUrl() {
     const data = await response.json();
     const business = data?.business || {};
     const address = [business.street, business.postalCode, business.city].filter(Boolean).join(" ").trim();
-    return `https://www.google.com/maps?q=${encodeURIComponent(address || fallback)}&output=embed`;
+    return address || fallback;
   } catch {
-    return `https://www.google.com/maps?q=${encodeURIComponent(fallback)}&output=embed`;
+    return fallback;
   }
+}
+
+function buildWorkshopMapUrl(address: string) {
+  return `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
+}
+
+function buildWorkshopDirectionsUrl(address: string) {
+  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}&travelmode=driving`;
 }
 
 async function ensureHomepageWorkshopMap() {
@@ -141,6 +149,10 @@ async function ensureHomepageWorkshopMap() {
       <span>Znajdź nas</span>
       <h3>Umów wizytę w serwisie i zobacz, gdzie jesteśmy</h3>
       <p>Auto Serwis Gl@bcio · Raszkowska 53 · 63-400 Ostrów Wielkopolski</p>
+      <a class="home-workshop-map__directions" href="#" target="_blank" rel="noopener noreferrer" aria-label="Wyznacz trasę do Auto Serwis Gl@bcio w Google Maps">
+        <span class="home-workshop-map__directions-icon" aria-hidden="true">➤</span>
+        <span><strong>Wyznacz trasę</strong><small>Otwórz Google Maps i prowadź do warsztatu</small></span>
+      </a>
     </div>
     <div class="home-workshop-map__frame">
       <iframe
@@ -156,8 +168,14 @@ async function ensureHomepageWorkshopMap() {
   if (bookingButton) bookingButton.insertAdjacentElement("afterend", card);
   else contactCopy.appendChild(card);
 
+  const address = await getWorkshopAddress();
   const iframe = card.querySelector<HTMLIFrameElement>("iframe");
-  if (iframe) iframe.src = await buildWorkshopMapUrl();
+  const directions = card.querySelector<HTMLAnchorElement>(".home-workshop-map__directions");
+  const addressLine = card.querySelector<HTMLParagraphElement>(".home-workshop-map__heading p");
+
+  if (iframe) iframe.src = buildWorkshopMapUrl(address);
+  if (directions) directions.href = buildWorkshopDirectionsUrl(address);
+  if (addressLine) addressLine.textContent = `Auto Serwis Gl@bcio · ${address}`;
 }
 
 function ensureHomepageBookingTrigger() {
