@@ -31,7 +31,7 @@ export default function Realizations() {
           <a href="/" className="flex items-center" aria-label="Auto Serwis Gl@bcio – strona główna">
             <img src={logo} alt="Auto Serwis Gl@bcio" className="h-14 w-auto sm:h-16" />
           </a>
-          <a href="/nowa-strona#realizacje" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-white/60 transition hover:text-primary">
+          <a href="/" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-white/60 transition hover:text-primary">
             <ArrowLeft className="h-4 w-4" /> Powrót
           </a>
         </div>
