@@ -1,5 +1,5 @@
 import { Facebook } from "lucide-react";
-import logo from "@/assets/nowelogo.png";
+import logo from "@/assets/nowelogobg.png";
 
 const Footer = () => {
   return (
@@ -7,14 +7,20 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto">
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 md:gap-12 mb-12">
           <div>
-            <div className="relative mb-6 h-24 w-64 max-w-full overflow-hidden">
-              <img src={logo} alt="Logo Auto Serwis Gl@bcio" className="absolute left-1/2 top-1/2 w-64 max-w-none -translate-x-1/2 -translate-y-1/2" />
-            </div>
+            <img src={logo} alt="Logo Auto Serwis Gl@bcio" className="w-48 sm:w-64 mb-6" />
             <p className="text-muted-foreground text-sm font-body font-light leading-relaxed">
               Auto Serwis Gl@bcio – profesjonalny serwis aut osobowych w&nbsp;Ostrowie Wielkopolskim. Specjalizacja w&nbsp;pojazdach marki Peugeot i&nbsp;Citroën. Mechanika, elektryka, diagnostyka komputerowa.
             </p>
-            <a href="https://www.facebook.com/AutoSerwisGlabcio/" target="_blank" rel="noopener noreferrer" aria-label="Facebook Auto Serwis Gl@bcio" className="inline-flex items-center gap-2 mt-6 text-primary hover:text-gold-light font-body text-sm transition-colors">
-              <span className="w-10 h-10 border gold-border flex items-center justify-center group-hover:border-primary/50"><Facebook className="w-5 h-5" strokeWidth={1.5} /></span>
+            <a
+              href="https://www.facebook.com/AutoSerwisGlabcio/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook Auto Serwis Gl@bcio"
+              className="inline-flex items-center gap-2 mt-6 text-primary hover:text-gold-light font-body text-sm transition-colors"
+            >
+              <span className="w-10 h-10 border gold-border flex items-center justify-center group-hover:border-primary/50">
+                <Facebook className="w-5 h-5" strokeWidth={1.5} />
+              </span>
               Odwiedź nas na Facebooku
             </a>
           </div>
@@ -22,7 +28,13 @@ const Footer = () => {
           <div>
             <h4 className="font-heading font-bold text-foreground mb-6 text-lg">Dane firmy</h4>
             <div className="text-muted-foreground text-sm font-body font-light space-y-2">
-              <p>Auto Serwis Gl@bcio</p><p>Krzysztof Glabian</p><p>ul. Raszkowska 53</p><p>63-400 Ostrów Wielkopolski</p><p>woj. wielkopolskie</p><p className="pt-2">NIP: 6222576011</p><p>REGON: 526255980</p>
+              <p>Auto Serwis Gl@bcio</p>
+              <p>Krzysztof Glabian</p>
+              <p>ul. Raszkowska 53</p>
+              <p>63-400 Ostrów Wielkopolski</p>
+              <p>woj. wielkopolskie</p>
+              <p className="pt-2">NIP: 6222576011</p>
+              <p>REGON: 526255980</p>
             </div>
           </div>
 
@@ -39,7 +51,13 @@ const Footer = () => {
 
           <div>
             <h4 className="font-heading font-bold text-foreground mb-6 text-lg">Formy płatności</h4>
-            <div className="text-muted-foreground text-sm font-body font-light space-y-2"><p>Kartą</p><p>Gotówka</p><p>Przelewem</p><p>BLIK</p><p>Płatności Online (Tpay)</p></div>
+            <div className="text-muted-foreground text-sm font-body font-light space-y-2">
+              <p>Kartą</p>
+              <p>Gotówka</p>
+              <p>Przelewem</p>
+              <p>BLIK</p>
+              <p>Płatności Online (Tpay)</p>
+            </div>
           </div>
         </div>
 
