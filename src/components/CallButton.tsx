@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Phone } from "lucide-react";
 import {
   Dialog,
@@ -8,9 +9,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-export const PHONE_NUMBERS = [
-  { display: "530 978 968", tel: "530978968" },
-  { display: "669 513 740", tel: "669513740" },
+export type PhoneEntry = { display: string; tel: string };
+
+export const PHONE_NUMBERS: PhoneEntry[] = [
+  { display: "+48 530 978 968", tel: "+48530978968" },
+  { display: "+48 669 513 740", tel: "+48669513740" },
 ];
 
 interface CallButtonProps {
@@ -18,13 +21,37 @@ interface CallButtonProps {
   children: React.ReactNode;
 }
 
-/**
- * Przycisk "Zadzwoń" – po kliknięciu pokazuje okno z wyborem numeru,
- * a wybrany numer uruchamia wybieranie (tel:).
- */
+function normalizeTel(value: string) {
+  return value.replace(/[^\d+]/g, "");
+}
+
+async function loadPanelPhones(): Promise<PhoneEntry[]> {
+  try {
+    const response = await fetch("/api/site-content", { cache: "no-store" });
+    if (!response.ok) throw new Error("site content unavailable");
+    const data = await response.json();
+    const business = data?.business || {};
+    const result: PhoneEntry[] = [];
+
+    if (business.phone) {
+      const tel = normalizeTel(String(business.phoneHref || business.phone));
+      if (tel) result.push({ display: String(business.phone), tel });
+    }
+    if (business.phone2) {
+      const tel = normalizeTel(String(business.phoneHref2 || business.phone2));
+      if (tel && !result.some((entry) => entry.tel === tel)) result.push({ display: String(business.phone2), tel });
+    }
+    return result.length ? result.slice(0, 2) : PHONE_NUMBERS;
+  } catch {
+    return PHONE_NUMBERS;
+  }
+}
+
 const CallButton = ({ className, children }: CallButtonProps) => {
+  const [phones, setPhones] = useState<PhoneEntry[]>(PHONE_NUMBERS);
+
   return (
-    <Dialog>
+    <Dialog onOpenChange={(open) => { if (open) void loadPanelPhones().then(setPhones); }}>
       <DialogTrigger asChild>
         <button type="button" className={className}>
           {children}
@@ -41,7 +68,7 @@ const CallButton = ({ className, children }: CallButtonProps) => {
         </DialogHeader>
 
         <div className="mt-2 flex flex-col gap-3">
-          {PHONE_NUMBERS.map((phone) => (
+          {phones.map((phone) => (
             <a
               key={phone.tel}
               href={`tel:${phone.tel}`}
