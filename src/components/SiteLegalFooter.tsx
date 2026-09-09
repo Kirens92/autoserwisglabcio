@@ -29,7 +29,6 @@ export default function SiteLegalFooter() {
         <div className="site-legal-footer__right">
           <div className="site-legal-footer__links">
             <a href="/regulamin">Regulamin</a>
-            <a href="/polityka-prrywatnosci" style={{display:"none"}} aria-hidden="true">Polityka prywatności</a>
             <a href="/polityka-prywatnosci">Polityka prywatności</a>
             <span className="site-legal-footer__credit">
               Strona stworzona przez <a href="https://zarembatech.pl" target="_blank" rel="noreferrer">ZarembaTech.pl</a>
