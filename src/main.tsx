@@ -11,6 +11,7 @@ import "./pages/EcuTcuPolish.css";
 import "./pages/EcuTcuLogoFix.css";
 import "./pages/EcuTcuResponsive.css";
 import "./lib/motowarsztatBooking";
+import "./lib/adminBookingLabels";
 
 const applyBrandLogo = () => {
   document
