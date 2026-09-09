@@ -1,117 +1,187 @@
-/* MotoWarsztat booking widget layout for /nowa-strona contact section */
+/* MotoWarsztat booking modal for /nowa-strona */
 .home-page .home-contact__grid {
-  grid-template-columns: minmax(0, .82fr) minmax(460px, 1.18fr) !important;
-  max-width: none;
+  grid-template-columns: minmax(0, 1fr) !important;
+  max-width: 980px;
   align-items: start;
-  gap: 44px;
 }
 
 .home-page .home-contact__copy {
-  max-width: 620px;
+  max-width: 920px;
 }
 
 .home-page .home-contact-phonebox {
-  margin-top: 34px;
-  padding: 22px 24px;
-  max-width: 520px;
+  margin-top: 30px;
+  padding: 24px;
+  max-width: 720px;
 }
 
 .home-page .home-contact-phonebox a {
-  width: 100%;
-  justify-content: flex-start;
+  width: fit-content;
 }
 
-.home-page .home-phone-only-cta {
+.home-page .home-phone-only-cta,
+.home-page .home-booking-open {
   margin-top: 16px;
 }
 
-.home-booking-widget-panel {
-  position: relative;
-  min-width: 0;
-  padding: 26px;
-  border: 1px solid rgba(240, 169, 40, .28);
-  background:
-    radial-gradient(circle at 90% 0%, rgba(240, 169, 40, .08), transparent 28%),
-    linear-gradient(180deg, rgba(14, 14, 14, .98), rgba(8, 8, 8, .98));
-  box-shadow: 0 24px 70px rgba(0, 0, 0, .32);
+.home-page .home-booking-open {
+  margin-left: 10px;
 }
 
-.home-booking-widget-panel__heading {
-  margin-bottom: 20px;
-  padding-bottom: 18px;
+.home-booking-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: none;
+  place-items: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, .82);
+  backdrop-filter: blur(12px);
+}
+
+.home-booking-modal.is-open {
+  display: grid;
+}
+
+.home-booking-modal__dialog {
+  position: relative;
+  width: min(760px, 100%);
+  max-height: min(92vh, 960px);
+  overflow: hidden;
+  border: 1px solid rgba(240, 169, 40, .34);
+  background:
+    radial-gradient(circle at 92% 0%, rgba(240, 169, 40, .09), transparent 26%),
+    linear-gradient(180deg, #0d0d0d, #080808);
+  box-shadow: 0 30px 100px rgba(0, 0, 0, .68), 0 0 52px rgba(240, 169, 40, .07);
+  color: #f7f3e8;
+}
+
+.home-booking-modal__close {
+  position: absolute;
+  z-index: 5;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .12);
+  background: rgba(8, 8, 8, .92);
+  color: #fff;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color .2s ease, color .2s ease, background .2s ease;
+}
+
+.home-booking-modal__close:hover {
+  border-color: rgba(240, 169, 40, .55);
+  background: rgba(240, 169, 40, .08);
+  color: #f0a928;
+}
+
+.home-booking-modal__heading {
+  padding: 28px 78px 22px 28px;
   border-bottom: 1px solid rgba(255, 255, 255, .08);
 }
 
-.home-booking-widget-panel__heading > span {
+.home-booking-modal__heading > span {
   display: block;
-  color: var(--home-gold);
+  color: #f0a928;
   font-size: 12px;
   font-weight: 900;
   letter-spacing: .16em;
   text-transform: uppercase;
 }
 
-.home-booking-widget-panel__heading h3 {
+.home-booking-modal__heading h2 {
   margin: 8px 0 0;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(28px, 3vw, 38px);
+  font-size: clamp(30px, 4vw, 42px);
   line-height: 1.08;
-  color: #f7f3e8;
 }
 
-.home-booking-widget-panel__heading p {
+.home-booking-modal__heading p {
   margin: 10px 0 0;
-  color: #a5a5a5;
+  max-width: 620px;
+  color: #a8a8a8;
   font-size: 15px;
   line-height: 1.65;
 }
 
-.home-booking-widget {
-  min-height: 560px;
-  width: 100%;
+.home-booking-modal__body {
+  max-height: calc(min(92vh, 960px) - 150px);
+  overflow: auto;
+  padding: 18px 22px 24px;
+  overscroll-behavior: contain;
 }
 
+.home-booking-widget,
 #motowarsztat-booking {
   width: 100%;
+  min-height: 620px;
 }
 
-@media (max-width: 1080px) {
-  .home-page .home-contact__grid {
-    grid-template-columns: 1fr !important;
-    gap: 30px;
+@media (max-width: 760px) {
+  .home-page .home-booking-open {
+    margin-left: 0;
   }
 
-  .home-page .home-contact__copy {
-    max-width: none;
+  .home-page .home-phone-only-cta,
+  .home-page .home-booking-open {
+    width: 100%;
+    justify-content: center;
   }
 
-  .home-page .home-contact-phonebox {
-    max-width: 100%;
+  .home-booking-modal {
+    padding: 12px;
+    align-items: end;
   }
 
-  .home-booking-widget-panel {
-    padding: 22px;
-  }
-}
-
-@media (max-width: 640px) {
-  .home-page .home-contact-phonebox {
-    padding: 18px;
+  .home-booking-modal__dialog {
+    width: 100%;
+    max-height: 94vh;
   }
 
-  .home-booking-widget-panel {
-    padding: 16px;
+  .home-booking-modal__heading {
+    padding: 24px 62px 18px 18px;
   }
 
-  .home-booking-widget-panel__heading h3 {
-    font-size: 28px;
+  .home-booking-modal__heading h2 {
+    font-size: 30px;
   }
 
-  .home-booking-widget-panel__heading p {
+  .home-booking-modal__heading p {
     font-size: 14px;
   }
 
-  .home-booking-widget {
-    min-height: 520px;
+  .home-booking-modal__body {
+    max-height: calc(94vh - 138px);
+    padding: 14px 10px 18px;
+  }
+
+  .home-booking-modal__close {
+    top: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 420px) {
+  .home-booking-modal {
+    padding: 0;
+  }
+
+  .home-booking-modal__dialog {
+    min-height: 100dvh;
+    max-height: 100dvh;
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+  }
+
+  .home-booking-modal__body {
+    max-height: calc(100dvh - 132px);
   }
 }
