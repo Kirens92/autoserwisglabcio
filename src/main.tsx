@@ -14,6 +14,8 @@ import "./lib/motowarsztatBooking";
 import "./lib/adminBookingLabels";
 
 const applyBrandLogo = () => {
+  if (window.location.pathname === "/") return;
+
   document
     .querySelectorAll<HTMLImageElement>(
       'img[alt="Auto Serwis Gl@bcio"], img[alt="Logo Auto Serwis Gl@bcio"]',
