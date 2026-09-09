@@ -126,21 +126,22 @@ function ensureHomepageBookingTrigger() {
 }
 
 function upgradePublicBookingLinks() {
-  const roots = document.querySelectorAll<HTMLElement>(".home-page, .ecu-page, .services-page");
-  roots.forEach((root) => {
-    root.querySelectorAll<HTMLAnchorElement | HTMLButtonElement>("a,button").forEach((element) => {
-      if (element.dataset.motowarsztatBookingTrigger === "true") return;
-      const text = (element.textContent || "").replace(/\s+/g, " ").trim().toLocaleLowerCase("pl");
-      const shouldUpgrade = text === "napisz do nas" || text === "napisz e-mail" || text.includes("napisz do nas") || text.includes("napisz e-mail");
-      if (!shouldUpgrade) return;
+  if (window.location.pathname.startsWith("/admin")) return;
+  const root = document.getElementById("root");
+  if (!root) return;
 
-      if (element instanceof HTMLAnchorElement) {
-        element.removeAttribute("href");
-        element.setAttribute("role", "button");
-      }
-      element.dataset.motowarsztatBookingTrigger = "true";
-      element.textContent = "Zarezerwuj wizytę online";
-    });
+  root.querySelectorAll<HTMLAnchorElement | HTMLButtonElement>("a,button").forEach((element) => {
+    if (element.dataset.motowarsztatBookingTrigger === "true") return;
+    const text = (element.textContent || "").replace(/\s+/g, " ").trim().toLocaleLowerCase("pl");
+    const shouldUpgrade = text === "napisz do nas" || text === "napisz e-mail" || text.includes("napisz do nas") || text.includes("napisz e-mail");
+    if (!shouldUpgrade) return;
+
+    if (element instanceof HTMLAnchorElement) {
+      element.removeAttribute("href");
+      element.setAttribute("role", "button");
+    }
+    element.dataset.motowarsztatBookingTrigger = "true";
+    element.textContent = "Zarezerwuj wizytę online";
   });
 }
 
