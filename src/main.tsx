@@ -6,6 +6,7 @@ import "./pages/NewHomepageBackgroundFix.css";
 import "./pages/NewHomepageReadabilityFix.css";
 import "./pages/NewHomepagePhoneOnly.css";
 import "./pages/NewHomepageBooking.css";
+import "./pages/EcuTcuLogoFix.css";
 import "./lib/motowarsztatBooking";
 
 const applyBrandLogo = () => {
