@@ -12,6 +12,7 @@ import "./pages/EcuTcuLogoFix.css";
 import "./pages/EcuTcuResponsive.css";
 import "./lib/motowarsztatBooking";
 import "./lib/adminBookingLabels";
+import { bindHomepageServiceModals } from "./lib/homeServiceModal";
 
 const applyBrandLogo = () => {
   if (window.location.pathname === "/") return;
@@ -202,12 +203,14 @@ requestAnimationFrame(() => {
   applyBrandLogo();
   applyHomepageEcuNavigation();
   applyPhoneOnlyContact();
+  bindHomepageServiceModals();
 });
 
 const rootObserver = new MutationObserver(() => {
   applyBrandLogo();
   applyHomepageEcuNavigation();
   applyPhoneOnlyContact();
+  bindHomepageServiceModals();
 });
 rootObserver.observe(document.getElementById("root")!, {
   childList: true,
