@@ -21,6 +21,31 @@ const applyBrandLogo = () => {
     });
 };
 
+const applyHomepageEcuNavigation = () => {
+  const page = document.querySelector<HTMLElement>(".home-page");
+  if (!page) return;
+
+  const ensureLink = (container: HTMLElement | null) => {
+    if (!container || container.querySelector('a[href="/ecu-tcu"]')) return;
+
+    const link = document.createElement("a");
+    link.href = "/ecu-tcu";
+    link.textContent = "ECU | TCU";
+
+    const serviceLink = Array.from(container.querySelectorAll<HTMLAnchorElement>("a"))
+      .find((anchor) => (anchor.textContent || "").trim().toLocaleLowerCase("pl") === "usługi");
+    const realizationsLink = Array.from(container.querySelectorAll<HTMLAnchorElement>("a"))
+      .find((anchor) => (anchor.textContent || "").trim().toLocaleLowerCase("pl") === "realizacje");
+
+    if (serviceLink) serviceLink.insertAdjacentElement("afterend", link);
+    else if (realizationsLink) container.insertBefore(link, realizationsLink);
+    else container.appendChild(link);
+  };
+
+  ensureLink(page.querySelector<HTMLElement>(".home-nav"));
+  ensureLink(page.querySelector<HTMLElement>(".home-mobile-nav .home-shell"));
+};
+
 type PhoneOption = {
   label: string;
   href: string;
@@ -99,7 +124,7 @@ function openPhonePicker(phones: PhoneOption[]) {
   const phoneList = document.createElement("div");
   phoneList.className = "glabcio-phone-modal__phones";
 
-  phones.slice(0, 2).forEach((phone, index) => {
+  phones.slice(0, 2).forEach((phone) => {
     const link = document.createElement("a");
     link.href = phone.href;
     link.setAttribute("aria-label", `Zadzwoń pod numer ${phone.label}`);
@@ -107,7 +132,7 @@ function openPhonePicker(phones: PhoneOption[]) {
     const number = document.createElement("span");
     number.textContent = phone.label;
     const action = document.createElement("span");
-    action.textContent = index === 0 ? "Zadzwoń" : "Zadzwoń";
+    action.textContent = "Zadzwoń";
 
     link.append(number, action);
     phoneList.appendChild(link);
@@ -168,11 +193,13 @@ createRoot(document.getElementById("root")!).render(<App />);
 
 requestAnimationFrame(() => {
   applyBrandLogo();
+  applyHomepageEcuNavigation();
   applyPhoneOnlyContact();
 });
 
 const rootObserver = new MutationObserver(() => {
   applyBrandLogo();
+  applyHomepageEcuNavigation();
   applyPhoneOnlyContact();
 });
 rootObserver.observe(document.getElementById("root")!, {
