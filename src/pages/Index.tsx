@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import LegacyNavbar from "@/components/LegacyNavbar";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import Process from "@/components/Process";
@@ -15,7 +15,7 @@ const Index = () => {
   return (
     <main>
       <StructuredData />
-      <Navbar />
+      <LegacyNavbar />
       <Hero />
       <Stats />
       <Services />
