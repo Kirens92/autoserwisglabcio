@@ -120,13 +120,33 @@ function ensureHomepageBookingTrigger() {
     button.type = "button";
     button.className = "home-btn home-btn--outline home-booking-open";
     button.dataset.motowarsztatBookingTrigger = "true";
-    button.innerHTML = "Umów wizytę online <span aria-hidden=\"true\">→</span>";
+    button.innerHTML = "Zarezerwuj wizytę online <span aria-hidden=\"true\">→</span>";
     phoneBox.insertAdjacentElement("afterend", button);
   }
 }
 
+function upgradePublicBookingLinks() {
+  const roots = document.querySelectorAll<HTMLElement>(".home-page, .ecu-page, .services-page");
+  roots.forEach((root) => {
+    root.querySelectorAll<HTMLAnchorElement | HTMLButtonElement>("a,button").forEach((element) => {
+      if (element.dataset.motowarsztatBookingTrigger === "true") return;
+      const text = (element.textContent || "").replace(/\s+/g, " ").trim().toLocaleLowerCase("pl");
+      const shouldUpgrade = text === "napisz do nas" || text === "napisz e-mail" || text.includes("napisz do nas") || text.includes("napisz e-mail");
+      if (!shouldUpgrade) return;
+
+      if (element instanceof HTMLAnchorElement) {
+        element.removeAttribute("href");
+        element.setAttribute("role", "button");
+      }
+      element.dataset.motowarsztatBookingTrigger = "true";
+      element.textContent = "Zarezerwuj wizytę online";
+    });
+  });
+}
+
 function hydrateBookingUi() {
   ensureHomepageBookingTrigger();
+  upgradePublicBookingLinks();
   bindBookingTriggers();
 }
 
