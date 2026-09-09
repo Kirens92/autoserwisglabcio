@@ -4,8 +4,8 @@ import logo from "@/assets/nowelogobg.png";
 import CallButton from "@/components/CallButton";
 
 const links = [
-  { href: "/#uslugi", label: "Usługi" },
-  { href: "/#realizacje", label: "Realizacje" },
+  { href: "/stara-strona/uslugi", label: "Usługi" },
+  { href: "/stara-strona/realizacje", label: "Realizacje" },
   { href: "/#proces", label: "Proces" },
   { href: "/#opinie", label: "Opinie" },
   { href: "/#kontakt", label: "Kontakt" },
@@ -35,7 +35,7 @@ const LegacyNavbar = () => {
             Zadzwoń
           </CallButton>
           <a
-            href="#rezerwacja"
+            href="/#rezerwacja"
             className="px-6 py-2.5 border border-primary/40 text-primary font-body font-semibold text-sm tracking-wider uppercase hover:bg-primary/5 transition-all"
           >
             Zarezerwuj wizytę
@@ -69,7 +69,7 @@ const LegacyNavbar = () => {
             Zadzwoń
           </CallButton>
           <a
-            href="#rezerwacja"
+            href="/#rezerwacja"
             onClick={() => setOpen(false)}
             className="block w-full mt-3 text-center px-6 py-3 border border-primary/40 text-primary font-body font-semibold text-sm tracking-wider uppercase"
           >
