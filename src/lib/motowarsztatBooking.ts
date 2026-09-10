@@ -139,8 +139,8 @@ function buildWorkshopDirectionsUrl(address: string) {
 
 async function ensureHomepageWorkshopMap() {
   const page = document.querySelector<HTMLElement>(".home-page");
-  const contactCopy = page?.querySelector<HTMLElement>(".home-contact__copy");
-  if (!page || !contactCopy || page.querySelector(".home-workshop-map")) return;
+  const grid = page?.querySelector<HTMLElement>(".home-contact__grid");
+  if (!page || !grid || page.querySelector(".home-workshop-map")) return;
 
   const card = document.createElement("section");
   card.className = "home-workshop-map";
@@ -164,9 +164,7 @@ async function ensureHomepageWorkshopMap() {
     </div>
   `;
 
-  const bookingButton = page.querySelector<HTMLElement>(".home-booking-open");
-  if (bookingButton) bookingButton.insertAdjacentElement("afterend", card);
-  else contactCopy.appendChild(card);
+  grid.appendChild(card);
 
   const address = await getWorkshopAddress();
   const iframe = card.querySelector<HTMLIFrameElement>("iframe");
