@@ -6,7 +6,6 @@ import Stats from "@/components/Stats";
 import Reviews from "@/components/Reviews";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import Reserve from "@/components/Reserve";
 import CookieConsent from "@/components/CookieConsent";
 import StructuredData from "@/components/StructuredData";
 import LatestRealizations from "@/components/LatestRealizations";
@@ -22,7 +21,6 @@ const Index = () => {
       <LatestRealizations />
       <Process />
       <Reviews />
-      <Reserve />
       <Contact />
       <Footer />
       <CookieConsent />
