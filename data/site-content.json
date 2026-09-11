@@ -111,6 +111,15 @@
       { "name": "Jakub T.", "text": "Warsztat, do którego można wrócić. Rzetelnie, bez naciągania i z dużą wiedzą techniczną." }
     ]
   },
+  "contact": {
+    "eyebrow": "Skontaktuj się z nami",
+    "title": "Skontaktuj się z nami",
+    "description": "Zadzwoń do nas — ustalimy zakres prac i dogodny termin.",
+    "phoneTitle": "Zadzwoń do nas",
+    "formTitle": "Kontakt telefoniczny",
+    "formDescription": "Skontaktuj się z nami telefonicznie, aby ustalić termin.",
+    "submitLabel": "Zadzwoń do nas"
+  },
   "cta": {
     "eyebrow": "Kontakt",
     "title": "Potrzebujesz diagnostyki lub naprawy?",
