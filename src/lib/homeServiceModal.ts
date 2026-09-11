@@ -1,4 +1,3 @@
-import { openBookingModal } from "./motowarsztatBooking";
 import "../pages/HomeServiceModal.css";
 
 type ServiceDetails = {
@@ -142,28 +141,19 @@ function openServiceModal(service: ServiceDetails, fallbackImage?: string) {
   aside.className = "home-service-modal__aside";
   aside.append(
     createText("span", "home-service-modal__aside-label", "Potrzebujesz tej usługi?"),
-    createText("strong", "home-service-modal__aside-title", "Umów dogodny termin"),
-    createText("p", "home-service-modal__aside-copy", "Wybierz dogodny termin online albo przejdź do pełnej strony usług, aby zobaczyć cały zakres oferty."),
+    createText("strong", "home-service-modal__aside-title", "Skontaktuj się z nami"),
+    createText("p", "home-service-modal__aside-copy", "Zadzwoń do warsztatu, aby ustalić termin i zakres usługi, albo przejdź do pełnej strony usług."),
   );
 
   const actions = document.createElement("div");
   actions.className = "home-service-modal__actions";
-
-  const booking = document.createElement("button");
-  booking.type = "button";
-  booking.className = "home-service-modal__booking";
-  booking.textContent = "Zarezerwuj wizytę online";
-  booking.addEventListener("click", () => {
-    closeModal();
-    openBookingModal();
-  });
 
   const allServices = document.createElement("a");
   allServices.href = "/uslugi";
   allServices.className = "home-service-modal__all";
   allServices.textContent = "Zobacz wszystkie usługi";
 
-  actions.append(booking, allServices);
+  actions.append(allServices);
   aside.appendChild(actions);
   content.append(main, aside);
 
