@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { CalendarDays, Menu, Phone, X } from "lucide-react";
+import { Menu, Phone, X } from "lucide-react";
 import logo from "@/assets/nowelogo.png";
 import CallButton from "@/components/CallButton";
-import ReserveButton from "@/components/ReserveButton";
 import "./Navbar.css";
 
 const links = [
@@ -29,7 +28,6 @@ const Navbar = () => {
 
         <div className="public-nav__actions">
           <CallButton className="public-nav__call"><Phone /> Zadzwoń</CallButton>
-          <ReserveButton className="public-nav__reserve"><CalendarDays /> Zarezerwuj wizytę</ReserveButton>
         </div>
 
         <button type="button" onClick={() => setOpen((value) => !value)} className="public-nav__toggle" aria-label={open ? "Zamknij menu" : "Otwórz menu"} aria-expanded={open}>
@@ -42,7 +40,6 @@ const Navbar = () => {
           {links.map((link) => <a key={link.href} href={link.href} onClick={() => setOpen(false)}>{link.label}</a>)}
           <div className="public-nav__mobile-actions">
             <CallButton className="public-nav__call"><Phone /> Zadzwoń do nas</CallButton>
-            <ReserveButton className="public-nav__reserve"><CalendarDays /> Zarezerwuj wizytę online</ReserveButton>
           </div>
         </div>
       </div>
