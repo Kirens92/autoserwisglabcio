@@ -237,6 +237,12 @@
 .home-booking-widget-shell::before { left: 0; }
 .home-booking-widget-shell::after { right: 0; }
 
+/* Remove decorative labels/badges requested for the new homepage. */
+.home-page .home-brand-card__content > span,
+.home-page .home-about__badge {
+  display: none !important;
+}
+
 @media (max-width: 1050px) {
   .home-page .home-contact__grid {
     grid-template-columns: minmax(0, 1fr) !important;
