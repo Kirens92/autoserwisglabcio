@@ -6,6 +6,7 @@ import "./pages/NewHomepageBackgroundFix.css";
 import "./pages/NewHomepageReadabilityFix.css";
 import "./pages/NewHomepagePhoneOnly.css";
 import "./pages/NewHomepageBooking.css";
+import "./pages/NewHomepageReviewsCarousel.css";
 import "./pages/ServicesBooking.css";
 import "./pages/EcuTcuPolish.css";
 import "./pages/EcuTcuLogoFix.css";
@@ -13,6 +14,7 @@ import "./pages/EcuTcuResponsive.css";
 import "./lib/motowarsztatBooking";
 import "./lib/adminBookingLabels";
 import { bindHomepageServiceModals } from "./lib/homeServiceModal";
+import { ensureHomepageGoogleReviewsCarousel } from "./lib/googleReviewsCarousel";
 
 const applyBrandLogo = () => {
   if (window.location.pathname === "/") return;
@@ -204,6 +206,7 @@ requestAnimationFrame(() => {
   applyHomepageEcuNavigation();
   applyPhoneOnlyContact();
   bindHomepageServiceModals();
+  ensureHomepageGoogleReviewsCarousel();
 });
 
 const rootObserver = new MutationObserver(() => {
@@ -211,6 +214,7 @@ const rootObserver = new MutationObserver(() => {
   applyHomepageEcuNavigation();
   applyPhoneOnlyContact();
   bindHomepageServiceModals();
+  ensureHomepageGoogleReviewsCarousel();
 });
 rootObserver.observe(document.getElementById("root")!, {
   childList: true,
