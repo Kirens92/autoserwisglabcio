@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { CalendarDays, FileCheck2, Phone, SearchCheck, Wrench } from "lucide-react";
+import { FileCheck2, Phone, SearchCheck, Wrench } from "lucide-react";
 import { useParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import CallButton from "@/components/CallButton";
-import ReserveButton from "@/components/ReserveButton";
 
 type Realization = {
   slug: string;
@@ -57,7 +56,6 @@ export default function RealizationDetail() {
                   <p className="mt-6 max-w-3xl text-base leading-7 text-white/50">{item.excerpt}</p>
                   <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                     <CallButton className="inline-flex min-h-12 items-center justify-center gap-2 bg-gradient-gold px-6 text-sm font-bold text-black"><Phone className="h-4 w-4" />Zadzwoń do nas</CallButton>
-                    <ReserveButton className="inline-flex min-h-12 items-center justify-center gap-2 border border-primary/45 px-6 text-sm font-bold text-primary"><CalendarDays className="h-4 w-4" />Zarezerwuj wizytę online</ReserveButton>
                   </div>
                 </div>
               </div>
@@ -103,10 +101,9 @@ export default function RealizationDetail() {
 
               <section className="mt-8 border border-primary/25 bg-[linear-gradient(110deg,rgba(229,173,49,.08),rgba(255,255,255,.015))] p-6 sm:p-8">
                 <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
-                  <div><div className="text-xs font-black uppercase tracking-[.18em] text-primary">Twoje auto potrzebuje serwisu?</div><h2 className="mt-2 text-2xl font-bold sm:text-3xl">Zadzwoń lub zarezerwuj termin online.</h2></div>
+                  <div><div className="text-xs font-black uppercase tracking-[.18em] text-primary">Twoje auto potrzebuje serwisu?</div><h2 className="mt-2 text-2xl font-bold sm:text-3xl">Zadzwoń do nas i umów termin.</h2></div>
                   <div className="flex flex-col gap-3 sm:flex-row">
                     <CallButton className="inline-flex min-h-12 items-center justify-center gap-2 bg-gradient-gold px-6 text-sm font-bold text-black"><Phone className="h-4 w-4" />Zadzwoń do nas</CallButton>
-                    <ReserveButton className="inline-flex min-h-12 items-center justify-center gap-2 border border-primary/45 px-6 text-sm font-bold text-primary"><CalendarDays className="h-4 w-4" />Zarezerwuj wizytę już teraz</ReserveButton>
                   </div>
                 </div>
               </section>
