@@ -44,7 +44,7 @@ const Hero = () => {
             className="inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 bg-gradient-gold text-primary-foreground font-body font-semibold text-sm tracking-widest uppercase hover:brightness-110 transition-all glow-gold"
           >
             <PhoneIcon />
-            Zadzwoń teraz
+            Zadzwoń do nas
           </CallButton>
           <a
             href="#uslugi"
