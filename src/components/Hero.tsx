@@ -1,20 +1,16 @@
 import heroBg from "@/assets/hero-bg.png";
 import logo from "@/assets/nowelogobg.png";
 import CallButton from "@/components/CallButton";
-import ReserveButton from "@/components/ReserveButton";
 
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background */}
       <div className="absolute inset-0">
         <img src={heroBg} alt="Warsztat samochodowy" className="w-full h-full object-cover" loading="eager" />
         <div className="absolute inset-0 hero-overlay" />
-        {/* Gold accent line at bottom */}
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-gold opacity-40" />
       </div>
 
-      {/* Content */}
       <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto py-24">
         <img src={logo} alt="Logo Auto Serwis Gl@bcio" className="w-72 sm:w-[28rem] md:w-[36rem] mx-auto mb-6 md:mb-8 animate-fade-in" />
 
@@ -50,11 +46,6 @@ const Hero = () => {
             <PhoneIcon />
             Zadzwoń teraz
           </CallButton>
-          <ReserveButton
-            className="inline-flex items-center justify-center gap-2 px-8 sm:px-10 py-4 border border-primary/30 text-primary font-body font-semibold text-sm tracking-widest uppercase hover:bg-primary/5 transition-all"
-          >
-            Zarezerwuj wizytę
-          </ReserveButton>
           <a
             href="#uslugi"
             className="inline-flex items-center justify-center gap-2 px-8 sm:px-10 py-4 border border-primary/30 text-primary font-body font-semibold text-sm tracking-widest uppercase hover:bg-primary/5 transition-all"
