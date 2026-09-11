@@ -11,6 +11,7 @@ type GoogleReview = {
 };
 
 let cachedReviews: GoogleReview[] | null = null;
+let cachedGoogleMapsUri = "";
 let reviewsRequest: Promise<GoogleReview[]> | null = null;
 
 async function loadGoogleReviews(): Promise<GoogleReview[]> {
@@ -22,6 +23,7 @@ async function loadGoogleReviews(): Promise<GoogleReview[]> {
       if (!response.ok) throw new Error("Google reviews unavailable");
       const data = await response.json();
       const reviews = Array.isArray(data?.reviews) ? data.reviews : [];
+      cachedGoogleMapsUri = typeof data?.googleMapsUri === "string" ? data.googleMapsUri : "";
       cachedReviews = reviews.filter((review: GoogleReview) => review && (review.text || review.author?.name));
       return cachedReviews;
     })
@@ -97,6 +99,24 @@ function createReviewCard(review: GoogleReview, duplicate = false) {
   return card;
 }
 
+function ensureReviewsCta(parent: HTMLElement) {
+  if (parent.querySelector(".home-review-all-cta")) return;
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "home-review-all-cta";
+
+  const link = document.createElement("a");
+  link.className = "home-btn home-btn--outline home-review-all-button";
+  link.href = cachedGoogleMapsUri || "https://www.google.com/maps/search/?api=1&query=Auto+Serwis+Gl%40bcio+Ostr%C3%B3w+Wielkopolski";
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.setAttribute("aria-label", "Zobacz wszystkie opinie o firmie w Google Maps");
+  link.innerHTML = `<span>Zobacz wszystkie opinie o Firmie</span><span aria-hidden="true">↗</span>`;
+
+  wrapper.appendChild(link);
+  parent.appendChild(wrapper);
+}
+
 function mountCarousel(originalGrid: HTMLElement, reviews: GoogleReview[]) {
   const parent = originalGrid.parentElement;
   if (!parent || !reviews.length) return;
@@ -104,24 +124,26 @@ function mountCarousel(originalGrid: HTMLElement, reviews: GoogleReview[]) {
   originalGrid.classList.add("home-review-grid--legacy");
 
   let carousel = parent.querySelector<HTMLElement>(".home-review-carousel-enhanced");
-  if (carousel) return;
+  if (!carousel) {
+    carousel = document.createElement("div");
+    carousel.className = "home-review-carousel-enhanced";
+    carousel.setAttribute("role", "region");
+    carousel.setAttribute("aria-label", "Opinie klientów Google");
 
-  carousel = document.createElement("div");
-  carousel.className = "home-review-carousel-enhanced";
-  carousel.setAttribute("role", "region");
-  carousel.setAttribute("aria-label", "Opinie klientów Google");
+    const track = document.createElement("div");
+    track.className = "home-review-carousel__track";
 
-  const track = document.createElement("div");
-  track.className = "home-review-carousel__track";
+    reviews.forEach((review) => track.appendChild(createReviewCard(review)));
+    if (reviews.length > 1) {
+      reviews.forEach((review) => track.appendChild(createReviewCard(review, true)));
+      carousel.classList.add("is-animated");
+    }
 
-  reviews.forEach((review) => track.appendChild(createReviewCard(review)));
-  if (reviews.length > 1) {
-    reviews.forEach((review) => track.appendChild(createReviewCard(review, true)));
-    carousel.classList.add("is-animated");
+    carousel.appendChild(track);
+    originalGrid.insertAdjacentElement("afterend", carousel);
   }
 
-  carousel.appendChild(track);
-  originalGrid.insertAdjacentElement("afterend", carousel);
+  ensureReviewsCta(parent);
 }
 
 export function ensureHomepageGoogleReviewsCarousel() {
