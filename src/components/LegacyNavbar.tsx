@@ -32,7 +32,7 @@ const LegacyNavbar = () => {
             </a>
           ))}
           <CallButton className="px-6 py-2.5 bg-gradient-gold text-primary-foreground font-body font-semibold text-sm tracking-wider uppercase hover:brightness-110 transition-all">
-            Zadzwoń
+            Zadzwoń do nas
           </CallButton>
         </div>
 
@@ -60,7 +60,7 @@ const LegacyNavbar = () => {
             </a>
           ))}
           <CallButton className="block w-full mt-4 text-center px-6 py-3 bg-gradient-gold text-primary-foreground font-body font-semibold text-sm tracking-wider uppercase">
-            Zadzwoń
+            Zadzwoń do nas
           </CallButton>
         </div>
       )}
