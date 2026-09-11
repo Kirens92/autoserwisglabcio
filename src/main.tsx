@@ -7,12 +7,10 @@ import "./pages/NewHomepageReadabilityFix.css";
 import "./pages/NewHomepagePhoneOnly.css";
 import "./pages/NewHomepageBooking.css";
 import "./pages/NewHomepageReviewsCarousel.css";
-import "./pages/ServicesBooking.css";
 import "./pages/EcuTcuPolish.css";
 import "./pages/EcuTcuLogoFix.css";
 import "./pages/EcuTcuResponsive.css";
 import "./lib/motowarsztatBooking";
-import "./lib/adminBookingLabels";
 import { bindHomepageServiceModals } from "./lib/homeServiceModal";
 import { ensureHomepageGoogleReviewsCarousel } from "./lib/googleReviewsCarousel";
 
@@ -171,6 +169,59 @@ function openPhonePicker(phones: PhoneOption[]) {
   closeButton.focus();
 }
 
+const removeOnlineBookingUi = () => {
+  if (window.location.pathname.startsWith("/admin")) return;
+
+  document
+    .querySelectorAll<HTMLElement>(
+      "[data-motowarsztat-booking-trigger], .home-booking-open, .services-modal__booking, .public-nav__reserve",
+    )
+    .forEach((element) => element.remove());
+
+  document.querySelector(".home-booking-modal")?.remove();
+  document.getElementById("motowarsztat-booking-loader")?.remove();
+  document.querySelector<HTMLElement>("#rezerwacja")?.remove();
+
+  const page = document.querySelector<HTMLElement>(".home-page");
+  if (page) {
+    page.querySelectorAll<HTMLAnchorElement | HTMLButtonElement>("a,button").forEach((element) => {
+      const label = (element.textContent || "").replace(/\s+/g, " ").trim().toLocaleLowerCase("pl");
+      const isBooking = label.includes("zarezerwuj wizyt") || label.includes("umów wizyt") || label.includes("rezerwacj");
+      if (!isBooking) return;
+
+      element.textContent = "Zadzwoń do nas";
+      if (element instanceof HTMLAnchorElement) element.href = "#kontakt";
+    });
+
+    const contactTitle = page.querySelector<HTMLElement>(".home-contact__copy h2");
+    if (contactTitle && /umów wizyt/i.test(contactTitle.textContent || "")) {
+      contactTitle.textContent = "Skontaktuj się z nami";
+    }
+
+    const contactDescription = page.querySelector<HTMLElement>(".home-contact__copy > p");
+    if (contactDescription && /rezerw|wizyt/i.test(contactDescription.textContent || "")) {
+      contactDescription.textContent = "Zadzwoń do nas — ustalimy zakres prac i dogodny termin.";
+    }
+
+    const firstStepTitle = page.querySelector<HTMLElement>(".home-process-grid article:first-child h3");
+    const firstStepText = page.querySelector<HTMLElement>(".home-process-grid article:first-child p");
+    if (firstStepTitle && /umów wizyt/i.test(firstStepTitle.textContent || "")) {
+      firstStepTitle.textContent = "Kontakt telefoniczny";
+    }
+    if (firstStepText && /online|zarezerw/i.test(firstStepText.textContent || "")) {
+      firstStepText.textContent = "Zadzwoń do nas. Ustalamy objawy, zakres wstępny i dogodny termin.";
+    }
+  }
+
+  document.querySelectorAll<HTMLAnchorElement | HTMLButtonElement>("a,button").forEach((element) => {
+    if (element.closest(".home-page")) return;
+    const label = (element.textContent || "").replace(/\s+/g, " ").trim().toLocaleLowerCase("pl");
+    if (label.includes("zarezerwuj wizytę") || label.includes("umów wizytę online") || label.includes("rezerwacja online")) {
+      element.remove();
+    }
+  });
+};
+
 const applyPhoneOnlyContact = () => {
   const page = document.querySelector<HTMLElement>(".home-page");
   if (!page) return;
@@ -182,13 +233,13 @@ const applyPhoneOnlyContact = () => {
     const callButton = document.createElement("button");
     callButton.type = "button";
     callButton.className = "home-btn home-btn--gold home-phone-only-cta";
-    callButton.textContent = "Zadzwoń teraz →";
+    callButton.textContent = "Zadzwoń do nas →";
     phoneBox.insertAdjacentElement("afterend", callButton);
   }
 
   page.querySelectorAll<HTMLElement>("a, button").forEach((element) => {
     const label = (element.textContent || "").replace(/\s+/g, " ").trim().toLocaleLowerCase("pl");
-    if (!label.includes("zadzwoń teraz") || element.dataset.phonePickerBound === "true") return;
+    if (!label.includes("zadzwoń") || element.dataset.phonePickerBound === "true") return;
 
     element.dataset.phonePickerBound = "true";
     element.addEventListener("click", async (event) => {
@@ -204,6 +255,7 @@ createRoot(document.getElementById("root")!).render(<App />);
 requestAnimationFrame(() => {
   applyBrandLogo();
   applyHomepageEcuNavigation();
+  removeOnlineBookingUi();
   applyPhoneOnlyContact();
   bindHomepageServiceModals();
   ensureHomepageGoogleReviewsCarousel();
@@ -212,6 +264,7 @@ requestAnimationFrame(() => {
 const rootObserver = new MutationObserver(() => {
   applyBrandLogo();
   applyHomepageEcuNavigation();
+  removeOnlineBookingUi();
   applyPhoneOnlyContact();
   bindHomepageServiceModals();
   ensureHomepageGoogleReviewsCarousel();
