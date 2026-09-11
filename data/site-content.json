@@ -30,7 +30,7 @@
     "titleLine1": "Twój samochód.",
     "titleLine2": "Nasza specjalizacja.",
     "description": "Rzetelna diagnostyka, precyzyjna mechanika i doświadczenie w obsłudze samochodów Peugeot i Citroën. Bez przypadkowych decyzji — najpierw diagnoza, potem konkretny kosztorys i naprawa po akceptacji klienta.",
-    "primaryCta": "Umów wizytę",
+    "primaryCta": "Zadzwoń do nas",
     "secondaryCta": "Poznaj nasze usługi",
     "trustPoints": [
       { "title": "Doświadczenie", "text": "Wieloletnia praktyka" },
@@ -112,7 +112,7 @@
     ]
   },
   "cta": {
-    "eyebrow": "Umów wizytę",
+    "eyebrow": "Kontakt",
     "title": "Potrzebujesz diagnostyki lub naprawy?",
     "description": "Skontaktuj się z nami. Ustalimy termin, wykonamy diagnostykę i przedstawimy kosztorys przed rozpoczęciem naprawy.",
     "primaryLabel": "Zadzwoń teraz",
