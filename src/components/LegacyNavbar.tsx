@@ -34,12 +34,6 @@ const LegacyNavbar = () => {
           <CallButton className="px-6 py-2.5 bg-gradient-gold text-primary-foreground font-body font-semibold text-sm tracking-wider uppercase hover:brightness-110 transition-all">
             Zadzwoń
           </CallButton>
-          <a
-            href="/#rezerwacja"
-            className="px-6 py-2.5 border border-primary/40 text-primary font-body font-semibold text-sm tracking-wider uppercase hover:bg-primary/5 transition-all"
-          >
-            Zarezerwuj wizytę
-          </a>
         </div>
 
         <button
@@ -68,13 +62,6 @@ const LegacyNavbar = () => {
           <CallButton className="block w-full mt-4 text-center px-6 py-3 bg-gradient-gold text-primary-foreground font-body font-semibold text-sm tracking-wider uppercase">
             Zadzwoń
           </CallButton>
-          <a
-            href="/#rezerwacja"
-            onClick={() => setOpen(false)}
-            className="block w-full mt-3 text-center px-6 py-3 border border-primary/40 text-primary font-body font-semibold text-sm tracking-wider uppercase"
-          >
-            Zarezerwuj wizytę
-          </a>
         </div>
       )}
     </nav>
