@@ -55,3 +55,14 @@
     width: 166px;
   }
 }
+
+/* Remove the decorative gold frame around the ECU/TCU hero media. */
+.ecu-page .ecu-media {
+  padding: 0 !important;
+}
+
+.ecu-page .ecu-media::before,
+.ecu-page .ecu-media::after {
+  display: none !important;
+  content: none !important;
+}
