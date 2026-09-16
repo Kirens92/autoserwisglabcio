@@ -92,7 +92,7 @@ export const defaultEcuTcuContent: EcuTcuContent = {
     robots: "noindex, follow",
   },
   hero: {
-    eyebrow: "Specjalistyczny serwis elektroniki samochodowej",
+    eyebrow: "Serwis elektroniki samochodowej",
     titleLine1: "Modyfikacje Sterowników",
     titleLine2: "ECU | TCU",
     description: "Profesjonalna diagnostyka, programowanie, kodowanie i naprawa sterowników silnika oraz skrzyń biegów. Pracujemy na oryginalnym sprzęcie FLEX w trybach OBD, BENCH oraz BOOT.",
