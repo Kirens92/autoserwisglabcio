@@ -8,7 +8,6 @@ const Hero = () => {
       <div className="absolute inset-0">
         <img src={heroBg} alt="Warsztat samochodowy" className="w-full h-full object-cover" loading="eager" />
         <div className="absolute inset-0 hero-overlay" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-gold opacity-40" />
       </div>
 
       <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto py-24">
