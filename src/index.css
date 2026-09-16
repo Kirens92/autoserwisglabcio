@@ -110,3 +110,9 @@
     border-color: hsl(43 72% 52% / 0.2);
   }
 }
+
+/* /nowa-strona — elementy usunięte zgodnie z projektem */
+.home-brand-card__content > span:first-child,
+.home-about__badge {
+  display: none !important;
+}
