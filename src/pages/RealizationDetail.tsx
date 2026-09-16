@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { FileCheck2, Phone, SearchCheck, Wrench } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { Phone, SearchCheck, Wrench } from "lucide-react";
 import { useParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import CallButton from "@/components/CallButton";
@@ -12,7 +12,19 @@ type Realization = {
   clientReport?: string;
   diagnosis?: string;
   image: string;
+  images?: string[];
 };
+
+function getImages(item: Realization | null | undefined) {
+  if (!item) return [];
+  return Array.from(
+    new Set(
+      [item.image, ...(Array.isArray(item.images) ? item.images : [])].filter(
+        (value): value is string => Boolean(value),
+      ),
+    ),
+  ).slice(0, 12);
+}
 
 export default function RealizationDetail() {
   const { slug } = useParams();
@@ -27,6 +39,8 @@ export default function RealizationDetail() {
       })
       .catch(() => setItem(null));
   }, [slug]);
+
+  const images = useMemo(() => getImages(item), [item]);
 
   return (
     <>
@@ -62,10 +76,22 @@ export default function RealizationDetail() {
             </section>
 
             <article className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-              {item.image && (
-                <div className="overflow-hidden border border-white/10 bg-black/30">
-                  <img src={item.image} alt={item.title} className="max-h-[720px] w-full object-cover" />
-                </div>
+              {images.length > 0 && (
+                <section aria-label="Galeria realizacji" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {images.map((image, index) => (
+                    <div
+                      key={`${image}-${index}`}
+                      className={`overflow-hidden border border-white/10 bg-black/30 ${index === 0 ? "sm:col-span-2 lg:col-span-3" : ""}`}
+                    >
+                      <img
+                        src={image}
+                        alt={`${item.title} — zdjęcie ${index + 1}`}
+                        className={index === 0 ? "max-h-[720px] w-full object-cover" : "aspect-[4/3] h-full w-full object-cover"}
+                        loading={index === 0 ? "eager" : "lazy"}
+                      />
+                    </div>
+                  ))}
+                </section>
               )}
 
               <div className="mt-8 grid gap-5 lg:grid-cols-2">
@@ -89,23 +115,6 @@ export default function RealizationDetail() {
               <section className="mt-8 border border-white/10 bg-[#0b0b0b] p-6 sm:p-8 lg:p-10">
                 <div className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Zakres wykonanych prac</div>
                 <div className="mt-5 max-w-4xl whitespace-pre-line text-base leading-8 text-white/60">{item.content}</div>
-              </section>
-
-              <div className="mt-8 grid gap-4 border border-primary/20 bg-primary/[0.045] p-5 sm:grid-cols-[auto_1fr] sm:items-center sm:p-6">
-                <div className="flex h-12 w-12 items-center justify-center border border-primary/30 bg-black/30 text-primary"><FileCheck2 className="h-5 w-5" /></div>
-                <div>
-                  <div className="text-xs font-bold uppercase tracking-[0.18em] text-primary">Przejrzyste koszty przed naprawą</div>
-                  <p className="mt-2 max-w-4xl text-sm leading-6 text-white/60">Po diagnozie klient otrzymuje kosztorys do akceptacji. Prace rozpoczynamy dopiero po zatwierdzeniu zakresu i kosztu naprawy.</p>
-                </div>
-              </div>
-
-              <section className="mt-8 border border-primary/25 bg-[linear-gradient(110deg,rgba(229,173,49,.08),rgba(255,255,255,.015))] p-6 sm:p-8">
-                <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
-                  <div><div className="text-xs font-black uppercase tracking-[.18em] text-primary">Twoje auto potrzebuje serwisu?</div><h2 className="mt-2 text-2xl font-bold sm:text-3xl">Zadzwoń do nas i umów termin.</h2></div>
-                  <div className="flex flex-col gap-3 sm:flex-row">
-                    <CallButton className="inline-flex min-h-12 items-center justify-center gap-2 bg-gradient-gold px-6 text-sm font-bold text-black"><Phone className="h-4 w-4" />Zadzwoń do nas</CallButton>
-                  </div>
-                </div>
               </section>
             </article>
           </>
