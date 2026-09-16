@@ -14,7 +14,6 @@ const Hero = () => {
       <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto py-24">
         <img src={logo} alt="Logo Auto Serwis Gl@bcio" className="w-72 sm:w-[28rem] md:w-[36rem] mx-auto mb-6 md:mb-8 animate-fade-in" />
 
-        <div className="gold-line mx-auto mb-8 animate-fade-in" />
 
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold tracking-tight mb-6 animate-fade-in-up text-foreground leading-tight">
           Auto Serwis{" "}
