@@ -15,8 +15,12 @@ const WHATSAPP_URL = "https://wa.me/48530978968";
 
 export default function SiteLegalFooter() {
   const location = useLocation();
-  const supported = ["/nowa-strona", "/ecu-tcu", "/uslugi"].includes(location.pathname) || location.pathname.startsWith("/realizacje");
+  const supported = ["/", "/nowa-strona", "/ecu-tcu", "/uslugi"].includes(location.pathname) || location.pathname.startsWith("/realizacje");
   if (!supported) return null;
+
+  const openCookieSettings = () => {
+    window.dispatchEvent(new Event("glabcio-open-cookie-settings"));
+  };
 
   return (
     <section className="site-legal-footer" aria-label="Formy płatności i dokumenty prawne">
@@ -31,6 +35,8 @@ export default function SiteLegalFooter() {
           <div className="site-legal-footer__links">
             <a href="/regulamin">Regulamin</a>
             <a href="/polityka-prywatnosci">Polityka prywatności</a>
+            <a href="/polityka-cookies">Polityka cookies</a>
+            <button type="button" onClick={openCookieSettings}>Ustawienia cookies</button>
             <span className="site-legal-footer__credit">
               Strona stworzona przez <a href="https://zarembatech.pl" target="_blank" rel="noreferrer">ZarembaTech.pl</a>
             </span>
