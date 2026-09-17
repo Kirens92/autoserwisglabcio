@@ -20,6 +20,7 @@ import CookiePolicyPage from "./pages/CookiePolicyPage";
 import { PrivacyPolicyPage, TermsPage } from "./pages/LegalPages";
 import SiteLegalFooter from "./components/SiteLegalFooter";
 import CookieConsent from "./components/CookieConsent";
+import "./pages/CookiePolicyPage.css";
 
 const queryClient = new QueryClient();
 
