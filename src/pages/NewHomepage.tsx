@@ -31,6 +31,7 @@ import logo from "@/assets/nowelogo.png";
 import heroBg from "@/assets/hero-bg.png";
 import aboutFallback from "@/assets/ecutcu.png";
 import shippingFallback from "@/assets/Wysyłka w całej Polsce.png";
+import HomePartners from "@/components/HomePartners";
 import { defaultSiteContent, normalizeSiteContent, type SiteContent } from "@/lib/siteContent";
 import "./NewHomepage.css";
 
@@ -213,9 +214,10 @@ export default function NewHomepage() {
           </a>
 
           <nav className="home-nav" aria-label="Główna nawigacja">
-            {content.navigation.map((item) => (
+            {content.navigation.filter((item) => item.href !== "/partnerzy").map((item) => (
               <a key={`${item.href}-${item.label}`} href={item.href}>{item.label}</a>
             ))}
+            <a href="/partnerzy">Partnerzy</a>
           </nav>
 
           <a href="#kontakt" className="home-btn home-btn--gold home-header__cta">{content.hero.primaryCta}<ArrowRight /></a>
@@ -226,7 +228,8 @@ export default function NewHomepage() {
         </div>
         <div className={`home-mobile-nav ${menuOpen ? "is-open" : ""}`}>
           <div className="home-shell">
-            {content.navigation.map((item) => <a key={`${item.href}-${item.label}`} href={item.href} onClick={() => setMenuOpen(false)}>{item.label}</a>)}
+            {content.navigation.filter((item) => item.href !== "/partnerzy").map((item) => <a key={`${item.href}-${item.label}`} href={item.href} onClick={() => setMenuOpen(false)}>{item.label}</a>)}
+            <a href="/partnerzy" onClick={() => setMenuOpen(false)}>Partnerzy</a>
             <a href="#kontakt" className="home-btn home-btn--gold" onClick={() => setMenuOpen(false)}>{content.hero.primaryCta}</a>
           </div>
         </div>
@@ -368,6 +371,8 @@ export default function NewHomepage() {
         </div>
       </section>
 
+      <HomePartners />
+
       <section id="opinie" className="home-section home-reviews">
         <div className="home-shell">
           <div className="home-section-head home-section-head--center">
@@ -429,7 +434,7 @@ export default function NewHomepage() {
       <footer className="home-footer">
         <div className="home-shell home-footer__grid">
           <div className="home-footer__brand"><img src={logo} alt="Auto Serwis Gl@bcio" /><p>{content.footer.description}</p><div className="home-footer__icons"><span>f</span><span>◎</span><span>▶</span></div></div>
-          <div><h3>Szybkie linki</h3>{content.footer.quickLinks.map((item) => <a key={`${item.href}-${item.label}`} href={item.href}>{item.label}</a>)}</div>
+          <div><h3>Szybkie linki</h3>{content.footer.quickLinks.filter((item) => item.href !== "/partnerzy").map((item) => <a key={`${item.href}-${item.label}`} href={item.href}>{item.label}</a>)}<a href="/partnerzy">Partnerzy</a></div>
           <div><h3>Kontakt</h3><a href={primaryTel}>{business.phone}</a>{secondTel && <a href={secondTel}>{business.phone2}</a>}<a href={`mailto:${business.email}`}>{business.email}</a><span>{business.street}<br />{business.postalCode} {business.city}</span></div>
           <div><h3>Godziny otwarcia</h3><span>Pon–Pt <strong>{business.hoursWeekdays}</strong></span><span>Sobota <strong>{business.hoursSaturday}</strong></span><span>Niedziela <strong>{business.hoursSunday}</strong></span></div>
         </div>
