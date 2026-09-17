@@ -1,58 +1,40 @@
-/* Use the same nowelogo.png presentation as /nowa-strona. The PNG has a square canvas,
-   so the header crops the vertical margins instead of shrinking the whole image. */
+/* Keep the ECU/TCU header on the exact same logo asset as the current homepage. */
 .ecu-page .ecu-logo {
   position: relative;
   display: block;
-  width: 220px;
-  height: 72px;
+  width: 188px;
+  height: 70px;
   overflow: hidden;
-  flex: 0 0 220px;
+  flex: 0 0 188px;
+  background: url("../assets/nowelogo.png") center / contain no-repeat;
 }
 
+/* Ignore any older logo imported by the ECU component or replaced at runtime. */
 .ecu-page .ecu-logo img {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 220px;
-  height: auto;
-  max-width: none;
-  transform: translate(-50%, -50%);
-  object-fit: initial;
+  display: none !important;
 }
 
 @media (max-width: 1360px) {
   .ecu-page .ecu-logo {
-    width: 200px;
+    width: 188px;
     height: 68px;
-    flex-basis: 200px;
-  }
-
-  .ecu-page .ecu-logo img {
-    width: 200px;
+    flex-basis: 188px;
   }
 }
 
 @media (max-width: 1120px) {
   .ecu-page .ecu-logo {
-    width: 190px;
+    width: 180px;
     height: 64px;
-    flex-basis: 190px;
-  }
-
-  .ecu-page .ecu-logo img {
-    width: 190px;
+    flex-basis: 180px;
   }
 }
 
 @media (max-width: 520px) {
   .ecu-page .ecu-logo {
-    width: 166px;
+    width: 160px;
     height: 58px;
-    flex-basis: 166px;
-  }
-
-  .ecu-page .ecu-logo img {
-    width: 166px;
+    flex-basis: 160px;
   }
 }
 
