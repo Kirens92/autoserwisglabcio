@@ -5,6 +5,7 @@ import {
   Cpu,
   Eye,
   FileText,
+  Handshake,
   ImagePlus,
   LayoutDashboard,
   LogOut,
@@ -27,6 +28,7 @@ const sideItems = [
   ["/admin/ecu-tcu", "ECU | TCU", Cpu],
   ["/admin/uslugi", "Usługi", Wrench],
   ["/admin/realizacje", "Realizacje", ImagePlus],
+  ["/admin/partnerzy", "Partnerzy", Handshake],
   ["/admin/opinie", "Opinie Google", Star],
   ["/admin/seo", "SEO", BarChart3],
   ["/admin/ustawienia", "Ustawienia", Settings],
@@ -97,7 +99,7 @@ export default function AdminDashboard() {
           <img src={logo} alt="Auto Serwis Gl@bcio" className="h-16 w-auto" />
           <div className="mt-8 text-[10px] font-extrabold uppercase tracking-[0.24em] text-[#e0ad31]">Panel administratora</div>
           <h1 className="mt-3 font-serif text-4xl font-semibold">Gl@bcio CMS</h1>
-          <p className="mt-3 text-sm leading-6 text-white/38">Zarządzaj stroną główną, ECU/TCU, usługami, realizacjami i SEO z jednego miejsca.</p>
+          <p className="mt-3 text-sm leading-6 text-white/38">Zarządzaj stroną główną, ECU/TCU, usługami, realizacjami, partnerami i SEO z jednego miejsca.</p>
           <div className="mt-7 space-y-4">
             <label className="block"><span className="mb-2 block text-[10px] font-bold uppercase tracking-[0.16em] text-white/45">Login</span><input required autoComplete="username" value={login} onChange={(e) => setLogin(e.target.value)} className={fieldClass} placeholder="Login administratora" /></label>
             <label className="block"><span className="mb-2 block text-[10px] font-bold uppercase tracking-[0.16em] text-white/45">Hasło</span><input required autoComplete="current-password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} className={fieldClass} placeholder="••••••••" /></label>
@@ -132,7 +134,7 @@ export default function AdminDashboard() {
           </header>
 
           <div className="mx-auto max-w-[1500px] px-4 py-7 sm:px-6 lg:px-8 lg:py-10">
-            <div className="flex flex-col justify-between gap-6 border-b border-white/10 pb-7 lg:flex-row lg:items-end"><div><div className="text-[10px] font-extrabold uppercase tracking-[0.24em] text-[#e0ad31]">Centrum zarządzania</div><h1 className="mt-3 font-serif text-4xl font-semibold sm:text-5xl">Wszystko w jednym panelu.</h1><p className="mt-4 max-w-2xl text-sm leading-7 text-white/40">Edytuj stronę, specjalizację ECU/TCU, usługi, realizacje i dane SEO bez dotykania kodu.</p></div><div className="flex flex-wrap gap-2"><Link to="/admin/ecu-tcu" className="inline-flex items-center gap-2 bg-[#e0ad31] px-5 py-3 text-xs font-extrabold uppercase tracking-[0.1em] text-black"><Cpu className="h-4 w-4" />Edytuj ECU / TCU</Link><Link to="/admin/realizacje" className="inline-flex items-center gap-2 border border-white/10 px-5 py-3 text-xs font-bold text-white/60"><ImagePlus className="h-4 w-4" />Dodaj realizację</Link></div></div>
+            <div className="flex flex-col justify-between gap-6 border-b border-white/10 pb-7 lg:flex-row lg:items-end"><div><div className="text-[10px] font-extrabold uppercase tracking-[0.24em] text-[#e0ad31]">Centrum zarządzania</div><h1 className="mt-3 font-serif text-4xl font-semibold sm:text-5xl">Wszystko w jednym panelu.</h1><p className="mt-4 max-w-2xl text-sm leading-7 text-white/40">Edytuj stronę, specjalizację ECU/TCU, usługi, realizacje, partnerów i dane SEO bez dotykania kodu.</p></div><div className="flex flex-wrap gap-2"><Link to="/admin/partnerzy" className="inline-flex items-center gap-2 bg-[#e0ad31] px-5 py-3 text-xs font-extrabold uppercase tracking-[0.1em] text-black"><Handshake className="h-4 w-4" />Partnerzy</Link><Link to="/admin/realizacje" className="inline-flex items-center gap-2 border border-white/10 px-5 py-3 text-xs font-bold text-white/60"><ImagePlus className="h-4 w-4" />Dodaj realizację</Link></div></div>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">{stats.map(({ label, value, note, Icon }) => <article key={label} className="border border-white/10 bg-[#0b0c0b] p-5"><div className="flex items-center justify-between"><div className="text-[9px] font-bold uppercase tracking-[0.17em] text-white/28">{label}</div><Icon className="h-5 w-5 text-[#e0ad31]" /></div><div className="mt-4 text-3xl font-black text-white">{value}</div><div className="mt-2 text-xs text-white/30">{note}</div></article>)}</div>
 
@@ -142,6 +144,7 @@ export default function AdminDashboard() {
                 ["/admin/strona", "Edytuj stronę główną", "Treść, kontakt, specjalizacja, SEO", FileText],
                 ["/admin/uslugi", "Zarządzaj usługami", "Pełna oferta warsztatu", Wrench],
                 ["/admin/realizacje", "Dodaj realizację", "Zdjęcia, diagnoza i wykonane prace", ImagePlus],
+                ["/admin/partnerzy", "Zarządzaj partnerami", "Logo, grafika, opis, WWW i kontakt", Handshake],
               ].map(([href, title, note, Icon]) => <Link key={String(href)} to={String(href)} className="group border border-white/10 bg-[#080908] p-5 transition hover:border-[#dca92c]/35"><Icon className="h-5 w-5 text-[#e0ad31]" /><div className="mt-4 text-sm font-bold group-hover:text-[#e8ba47]">{String(title)}</div><div className="mt-2 text-xs leading-5 text-white/30">{String(note)}</div></Link>)}</div></section>
 
               <section className="border border-white/10 bg-[#0b0c0b] p-5 sm:p-7"><div className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#e0ad31]">Status projektu</div><h2 className="mt-2 text-2xl font-bold">Nowa wersja Gl@bcio</h2><div className="mt-6 space-y-3">{[
@@ -150,6 +153,7 @@ export default function AdminDashboard() {
                 ["Realizacje + panel", true],
                 ["Strona ECU / TCU", true],
                 ["Edytor ECU / TCU", true],
+                ["Partnerzy + panel", true],
                 ["Finalne indeksowanie SEO", false],
               ].map(([label, done]) => <div key={String(label)} className="flex items-center justify-between border-b border-white/8 pb-3 text-sm"><span className="text-white/55">{String(label)}</span><span className={`text-[10px] font-bold uppercase tracking-[0.12em] ${done ? "text-emerald-400" : "text-[#e0ad31]"}`}>{done ? "Gotowe" : "Po testach"}</span></div>)}</div><div className="mt-6 border border-[#dca92c]/20 bg-[#dca92c]/[0.04] p-4 text-xs leading-6 text-white/45">Przed przełączeniem nowej wersji na `/` pozostawiamy `noindex` dla wersji testowych i sprawdzamy mobilkę, treści oraz wszystkie linki.</div></section>
             </div>
