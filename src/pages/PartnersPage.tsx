@@ -32,34 +32,34 @@ export default function PartnersPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-[#07101b] text-[#f6f2e8]">
-        <section className="relative overflow-hidden bg-[#07101b] px-5 py-20 sm:py-28">
-           <div className="relative mx-auto max-w-5xl text-center">
+      <main className="min-h-screen bg-black text-[#f6f2e8]">
+        <section className="relative overflow-hidden bg-black px-5 py-20 sm:py-28">
+          <div className="relative mx-auto max-w-5xl text-center">
             <div className="mx-auto inline-flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#f0a928]"><span className="h-px w-10 bg-[#f0a928]" />{content.eyebrow}<span className="h-px w-10 bg-[#f0a928]" /></div>
             <h1 className="mt-5 font-serif text-5xl font-bold tracking-[-.04em] sm:text-6xl lg:text-7xl">{content.title}</h1>
             <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-[#9ca8b8] sm:text-lg">{content.description}</p>
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1240px] px-5 py-16 sm:py-20">
+        <section className="mx-auto max-w-[1240px] bg-black px-5 py-16 sm:py-20">
           {partners.length > 0 ? (
             <div className="space-y-7">
               {partners.map((partner, index) => {
                 const website = normalizeWebsite(partner.website);
                 return (
-                  <article key={partner.id} className="overflow-hidden border border-white/10 bg-[#0b1624] shadow-[0_24px_70px_rgba(0,0,0,.22)]">
+                  <article key={partner.id} className="overflow-hidden border border-white/10 bg-[#050505] shadow-[0_24px_70px_rgba(0,0,0,.35)]">
                     <div className="grid lg:grid-cols-[.9fr_1.1fr]">
-                      <div className="relative min-h-[300px] bg-[#050b12] lg:min-h-[420px]">
+                      <div className="relative min-h-[300px] bg-black lg:min-h-[420px]">
                         {partner.image ? (
                           <img src={partner.image} alt={`Grafika firmy ${partner.name}`} className="absolute inset-0 h-full w-full object-cover" />
                         ) : (
-                          <div className="absolute inset-0 grid place-items-center bg-[radial-gradient(circle_at_50%_50%,rgba(240,169,40,.08),transparent_36%)]"><Building2 className="h-20 w-20 text-[#f0a928]/30" /></div>
+                          <div className="absolute inset-0 grid place-items-center bg-black"><Building2 className="h-20 w-20 text-[#f0a928]/30" /></div>
                         )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#06101a]/65 via-transparent to-transparent" />
-                        <div className="absolute left-5 top-5 border border-[#f0a928]/45 bg-[#07101b]/90 px-3 py-2 text-[9px] font-black uppercase tracking-[0.18em] text-[#f0a928] backdrop-blur">Partner {String(index + 1).padStart(2, "0")}</div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                        <div className="absolute left-5 top-5 border border-[#f0a928]/45 bg-black/90 px-3 py-2 text-[9px] font-black uppercase tracking-[0.18em] text-[#f0a928] backdrop-blur">Partner {String(index + 1).padStart(2, "0")}</div>
                       </div>
 
-                      <div className="flex flex-col justify-center p-7 sm:p-10 lg:p-12">
+                      <div className="flex flex-col justify-center bg-[#050505] p-7 sm:p-10 lg:p-12">
                         <div className="flex min-h-[90px] items-center">
                           {partner.logo ? <img src={partner.logo} alt={`Logo ${partner.name}`} className="max-h-20 max-w-[240px] object-contain" /> : <Handshake className="h-14 w-14 text-[#f0a928]" />}
                         </div>
@@ -84,7 +84,7 @@ export default function PartnersPage() {
               })}
             </div>
           ) : (
-            <div className="border border-dashed border-[#f0a928]/25 bg-white/[0.015] px-6 py-20 text-center">
+            <div className="border border-dashed border-[#f0a928]/25 bg-[#050505] px-6 py-20 text-center">
               <Handshake className="mx-auto h-14 w-14 text-[#f0a928]/45" />
               <h2 className="mt-5 text-2xl font-bold">Lista partnerów jest przygotowywana</h2>
               <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-white/40">Partnerzy pojawią się tutaj po dodaniu ich w panelu administracyjnym Auto Serwis Gl@bcio.</p>
