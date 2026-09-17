@@ -9,6 +9,7 @@ const links = [
   { href: "/uslugi", label: "Usługi" },
   { href: "/ecu-tcu", label: "ECU | TCU" },
   { href: "/realizacje", label: "Realizacje" },
+  { href: "/partnerzy", label: "Partnerzy" },
   { href: "/nowa-strona#kontakt", label: "Kontakt" },
 ];
 
