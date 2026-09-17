@@ -2,10 +2,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://autoserwisglabcio.pl/</loc>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <lastmod>2026-07-12</lastmod>
   </url>
-  <url><loc>https://autoserwisglabcio.pl/uslugi</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://autoserwisglabcio.pl/realizacje</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url>
+    <loc>https://autoserwisglabcio.pl/uslugi</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://autoserwisglabcio.pl/realizacje</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://autoserwisglabcio.pl/ecu-tcu</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://autoserwisglabcio.pl/regulamin</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://autoserwisglabcio.pl/polityka-prywatnosci</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://autoserwisglabcio.pl/polityka-cookies</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
 </urlset>
