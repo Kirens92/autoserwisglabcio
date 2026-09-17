@@ -255,11 +255,6 @@ export default function NewHomepage() {
 
           <div className="home-hero__media">
             <img src={heroImage} alt={content.hero.imageAlt} />
-            <div className="home-hero-card">
-              <span>{content.hero.overlayEyebrow}</span>
-              <strong>{content.hero.overlayTitle}</strong>
-              <p>{content.hero.overlayText}</p>
-            </div>
           </div>
         </div>
       </section>
@@ -435,7 +430,7 @@ export default function NewHomepage() {
         <div className="home-shell home-footer__grid">
           <div className="home-footer__brand"><img src={logo} alt="Auto Serwis Gl@bcio" /><p>{content.footer.description}</p><div className="home-footer__icons"><span>f</span><span>◎</span><span>▶</span></div></div>
           <div><h3>Szybkie linki</h3>{content.footer.quickLinks.filter((item) => item.href !== "/partnerzy").map((item) => <a key={`${item.href}-${item.label}`} href={item.href}>{item.label}</a>)}<a href="/partnerzy">Partnerzy</a></div>
-          <div><h3>Kontakt</h3><a href={primaryTel}>{business.phone}</a>{secondTel && <a href={secondTel}>{business.phone2}</a>}<a href={`mailto:${business.email}`}>{business.email}</a><span>{business.street}<br />{business.postalCode} {business.city}</span></div>
+          <div><h3>Kontakt</h3><a href={primaryTel}>{business.phone}</a>{secondTel && <a href={secondTel}><Phone /> {business.phone2}</a>}<a href={`mailto:${business.email}`}>{business.email}</a><span>{business.street}<br />{business.postalCode} {business.city}</span></div>
           <div><h3>Godziny otwarcia</h3><span>Pon–Pt <strong>{business.hoursWeekdays}</strong></span><span>Sobota <strong>{business.hoursSaturday}</strong></span><span>Niedziela <strong>{business.hoursSunday}</strong></span></div>
         </div>
         <div className="home-footer__bottom"><div className="home-shell"><span>© {new Date().getFullYear()} {content.footer.bottomText}</span><span>Polityka prywatności · Regulamin</span></div></div>
