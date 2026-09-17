@@ -6,6 +6,7 @@ import crypto from "node:crypto";
 
 const PORT = Number(process.env.PORT) || 3000;
 const MW_BASE = "https://app.motowarsztat.pl";
+const SITE_ORIGIN = "https://autoserwisglabcio.pl";
 const DIST = path.resolve(process.env.DIST_DIR || "dist");
 const DATA_DIR = path.resolve(process.env.DATA_DIR || "data");
 const SERVICES_FILE = path.join(DATA_DIR, "services.json");
@@ -42,6 +43,152 @@ const MIME = {
   ".woff2": "font/woff2",
 };
 
+function xmlEscape(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
+}
+
+function safeLastmod(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toISOString().slice(0, 10);
+}
+
+function buildSitemapXml() {
+  const fixed = [
+    { path: "/", changefreq: "weekly", priority: "1.0" },
+    { path: "/uslugi", changefreq: "monthly", priority: "0.9" },
+    { path: "/realizacje", changefreq: "weekly", priority: "0.9" },
+    { path: "/ecu-tcu", changefreq: "monthly", priority: "0.9" },
+    { path: "/regulamin", changefreq: "yearly", priority: "0.3" },
+    { path: "/polityka-prywatnosci", changefreq: "yearly", priority: "0.3" },
+    { path: "/polityka-cookies", changefreq: "yearly", priority: "0.3" },
+  ];
+
+  const detailEntries = realizations()
+    .filter((item) => item && typeof item.slug === "string" && item.slug.trim())
+    .map((item) => ({
+      path: `/realizacje/${encodeURIComponent(item.slug.trim())}`,
+      changefreq: "monthly",
+      priority: "0.7",
+      lastmod: safeLastmod(item.createdAt || item.updatedAt),
+    }));
+
+  const entries = [...fixed, ...detailEntries]
+    .map((entry) => {
+      const lastmod = entry.lastmod ? `\n    <lastmod>${entry.lastmod}</lastmod>` : "";
+      return `  <url>\n    <loc>${xmlEscape(`${SITE_ORIGIN}${entry.path}`)}</loc>${lastmod}\n    <changefreq>${entry.changefreq}</changefreq>\n    <priority>${entry.priority}</priority>\n  </url>`;
+    })
+    .join("\n");
+
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>\n`;
+}
+
+function seoForPath(urlPath) {
+  const normalized = urlPath !== "/" ? urlPath.replace(/\/+$/, "") : "/";
+  const canonical = `${SITE_ORIGIN}${normalized}`;
+
+  if (normalized.startsWith("/admin")) {
+    return {
+      canonical,
+      robots: "noindex, nofollow",
+      title: "Panel administratora | Auto Serwis Gl@bcio",
+      description: "Panel administracyjny Auto Serwis Gl@bcio.",
+    };
+  }
+
+  if (normalized === "/uslugi") {
+    return {
+      canonical,
+      robots: "index, follow",
+      title: "Usługi samochodowe Ostrów Wielkopolski | Auto Serwis Gl@bcio",
+      description: "Mechanika, elektryka, diagnostyka komputerowa i kompleksowy serwis samochodowy w Ostrowie Wielkopolskim. Sprawdź zakres usług Auto Serwis Gl@bcio.",
+    };
+  }
+
+  if (normalized === "/realizacje") {
+    return {
+      canonical,
+      robots: "index, follow",
+      title: "Realizacje i naprawy | Auto Serwis Gl@bcio Ostrów Wielkopolski",
+      description: "Zobacz wybrane naprawy, diagnozy i realizacje wykonane w Auto Serwis Gl@bcio w Ostrowie Wielkopolskim.",
+    };
+  }
+
+  if (normalized === "/ecu-tcu") {
+    return {
+      canonical,
+      robots: "index, follow",
+      title: "Naprawa i programowanie ECU TCU Ostrów Wielkopolski | Gl@bcio",
+      description: "Programowanie, diagnostyka, klonowanie i naprawa sterowników ECU oraz TCU. Oryginalny FLEX, OBD/BENCH/BOOT i obsługa wysyłkowa w całej Polsce.",
+    };
+  }
+
+  if (normalized.startsWith("/realizacje/")) {
+    const slug = decodeURIComponent(normalized.slice("/realizacje/".length));
+    const item = realizations().find((entry) => String(entry?.slug || "") === slug);
+    if (item) {
+      return {
+        canonical,
+        robots: "index, follow",
+        title: `${String(item.title || "Realizacja")} | Auto Serwis Gl@bcio`,
+        description: String(item.excerpt || "Zobacz szczegóły realizacji wykonanej przez Auto Serwis Gl@bcio.").slice(0, 300),
+      };
+    }
+    return {
+      canonical,
+      robots: "noindex, follow",
+      title: "Nie znaleziono realizacji | Auto Serwis Gl@bcio",
+      description: "Nie znaleziono wskazanej realizacji.",
+    };
+  }
+
+  return {
+    canonical: normalized === "/" ? `${SITE_ORIGIN}/` : canonical,
+    robots: "index, follow",
+    title: "Auto Serwis Gl@bcio – Mechanik Ostrów Wielkopolski | Peugeot, Citroën",
+    description: "Profesjonalny serwis aut osobowych w Ostrowie Wielkopolskim. Mechanika, elektryka, diagnostyka komputerowa oraz specjalistyczna obsługa Peugeot i Citroën.",
+  };
+}
+
+function applySeoToHtml(html, urlPath) {
+  const seo = seoForPath(urlPath);
+  let output = html;
+
+  output = output.replace(/<title>[\s\S]*?<\/title>/i, `<title>${seo.title}</title>`);
+  output = output.replace(
+    /<meta\s+name="description"\s+content="[^"]*"\s*\/>/i,
+    `<meta name="description" content="${seo.description.replaceAll('"', "&quot;")}" />`,
+  );
+  output = output.replace(
+    /<meta\s+name="robots"\s+content="[^"]*"\s*\/>/i,
+    `<meta name="robots" content="${seo.robots}" />`,
+  );
+  output = output.replace(
+    /<link\s+rel="canonical"\s+href="[^"]*"\s*\/>/i,
+    `<link rel="canonical" href="${seo.canonical}" />`,
+  );
+  output = output.replace(
+    /<meta\s+property="og:url"\s+content="[^"]*"\s*\/>/i,
+    `<meta property="og:url" content="${seo.canonical}" />`,
+  );
+  output = output.replace(
+    /<meta\s+property="og:title"\s+content="[^"]*"\s*\/>/i,
+    `<meta property="og:title" content="${seo.title.replaceAll('"', "&quot;")}" />`,
+  );
+  output = output.replace(
+    /<meta\s+property="og:description"\s+content="[^"]*"\s*\/>/i,
+    `<meta property="og:description" content="${seo.description.replaceAll('"', "&quot;")}" />`,
+  );
+
+  return output;
+}
+
 function serveStatic(req, res) {
   const urlPath = decodeURIComponent(req.url.split("?")[0]);
   let filePath = path.join(DIST, urlPath);
@@ -53,7 +200,16 @@ function serveStatic(req, res) {
       res.writeHead(404).end("Not found");
       return;
     }
-    res.writeHead(200, { "content-type": MIME[path.extname(filePath).toLowerCase()] || "application/octet-stream" });
+
+    const contentType = MIME[path.extname(filePath).toLowerCase()] || "application/octet-stream";
+    if (path.basename(filePath) === "index.html") {
+      const html = applySeoToHtml(data.toString("utf8"), urlPath);
+      res.writeHead(200, { "content-type": "text/html; charset=utf-8", "cache-control": "no-cache" });
+      res.end(html);
+      return;
+    }
+
+    res.writeHead(200, { "content-type": contentType });
     res.end(data);
   });
 }
@@ -105,7 +261,14 @@ function siteContent() {
 }
 
 function ecuTcuContent() {
-  return readJsonFile(ECU_TCU_FILE, {});
+  const data = readJsonFile(ECU_TCU_FILE, {});
+  return {
+    ...data,
+    seo: {
+      ...(data?.seo || {}),
+      robots: "index, follow",
+    },
+  };
 }
 
 function validServices(data) {
@@ -194,6 +357,15 @@ async function googleReviews() {
 
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
+
+  if (url.pathname === "/sitemap.xml" && req.method === "GET") {
+    res.writeHead(200, {
+      "content-type": "application/xml; charset=utf-8",
+      "cache-control": "public, max-age=300",
+    });
+    res.end(buildSitemapXml());
+    return;
+  }
 
   if (url.pathname === "/api/services" && req.method === "GET") {
     sendJson(res, 200, services(), { "cache-control": "no-store" });
