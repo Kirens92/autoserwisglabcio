@@ -16,8 +16,10 @@ import AdminSiteContent from "./pages/AdminSiteContent";
 import ServicesPage from "./pages/ServicesPage";
 import NewHomepage from "./pages/NewHomepage";
 import EcuTcuPage from "./pages/EcuTcuPage";
+import CookiePolicyPage from "./pages/CookiePolicyPage";
 import { PrivacyPolicyPage, TermsPage } from "./pages/LegalPages";
 import SiteLegalFooter from "./components/SiteLegalFooter";
+import CookieConsent from "./components/CookieConsent";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +37,7 @@ const App = () => (
           <Route path="/ecu-tcu" element={<EcuTcuPage />} />
           <Route path="/regulamin" element={<TermsPage />} />
           <Route path="/polityka-prywatnosci" element={<PrivacyPolicyPage />} />
+          <Route path="/polityka-cookies" element={<CookiePolicyPage />} />
 
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/strona" element={<AdminSiteContent />} />
@@ -53,6 +56,7 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
         <SiteLegalFooter />
+        <CookieConsent />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
