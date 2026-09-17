@@ -15,7 +15,7 @@ export default function HomePartners() {
   const active = partners.items.filter((item) => item.active);
 
   return (
-    <section id="partnerzy" className="home-section border-y border-white/[0.06] bg-[#08121e]">
+    <section id="partnerzy" className="home-section bg-[#07101b]">
       <div className="home-shell">
         <div className="home-section-head home-section-head--center">
           <div className="home-kicker"><span />{partners.eyebrow}</div>
