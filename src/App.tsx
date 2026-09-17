@@ -2,8 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import NotFound from "./pages/NotFound";
 import Admin from "./pages/Admin";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -12,9 +11,6 @@ import AdminGoogleReviews from "./pages/AdminGoogleReviews";
 import AdminSettings from "./pages/AdminSettings";
 import Realizations from "./pages/Realizations";
 import RealizationDetail from "./pages/RealizationDetail";
-import LegacyRealizations from "./pages/LegacyRealizations";
-import LegacyRealizationDetail from "./pages/LegacyRealizationDetail";
-import LegacyServicesPage from "./pages/LegacyServicesPage";
 import AdminRealizations from "./pages/AdminRealizations";
 import AdminSiteContent from "./pages/AdminSiteContent";
 import ServicesPage from "./pages/ServicesPage";
@@ -32,11 +28,14 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/nowa-strona" element={<NewHomepage />} />
+          {/* Nowy wygląd jest jedyną stroną główną serwisu. */}
+          <Route path="/" element={<NewHomepage />} />
+          <Route path="/nowa-strona" element={<Navigate to="/" replace />} />
+
           <Route path="/ecu-tcu" element={<EcuTcuPage />} />
           <Route path="/regulamin" element={<TermsPage />} />
           <Route path="/polityka-prywatnosci" element={<PrivacyPolicyPage />} />
+
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/strona" element={<AdminSiteContent />} />
           <Route path="/admin/ecu-tcu" element={<AdminEcuTcu />} />
@@ -46,15 +45,10 @@ const App = () => (
           <Route path="/admin/seo" element={<AdminSiteContent />} />
           <Route path="/admin/ustawienia" element={<AdminSettings />} />
 
-          {/* Klasyczne widoki używane wyłącznie przez starą stronę główną */}
-          <Route path="/stara-strona/uslugi" element={<LegacyServicesPage />} />
-          <Route path="/stara-strona/realizacje" element={<LegacyRealizations />} />
-          <Route path="/stara-strona/realizacje/:slug" element={<LegacyRealizationDetail />} />
-
-          {/* Nowe widoki używane przez /nowa-strona */}
           <Route path="/realizacje" element={<Realizations />} />
           <Route path="/realizacje/:slug" element={<RealizationDetail />} />
           <Route path="/uslugi" element={<ServicesPage />} />
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
