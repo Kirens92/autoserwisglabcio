@@ -33,9 +33,8 @@ export default function PartnersPage() {
     <>
       <Navbar />
       <main className="min-h-screen bg-[#07101b] text-[#f6f2e8]">
-        <section className="relative overflow-hidden border-b border-[#f0a928]/15 bg-[radial-gradient(circle_at_50%_0%,rgba(240,169,40,.12),transparent_34%),linear-gradient(180deg,#091522,#07101b)] px-5 py-20 sm:py-28">
-          <div className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:linear-gradient(rgba(255,255,255,.24)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.24)_1px,transparent_1px)] [background-size:62px_62px]" />
-          <div className="relative mx-auto max-w-5xl text-center">
+        <section className="relative overflow-hidden bg-[#07101b] px-5 py-20 sm:py-28">
+           <div className="relative mx-auto max-w-5xl text-center">
             <div className="mx-auto inline-flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#f0a928]"><span className="h-px w-10 bg-[#f0a928]" />{content.eyebrow}<span className="h-px w-10 bg-[#f0a928]" /></div>
             <h1 className="mt-5 font-serif text-5xl font-bold tracking-[-.04em] sm:text-6xl lg:text-7xl">{content.title}</h1>
             <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-[#9ca8b8] sm:text-lg">{content.description}</p>
