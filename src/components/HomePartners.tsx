@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, Handshake } from "lucide-react";
+import { Handshake } from "lucide-react";
 import { defaultPartnersContent, normalizePartnersContent, type PartnersContent } from "@/lib/partners";
 
 export default function HomePartners() {
@@ -15,12 +15,10 @@ export default function HomePartners() {
   const active = partners.items.filter((item) => item.active);
 
   return (
-    <section id="partnerzy" className="home-section bg-[#07101b]">
+    <section id="partnerzy" className="home-section bg-black">
       <div className="home-shell">
-        <div className="home-section-head home-section-head--center">
-          <div className="home-kicker"><span />{partners.eyebrow}</div>
-          <h2>{partners.title}</h2>
-          <p>{partners.description}</p>
+        <div className="mb-10 text-center">
+          <h2 className="font-serif text-4xl font-bold tracking-[-.04em] text-[#f6f2e8] sm:text-5xl">Partnerzy</h2>
         </div>
 
         {active.length > 0 ? (
@@ -29,7 +27,7 @@ export default function HomePartners() {
               <a
                 key={partner.id}
                 href="/partnerzy"
-                className="group flex min-h-[190px] flex-col items-center justify-between border border-white/10 bg-[#0b1624] p-6 text-center transition hover:-translate-y-1 hover:border-[#f0a928]/50 hover:shadow-[0_18px_45px_rgba(0,0,0,.25)]"
+                className="group flex min-h-[190px] flex-col items-center justify-between border border-white/10 bg-[#050505] p-6 text-center transition hover:-translate-y-1 hover:border-[#f0a928]/50 hover:shadow-[0_18px_45px_rgba(0,0,0,.35)]"
               >
                 <div className="flex min-h-[105px] w-full items-center justify-center">
                   {partner.logo ? (
@@ -49,10 +47,6 @@ export default function HomePartners() {
             Partnerzy pojawią się tutaj po dodaniu ich w panelu administratora.
           </div>
         )}
-
-        <div className="home-section-action">
-          <a href="/partnerzy" className="home-btn home-btn--outline">Poznaj naszych partnerów <ArrowRight /></a>
-        </div>
       </div>
     </section>
   );
