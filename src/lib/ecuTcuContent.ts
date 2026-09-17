@@ -89,7 +89,7 @@ export const defaultEcuTcuContent: EcuTcuContent = {
   seo: {
     title: "Naprawa i programowanie ECU TCU Ostrów Wielkopolski | Gl@bcio",
     description: "Programowanie, diagnostyka, klonowanie i naprawa sterowników ECU oraz TCU. Oryginalny FLEX, OBD/BENCH/BOOT i obsługa wysyłkowa w całej Polsce.",
-    robots: "noindex, follow",
+    robots: "index, follow",
   },
   hero: {
     eyebrow: "Serwis elektroniki samochodowej",
