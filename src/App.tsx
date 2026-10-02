@@ -22,6 +22,7 @@ import CookiePolicyPage from "./pages/CookiePolicyPage";
 import { PrivacyPolicyPage, TermsPage } from "./pages/LegalPages";
 import SiteLegalFooter from "./components/SiteLegalFooter";
 import CookieConsent from "./components/CookieConsent";
+import AssistantWidget from "./components/AssistantWidget";
 import "./pages/CookiePolicyPage.css";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <AssistantWidget />
         <Routes>
           {/* Nowy wygląd jest jedyną stroną główną serwisu. */}
           <Route path="/" element={<NewHomepage />} />
