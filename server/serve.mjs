@@ -271,6 +271,36 @@ function ecuTcuContent() {
   };
 }
 
+function buildAiKnowledgeText() {
+  const publicSiteContent = siteContent();
+  const publicServices = services();
+  const publicEcuTcu = ecuTcuContent();
+
+  return [
+    "# Auto Serwis Gl@bcio — publiczna baza wiedzy",
+    "",
+    "Źródło: https://autoserwisglabcio.pl/",
+    "Przeznaczenie: publiczna treść firmy do indeksowania przez systemy wyszukiwania i asystentów AI.",
+    "Treść jest generowana z tych samych danych, które zasilają publiczną stronę internetową.",
+    "",
+    "## Dane strony i firmy",
+    "~~~json",
+    JSON.stringify(publicSiteContent, null, 2),
+    "~~~",
+    "",
+    "## Usługi",
+    "~~~json",
+    JSON.stringify(publicServices, null, 2),
+    "~~~",
+    "",
+    "## ECU / TCU",
+    "~~~json",
+    JSON.stringify(publicEcuTcu, null, 2),
+    "~~~",
+    "",
+  ].join("\n");
+}
+
 function validServices(data) {
   return Array.isArray(data) && data.every((item) => item && typeof item.title === "string" && typeof item.description === "string" && typeof item.icon === "string" && (!item.items || (Array.isArray(item.items) && item.items.every((entry) => typeof entry === "string"))));
 }
@@ -364,6 +394,19 @@ const server = http.createServer(async (req, res) => {
       "cache-control": "public, max-age=300",
     });
     res.end(buildSitemapXml());
+    return;
+  }
+
+  if (
+    ["/llms.txt", "/ai-knowledge.txt", "/.well-known/ai-knowledge.txt"].includes(url.pathname) &&
+    req.method === "GET"
+  ) {
+    res.writeHead(200, {
+      "content-type": "text/plain; charset=utf-8",
+      "cache-control": "public, max-age=300",
+      "x-robots-tag": "index, follow",
+    });
+    res.end(buildAiKnowledgeText());
     return;
   }
 
