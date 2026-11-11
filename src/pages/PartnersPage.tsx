@@ -44,7 +44,7 @@ export default function PartnersPage() {
         <section className="mx-auto max-w-[1240px] bg-black px-5 py-16 sm:py-20">
           {partners.length > 0 ? (
             <div className="space-y-7">
-              {partners.map((partner, index) => {
+              {partners.map((partner) => {
                 const website = normalizeWebsite(partner.website);
                 return (
                   <article key={partner.id} className="overflow-hidden border border-white/10 bg-[#050505] shadow-[0_24px_70px_rgba(0,0,0,.35)]">
@@ -56,7 +56,6 @@ export default function PartnersPage() {
                           <div className="absolute inset-0 grid place-items-center bg-black"><Building2 className="h-20 w-20 text-[#f0a928]/30" /></div>
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                        <div className="absolute left-5 top-5 border border-[#f0a928]/45 bg-black/90 px-3 py-2 text-[9px] font-black uppercase tracking-[0.18em] text-[#f0a928] backdrop-blur">Partner {String(index + 1).padStart(2, "0")}</div>
                       </div>
 
                       <div className="flex flex-col justify-center bg-[#050505] p-7 sm:p-10 lg:p-12">
@@ -87,7 +86,7 @@ export default function PartnersPage() {
             <div className="border border-dashed border-[#f0a928]/25 bg-[#050505] px-6 py-20 text-center">
               <Handshake className="mx-auto h-14 w-14 text-[#f0a928]/45" />
               <h2 className="mt-5 text-2xl font-bold">Lista partnerów jest przygotowywana</h2>
-              <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-white/40">Partnerzy pojawią się tutaj po dodaniu ich w panelu administracyjnym Auto Serwis Gl@bcio.</p>
+              <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-white/40">Partnerzy pojawią się tutaj po dodaniu ich w panelu administratora Auto Serwis Gl@bcio.</p>
             </div>
           )}
         </section>
